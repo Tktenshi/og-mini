@@ -1,0 +1,2253 @@
+﻿// размеры
+$body-min: 32rem; // минимальная ширина страницы
+
+// имена цветам даны в соответствии с Bootstrap config.js$gray-base (v3):
+$gray-base: #2b2b2b;
+$light-base: #fff;
+$gray: transparentize($gray-base,.6); // muted text, inline link icons, placeholder
+$gray-lighter: #f1f1f1; // фон форм
+$gray-invert: transparentize($light-base,.6);
+$red: #bb171d;
+$red-invert: #c00b11;
+$blue: #5595bb;
+$blue-invert: #afe3ff;
+$logo-blue: #004484;
+$green: #45a887;
+$green-invert: #3ee7ad;
+// $yellow: #c5b500;
+// $yellow-invert: #f7ec3e;
+$blue-lighter: mix($blue, $blue-invert, $weight:80%); // #67a6c6
+$blue-darker: mix($blue, $logo-blue, $weight:70%); // #3c7dab
+$backdrop-color: transparentize(#061e34, .08);
+
+$page-color: $light-base;
+$text-color: $gray-base;
+$text-color-invert: $light-base;
+$link-color: $blue; // раньше #2487c0; можно $logo-blue
+$link-hover-color: $text-color;
+$link-color-invert: $blue-invert;
+$link-hover-color-invert: $light-base;
+$link-disabled-color: transparentize($gray-base, 0.8);
+$text-invert-shadow: transparentize($logo-blue,.5);
+$form-bg: $gray-lighter;
+$form-hr: #dedede;
+$form-placeholder: transparentize($gray-base, 0.8);
+$muted-color: transparentize($text-color, .35);
+$focused-block-color: $blue-invert;
+$drop-bg: transparentize($light-base, .08);
+$focused-block-bg: $blue-invert;
+
+$brand-primary: $blue;
+$brand-success: $green;
+$brand-warning: $red; // $yellow;
+$brand-danger: $red;
+
+$rem: 10px; // шаг сетки = 7px
+
+$font-size: 1.5*$rem;
+$vgrid: 0.8rem;
+$line-height-base: $vgrid*2.5;
+$line-height-small: $vgrid*2;
+$line-height-larger: $line-height-base + $vgrid;
+$font-size-large: $font-size*1.25;
+$font-size-larger: $font-size*1.5;
+$font-size-larger2: $font-size*1.8667;
+$font-size-small: $font-size*0.8333;
+$padding-base: 2rem;
+
+$icon-size-base: 4.2rem;
+$icon-size-small: 2.2rem;
+$icon-size-mid: 2.85rem;
+$icon-size-xs: 1.8rem;
+$pict-size: 5.25rem;
+
+$h1: 4.5rem;
+$line-height-h1: $line-height-base*2.5;
+$h1-l2: 3.5rem;
+$line-height-h1-l2: $line-height-base*2;
+$h1-mid: $h1-l2;
+$line-height-h1-mid: $line-height-h1-l2;
+$h1-l2-mid: $font-size-larger2;
+$line-height-h1-l2-mid: $line-height-base*1.5;
+$h1-sm: $h1-l2-mid;
+$line-height-h1-sm: $line-height-h1-l2-mid;
+$h1-l2-sm: $font-size-larger;
+$line-height-h1-l2-sm: $line-height-larger;
+
+
+$fh-label: 17rem;
+$fh-controls: $fh-label + $padding-base;
+$inp-lg: 50rem;
+$inp-mid: 33rem;
+$inp-sm: 20rem;
+
+$font-base: 'Open Sans', Verdana, 'Geneva CY', 'DejaVu Sans', sans-serif;
+$font-monospace: 'PT Mono', sans-serif;
+$font-icons: 'OGiconFont';
+
+$transition-speed: 0.3s;
+$transition-type: ease-in;
+
+$border-line: #{0.1rem solid $form-hr};
+$border-dotted: .1rem dotted $gray;
+@mixin underline-dots($color) {
+	border-bottom: .1rem dotted $color;
+}
+
+$modal-min: 37rem;
+$modal-base: 56rem;
+$modal-wide: 97rem;
+
+$tooltip-arrow-size: $vgrid;
+$tooltip-bg: #ffffff;
+
+@mixin font-sets($size, $lineheight) {
+	font-size: $size;
+	line-height: $lineheight;
+}
+
+@mixin font-size-base {
+	@include font-sets($font-size, $line-height-base);
+	font-weight: 400;
+}
+@mixin font-size-small {
+	@include font-sets($font-size-small, $line-height-small);
+	font-weight: 400;
+}
+@mixin font-size-large {
+	@include font-sets($font-size-large, $line-height-base);
+}
+@mixin font-size-larger {
+	@include font-sets($font-size-larger, $line-height-larger);
+
+	@media (max-width: 767px) {
+		@include font-sets($font-size-large, $line-height-larger);
+	}
+	@media (max-width: 480px) {
+		@include font-sets($font-size, $line-height-base);
+		font-weight: 600;
+	}
+}
+@mixin font-size-larger2 {
+	@include font-sets($font-size-larger2, $line-height-larger);
+	font-weight: 300;
+}
+
+// КНОПКИ
+
+$btn-height-base: 4.5rem;
+$btn-height-small: 3.2rem;
+
+$btn-shadow-base: 0 .4rem .7rem transparentize(#000,.75), inset 0 -.1rem .1rem transparentize(#000,.75);
+$btn-shadow-focus-base: $btn-shadow-base,  0 .6rem 1.5rem transparentize(#000,.75);
+$btn-shadow-active-base: inset 0 .2236rem .3rem transparentize(#000,.4);
+@mixin btn-shadow-base {
+	box-shadow: $btn-shadow-base;
+
+	&:focus {
+		box-shadow: $btn-shadow-focus-base;
+	}
+
+	&:active, &.focus {
+		box-shadow: $btn-shadow-active-base;
+	}
+}
+$btn-shadow-small: 0 .1rem .3rem transparentize(#000,.75), inset 0 -.1rem .1rem transparentize(#000,.75);
+$btn-shadow-focus-small: inset 0 .1236rem .2rem transparentize(#000,.4);
+@mixin btn-shadow-small {
+	box-shadow: $btn-shadow-small;
+
+	&:active, &.focus {
+		box-shadow: $btn-shadow-focus-small;
+	}
+}
+
+$btn-simple-color: $link-color;
+$btn-primary-color: $red;
+$btn-text-color: $light-base;
+$btn-disabled-color: $link-disabled-color;
+
+$btn-padding-base: ($btn-height-base - $line-height-base)/2 $vgrid;
+$btn-padding-small: ($btn-height-small - $line-height-small)/2 $vgrid;
+$btn-padding-box-base: ($btn-height-base - $line-height-base)/2 $padding-base;
+$btn-padding-box-small: ($btn-height-small - $line-height-small)/2 $padding-base;
+
+$btn-store-width: 135px; // ширина кнопок AppStore и GooglePlay
+
+// размер кнопки с фоном (основной)
+@mixin btn-box-base {
+	height: $btn-height-base;
+	@include font-size-base;
+	padding: $btn-padding-box-base;
+	@include btn-shadow-base;
+	min-width: 10rem;
+	border-radius: .4rem;
+}
+// размер кнопки с фоном (малый)
+@mixin btn-box-small {
+	height: $btn-height-small;
+	@include font-size-small;
+	padding: $btn-padding-box-small;
+	@include btn-shadow-small;
+	border-radius: .2rem;
+}
+// размер текстовой кнопки с фоном (основной)
+@mixin btn-text-base {
+	height: $btn-height-base;
+	@include font-size-base;
+	padding: $btn-padding-text-base;
+}
+// размер текстовой кнопки с фоном (малый)
+@mixin btn-text-small {
+	height: $btn-height-small;
+	@include font-size-small;
+	padding: $btn-padding-text-small;
+}
+// иконки кнопки в основном размере
+// слева
+@mixin btn-inner-icons-base {
+	[class^="icon-"],[class*=" icon-"] {
+		font-size: $icon-size-mid;
+		margin: -.7rem .6rem -.4rem -.6rem;
+	}
+}
+// справа
+@mixin btn-inner-icons-base {
+	font-size: $icon-size-mid;
+	margin: -.7rem .6rem -.4rem -.6rem;
+}
+@mixin btn-inner-icons-base-right {
+	font-size: $icon-size-mid;
+	margin: -.35rem -.6rem -.4rem 1.4rem;
+}
+// иконки кнопки в малом размере
+@mixin btn-inner-icons-small {
+	font-size: $icon-size-small;
+	margin: -.85rem .4rem -.5rem -.4rem;
+}
+@mixin btn-inner-icons-base-right {
+	font-size: $icon-size-small;
+	margin: -.55rem -.6rem  -.5rem .6rem;
+}
+
+// цвета обычной кнопки
+@mixin btn-simple-colors {
+	color: $btn-text-color;
+	background: $btn-simple-color;
+}
+// цвета целевой кнопки
+@mixin btn-primary-colors {
+	color: $btn-text-color;
+	background: $btn-primary-color;
+}
+// цвета заблокированной кнопки
+@mixin btn-box-disabled-styles {
+	background: $btn-disabled-color !important;
+	box-shadow: none !important;
+}
+
+@mixin uppercase {
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+@mixin unstyled {
+	margin: 0;
+	padding: 0;
+}
+%unstyled {
+	@include unstyled;
+}
+@mixin unstyled-li {
+	@extend %unstyled;
+	list-style-type: none;
+}
+%unstyled-li {
+	@include unstyled-li;
+}
+
+%link {
+	color: $link-color;
+	@extend %link-hover;
+
+	.modal.alert-wait & {
+		color: $link-color-invert;
+	}
+
+	&:focus {
+		outline: none;
+	}
+
+	&[disabled], &.disabled {
+		color: $link-disabled-color !important;
+	}
+}
+%link-hover {
+	&:hover, &:visited:hover, &:active {
+		color: $link-hover-color;
+
+		.modal.alert-wait & {
+			color: $link-hover-color-invert;
+		}
+	}
+}
+
+// ИКОНКИ
+@mixin icons {
+	display: inline-block;
+	font-family: 'OGiconFont';
+	width: 1em;
+	height: 1em;
+	line-height: 1;
+	position: relative;
+	padding: 0;
+	font-weight:normal;
+	font-style:normal;
+	text-decoration:none !important;
+	-webkit-font-smoothing:antialiased;
+	vertical-align:middle;
+}
+
+// коды иконок в шрифте
+@mixin icon-anketa{content:'\E09A';};
+@mixin icon-adv-bg{content:'\E095';};
+@mixin icon-discount($icon-size:$icon-size-base) {
+	display: block;
+	position: absolute;
+	content: '%';
+	font: 700 ($icon-size*0.38)/1 $font-base;
+	top: 0;
+	left: 0;
+	text-align: center;
+	width: $icon-size;
+	height: $icon-size;
+	padding: $icon-size*.25;
+	box-sizing: border-box;
+	text-shadow: none;
+	vertical-align: middle;
+}
+@mixin icon-discount-size($icon-size: $icon-size-base) {
+	&:before {
+		font-size: $icon-size;
+	}
+	&:after {
+		font-size: $icon-size*0.38;
+		width: $icon-size;
+		height: $icon-size;
+		padding: $icon-size*.25;
+	}
+}
+%icon-temp {
+	display: block;
+	content:'';
+	width: 1em;
+	height: 1em;
+	background: 0 0 no-repeat;
+	background-size: auto 1em;
+}
+%icon-temp-hover {
+	background-position: 100% 0;
+}
+// стрелки
+@mixin icon-arr-collapse{content:'\E04D';}
+@mixin icon-arr-collapse-open{content:'\E04E';}
+@mixin icon-arr-inln{content:'\E051';}
+@mixin icon-arr-bottom{content:'\E047';}
+@mixin icon-arr-left{content:'\E045';}
+@mixin icon-arr-right{content:'\E044';}
+@mixin icon-arr-top{content:'\E046';}
+@mixin icon-arr-b-bottom{content:'\E04B';}
+@mixin icon-arr-b-left{content:'\E049';}
+@mixin icon-arr-b-right{content:'\E048';}
+@mixin icon-arr-b-top{content:'\E04A';}
+@mixin icon-start {content: '\E070';}
+@mixin icon-end {content: '\E071';}
+@mixin icon-prev{content: '\E06E';}
+@mixin icon-next{content: '\E06F';}
+
+@mixin icon-attach{content:'\E018';}
+@mixin icon-attention{content:'\E032';}
+@mixin icon-attention-solid {
+	@extend %icon-temp;
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAMAAADyHTlpAAAAclBMVEUAAAC7Fx27Fx27Fx27Fx27Fx27Fx27Fx27Fx27Fx27Fx27Fx27Fx27Fx27Fx27Fx27Fx27Fx27Fx27Fx27Fx27Fx27Fx27Fx27Fx27Fx27Fx27Fx27Fx27Fx27Fx27Fx27Fx27Fx27Fx27Fx27Fx27Fx0BepBmAAAAJXRSTlMABbH0+qmEbkY6NzH5iM/MeV8JdlFMPiHjf2VZVicRB9jHmIoc++u8RQAAAPtJREFUOMvt08lygzAMBuDf2AYDNktCIUmzdPP7v2IPnQ6SQTDTa/PdNDIaW0h4Sh3GSxe6y3jAjiHz8YfPXrBhbCLVlBCoEFO5Wr9kFpfs2llFThLZytk8rsuRKuekDyH4OVy8rY0zAIb0AZyLxB0PGib9tTT3hTt7GX++prkbJhrqB4g6UtUiJl5ZyqFkcQ+iYKkBjsVHEF1SZWBxJ1ct0POq8l3Pyae93IGP6ZN3IOmrTCv5b+mGfWnlGTATbobOgDxZJwCnOWw35tXUqEjVcmsL/Bs5mf99t/Y3llOLTTRnBUHVRuq9wgZnf7uvrcMOVV+LY3GtFf6Jb89RXlFDPm63AAAAAElFTkSuQmCC');
+}
+@mixin icon-back{content:'\E043';}
+@mixin icon-book-open{content:'\E00F';}
+@mixin icon-calendar{content:'\E016';}
+@mixin icon-calendar2{content:'\E050';}
+@mixin icon-camera{content:'\E014';}
+@mixin icon-camera-solid{content: '\E072';}
+@mixin icon-card{content:'\E012';}
+@mixin icon-cards{content:'\E013';}
+@mixin icon-checkbox{content:'\E022';}
+@mixin icon-checkbox-empty{content:'\E0B0';}
+@mixin icon-checkbox-solid{content:'\E026';}
+@mixin icon-close{content:'\E04C';}
+@mixin icon-close-small{content:'\E053';}
+@mixin icon-del{content: '\E073';}
+@mixin icon-del-solid{content: '\E074';}
+@mixin icon-docs{content:'\E097';}
+@mixin icon-doc-id{content:'\E098';}
+@mixin icon-dropdown-menu{content:'\E003';}
+@mixin icon-envelope{content:'\E007';}
+@mixin icon-eye-closed{content:'\E01A';}
+@mixin icon-eye-open{content:'\E019';}
+@mixin icon-enter{content:'\E08C';}
+@mixin icon-filter{content:'\E00E';}
+@mixin icon-folder{content:'\E010';}
+@mixin icon-help{content:'\E031';}
+@mixin icon-help-solid{content: '\E075';}
+@mixin icon-highlight{content:'\E01C';}
+@mixin icon-history{content:'\E015';}
+@mixin icon-history2{content:'\E054';}
+@mixin icon-info{content:'\E030';}
+@mixin icon-letters{content:'\E099';}
+@mixin icon-list{content:'\E01B';}
+@mixin icon-location{content:'\E004';}
+@mixin icon-lock{content: '\E076';}
+@mixin icon-logo{content:'\E024';}
+@mixin icon-magnifire{content:'\E005';}
+@mixin icon-email-circled{content:'\E08B';}
+@mixin icon-menu{content:'\E002';}
+@mixin icon-mobile{content:'\E011';}
+@mixin icon-mobpay{content:'\E027';}
+@mixin icon-mobpay-solid{content:'\E028';}
+@mixin icon-mobsms{content:'\E08D';}
+@mixin icon-news{content:'\E055';}
+@mixin icon-new2pay{content:'\E056';}
+@mixin icon-oglogo{content:'\E024';}
+@mixin icon-ogcoin{content:'\E025';}
+@mixin icon-ok{content:'\E021';}
+@mixin icon-ok-circled{content:'\E035';}
+@mixin icon-ok-solid{content:'\E096';}
+@mixin icon-pdf{content:'\E00D';}
+@mixin icon-pencil{content:'\E006'}
+@mixin icon-pencil-solid{content:'\E029';}
+@mixin icon-phone{content:'\E008';}
+@mixin icon-pin{content:'\E009';}
+@mixin icon-plus{content:'\E017';}
+@mixin icon-plus-bold{content:'\E04F';}
+@mixin icon-plus-inln{content:'\E052';}
+@mixin icon-printer{content:'\E00C';}
+@mixin icon-printer-solid{content:'\E02A';}
+@mixin icon-profile{content:'\E02C';}
+@mixin icon-refresh{content:'\E042';}
+@mixin icon-repeat{content:'\E041';}
+@mixin icon-rubl{content:'\E039';}
+@mixin icon-sad{content:'\E037';}
+@mixin icon-sad-large{content:'\E05E';}
+@mixin icon-savedoc{content:'\E02E';}
+@mixin icon-savedoc-locked{content:'\E02F';}
+@mixin icon-searchsetts{content:'\E02D';}
+@mixin icon-secure{content:'\E057';}
+@mixin icon-settings{content:'\E00B';}
+@mixin icon-shield{content:'\E094';}
+@mixin icon-shield-bold{content:'\E093';}
+@mixin icon-smile{content:'\E036';}
+@mixin icon-spinner{content:'\E023';}
+@mixin icon-star-empty{content:'\2606';}
+@mixin icon-star-filled{content:'\2605';}
+@mixin icon-tech-works{content:'\E038';}
+@mixin icon-tech-works-large{content:'\E05D';}
+@mixin icon-tel-no{content:'\E08F';}
+@mixin icon-tel-small{content:'\E08E';}
+@mixin icon-thumb-up{content:'\E00A';}
+@mixin icon-time-small {content: '\E077';}
+@mixin icon-user{content:'\E000';}
+@mixin icon-user-logout{content:'\E001';}
+@mixin icon-viewblank{content:'\E02B';}
+@mixin icon-warning{content:'\E033';}
+@mixin icon-warning-solid{content:'\E034';}
+// соцсети
+@mixin icon-vk{content:'\E03A';}
+@mixin icon-vk-lines{content:'\E01F';}
+@mixin icon-twitter{content:'\E03B';}
+@mixin icon-twitter-lines{content:'\E020';}
+@mixin icon-fb{content:'\E03C';}
+@mixin icon-odn{content:'\E03D';}
+@mixin icon-lj{content:'\E03E';}
+@mixin icon-gplus{content:'\E03F';}
+@mixin icon-mailru{content:'\E040';}
+// икнки сервисов
+@mixin icon-fssp{content:'\E060';}
+@mixin icon-fns{content:'\E061';}
+@mixin icon-gibdd{content:'\E062';}
+@mixin icon-rosregister{content:'\E063';}
+@mixin icon-msk{content:'\E064';}
+@mixin icon-ufms{content:'\E065';}
+@mixin icon-parking{content:'\E066';}
+@mixin icon-comm{content:'\E067';}
+@mixin icon-plane{content:'\E068';}
+@mixin icon-zags{content:'\E069';}
+@mixin icon-uin{content:'\E06A';}
+// более детальные картинки
+@mixin pict-cards{content:'\E058';}
+@mixin pict-mobpay{content:'\E059';}
+@mixin pict-lk{content:'\E05A';}
+@mixin pict-support{content:'\E05B';}
+@mixin pict-medal{content:'\E05C';}
+@mixin pict-timer{content:'\E05F';}
+@mixin pict-3ds{content:'\E0B1';}
+@mixin pict-megaphone{content:'\E092\E090\E091';}
+@mixin pict-cash{content: '\E06B';}
+// наклейки (badges)
+@mixin bage-num{content:'\E0A1';}
+@mixin bage-num-brd{content:'\E0A0';}
+@mixin bage-num-strict{content:'\E0A2';}
+@mixin badge-circle-bg{content:'\E0A3';}
+@mixin badge-set{content:'\E0A6';}
+@mixin badge-set-bg{content:'\E0A5';}
+@mixin badge-lock{content:'\E0AA';}
+@mixin badge-lock-bg{content:'\E0AB';}
+@mixin badge-lock{content:'\E0AA';}
+@mixin badge-lock-bg{content:'\E0AB';}
+@mixin badge-important{content:'\E0A4';}
+@mixin badge-help{content:'\E0A7';}
+@mixin badge-phone{content:'\E0A8';}
+@mixin badge-ok{content:'\E0A9';}
+@mixin badge-plus{content:'\E0AC';}
+@mixin badge-refresh{
+	transform-origin: 50% 3.1rem;
+	content: '\E0AD';
+}
+@mixin icon-envelope-important{
+	display: block;
+	content:'';
+	width: 1em;
+	height: 1em;
+	background: 0 0 no-repeat;
+	background-size: auto 1em;
+	background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0zOTggNDAwIDQyIDQyIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IC0zOTggNDAwIDQyIDQyIj48c3R5bGUgdHlwZT0idGV4dC9jc3MiPi5zdDB7ZmlsbDojRkZGRkZGO30gLnN0MXtmaWxsOm5vbmU7fSAuc3Qye2ZpbGw6I0JCMTcxRDt9PC9zdHlsZT48cGF0aCBpZD0iWE1MSURfNV8iIGNsYXNzPSJzdDAiIGQ9Ik0tMzc0LjUgNDMwdi0xaC0xNC41di0xMi45bDExLjQgNy40Yy40LjIuNy4yIDEuMSAwbDExLjUtNy40djQuNGMuNyAwIDEuNC4xIDIgLjJ2LTljMC0xLjEtLjYtMS43LTEuOC0xLjdoLTI0LjVjLTEuMSAwLTEuNy42LTEuNyAxLjd2MTcuNWMwIDEuMi42IDEuOCAxLjcgMS44aDE0LjljLS4xLS4zLS4xLS43LS4xLTF6bS0xNC41LTE4aDI0djEuN2wtMTIgNy44LTEyLTcuOHYtMS43eiIvPjxwYXRoIGlkPSJYTUxJRF8xXyIgY2xhc3M9InN0MSIgZD0iTS0zOTggNDAwaDQydjQyaC00MnoiLz48cGF0aCBpZD0iWE1MSURfNDNfIiBjbGFzcz0ic3QyIiBkPSJNLTM2NSA0MzguNWMyLjMgMCA0LjMtLjggNi0yLjVzMi41LTMuNyAyLjUtNi0uOC00LjMtMi41LTYtMy43LTIuNS02LTIuNS00LjMuOC02IDIuNS0yLjUgMy43LTIuNSA2YzAgMi40LjggNC40IDIuNSA2IDEuNyAxLjcgMy43IDIuNSA2IDIuNXoiLz48cGF0aCBpZD0iWE1MSURfNDVfIiBjbGFzcz0ic3QwIiBkPSJNLTM2NS44IDQzMy44Yy0uMi0uMi0uMy0uNS0uMy0uOHMuMS0uNi4zLS44Yy4yLS4yLjUtLjMuOS0uM3MuNy4xLjkuM2MuMi4yLjMuNC4zLjggMCAuMy0uMS42LS4zLjgtLjIuMi0uNS4zLS45LjMtLjUgMC0uNy0uMS0uOS0uM3ptMS43LTIuN2gtMS44bC0uMy01LjNoMi40bC0uMyA1LjN6Ii8+PC9zdmc+');
+}
+
+@mixin clearfix {
+	&:after {
+		display: block;
+		clear: both;
+		content: '';
+	}
+}
+%clearfix {
+	@include clearfix;
+}
+%hidden-phone2tablet {
+	@media (max-width: 767px) {
+		display: none;
+	}
+}
+@mixin calc($param, $expression) {
+	#{$param}: -webkit-calc(#{$expression});
+	#{$param}: -moz-calc(#{$expression});
+	#{$param}: calc(#{$expression});
+}
+
+%link-invert {
+	color: $link-color-invert;
+	&:hover, &:visited:hover, &:active {
+		color: $link-hover-color-invert;
+	}
+	text-shadow: 0 .1rem .1rem $text-invert-shadow;
+}
+%psevdo-link-invert {
+	@extend %link-invert;
+	&.psevdo-lnk {
+		border-bottom-color: $link-color-invert;
+	}
+
+	&:hover, &:visited:hover, &:active {
+		&.psevdo-lnk {
+			border-bottom-color: $link-hover-color-invert;
+		}
+	}
+}
+
+@mixin dont-collapse {
+	height: auto !important;
+	overflow: visible;
+
+	& + [data-toggle="collapse"] {
+		display: none !important;
+	}
+}
+
+%placeholder {
+	&::-webkit-input-placeholder {  // Chrome и Safari
+		color: $form-placeholder !important;
+		font-size: inherit;
+		opacity: 1;
+	}
+	&::-moz-placeholder { // Firefox 20+
+		color: $form-placeholder !important;
+		font-size: inherit;
+		opacity: 1;
+	}
+	&:-moz-placeholder { // Firefox 19-
+		color: $form-placeholder !important;
+		font-size: inherit;
+		opacity: 1;
+	}
+	&:-ms-input-placeholder { // IE10
+		color: $form-placeholder !important;
+		font-size: inherit;
+		opacity: 1;
+	}
+	&::-ms-input-placeholder { // Edge
+		color: $form-placeholder !important;
+		font-size: inherit;
+		opacity: 1;
+	}
+	& .placeholder { // IE7 - IE9
+		color: #d9dad9;
+		font-size: inherit;
+		opacity: 1;
+	}
+	&::placeholder {
+		color: $form-placeholder !important;
+		font-size: inherit;
+		opacity: 1;
+	}
+}
+@mixin placeholder-font($font-family) {
+	&::-webkit-input-placeholder {  // Chrome и Safari
+		font-family: $font-family !important;
+	}
+	&:-moz-placeholder { // Firefox 19-
+		font-family: $font-family !important;
+	}
+	&::-moz-placeholder { // Firefox 20+
+		font-family: $font-family !important;
+	}
+	&:-ms-input-placeholder { // IE10
+		font-family: $font-family !important;
+	}
+	&::-ms-input-placeholder { // Edge
+		font-family: $font-family !important;
+	}
+	& .placeholder { // IE7 - IE9
+		font-family: $font-family !important;
+	}
+	&::placeholder {
+		font-family: $font-family !important;
+	}
+}
+@mixin placeholder-color($color) {
+	&::-webkit-input-placeholder {  // Chrome и Safari
+		color: $color !important;
+	}
+	&:-moz-placeholder { // Firefox 19-
+		color: $color !important;
+	}
+	&::-moz-placeholder { // Firefox 20+
+		color: $color !important;
+	}
+	&:-ms-input-placeholder { // IE10
+		color: $color !important;
+	}
+	&::-ms-input-placeholder { // Edge
+		color: $color !important;
+	}
+	& .placeholder { // IE7 - IE9
+		color: $color !important;
+	}
+	&::placeholder {
+		color: $color !important;
+	}
+}
+@mixin placeholder-size($placeholder-font-size) {
+	&::-webkit-input-placeholder {  // Chrome и Safari
+		font-size: $placeholder-font-size !important;
+	}
+	&:-moz-placeholder { // Firefox 19-
+		font-size: $placeholder-font-size !important;
+	}
+	&::-moz-placeholder { // Firefox 20+
+		font-size: $placeholder-font-size !important;
+	}
+	&:-ms-input-placeholder { // IE10
+		font-size: $placeholder-font-size !important;
+	}
+	&::-ms-input-placeholder { // Edge
+		font-size: $placeholder-font-size !important;
+	}
+	& .placeholder { // IE7 - IE9
+		font-size: $placeholder-font-size !important;
+	}
+	&::placeholder {
+		font-size: $placeholder-font-size !important;
+	}
+}
+
+@mixin dotted-lines_container { //.dl-horizontal, .form-horizontal > .control-group
+	position: relative;
+	z-index: 0;
+}
+
+@mixin dotted-line {
+	&:after {
+		position: absolute;
+		right: 0;
+		left: 0;
+		margin-top: 1.1em;
+		content: '';
+		border-top: $border-dotted;
+		z-index: -1;
+	}
+}
+
+%dt-horizontal { // .dl-horizontal > dt, .form-horizontal > .control-label
+	display: block;
+	text-align: left;
+	width: auto;
+
+	// посадка на сетку
+	padding-top: .2rem;
+	margin-top: -.2rem;
+
+	@media (min-width: 768px) {
+		float: left;
+		background: $form-bg;
+		max-width: 17.4rem;
+		padding-right: .3rem;
+
+		@include dotted-line;
+
+		.select-sublevel & {
+			text-align: right;
+			width: 17.4rem;
+		}
+
+		.modal & {
+			background: $light-base;
+		}
+	}
+	@media (min-width: 1200px) {
+		max-width: 20rem;
+
+		.select-sublevel & {
+			width: 20rem;
+		}
+	}
+	@media (min-width: 980px) and (max-width: 1199px) {
+		max-width: 19rem;
+
+		.select-sublevel & {
+			width: 19rem;
+		}
+	}
+	@media (max-width: 767px) {
+		float: none;
+		font-size: $font-size-small;
+		line-height: 2.1rem;
+		padding-top: .1rem; // посадка на сетку
+		margin-bottom: -.1rem; // компенсация посалки на сетку
+		color: $muted-color;
+	}
+
+}
+@mixin dt-horizontal-bg($form-bg) {
+	background: $form-bg;
+}
+%dd-horizontal { // .dl-horizontal > dd, .form-horizontal > .controls
+	display: block;
+
+	// посадка на сетку
+	padding-top: .2rem;
+	margin-top: -.2rem;
+
+	@media (min-width: 768px) {
+		margin-left: 19rem - .3rem;
+		padding-left: .3rem;
+		background: $form-bg;
+
+		.modal & {
+			background: $light-base;
+		}
+	}
+	@media (min-width: 1200px) {
+		margin-left: 23rem - .3rem;
+	}
+	@media (min-width: 980px) and (max-width: 1199px) {
+		margin-left: 21rem - .3rem;
+	}
+}
+
+// выпадающие списки форм
+$inp-border-color: mix($form-bg, $text-color, 80%);
+$inp-border-color_white-bg: mix($light-base, $text-color, 80%);
+$inp-border-color_focusedblock: mix($focused-block-bg, $text-color, 80%);
+$inp-border-color_focus: $blue;
+$inp-border-color_error: $red;
+$input-line-height: 3rem;
+$input-padding-h: 1.2rem;
+$input-padding-v: .7rem;
+
+@mixin select-dropdown {
+	// background: transparentize($light-base, .05);
+	background: #ffffff;
+	border-radius: .2rem;
+	border: 0.1rem solid $form-bg;
+	box-shadow: 0 0.4rem 0.4rem 0 rgba(180, 181, 180, 0.4);
+	overflow-y: auto;
+}
+@mixin select-dropdown-li {
+	position: relative;
+	margin: 0;
+	padding: $input-padding-v $input-padding-h;
+	user-select: none;
+	-webkit-user-select: none;
+
+	&:hover {
+		background-color: $blue !important;
+		color: #ffffff;
+
+		& > small {
+			color: $blue-invert;
+		}
+	}
+}
+
+// Уголки у блоков
+@mixin caret($size, $border-side, $color) {
+	&:before {
+		display: block;
+		content: '';
+		position: absolute;
+		border: $size solid transparent;
+		border-#{$border-side}-color: $color;
+		#{$border-side}: 100%;
+	}
+}
+@mixin caret-inset($size, $border-side, $color) {
+	&:before {
+		display: block;
+		content: '';
+		position: absolute;
+		border: $size solid transparent;
+		border-#{$border-side}-color: $color;
+		#{$border-side}: 0;
+	}
+}
+@mixin caret-vmiddle($size, $border-side, $color) {
+	&:before {
+		display: block;
+		content: '';
+		position: absolute;
+		border: $size solid transparent;
+		border-#{$border-side}-color: $color;
+		#{$border-side}: 50%;
+		margin-#{$border-side}: $size/2;
+	}
+}
+
+@mixin caret-inline($size, $border-side, $color) {
+	// вписывать в b.caret:before
+		display: block;
+		content: '';
+		position: relative;
+		width: 0;
+		height: 0;
+		border: $size solid transparent;
+		border-#{$border-side}-color: $color;
+		vertical-align: middle;
+}
+
+// dashed-block params
+$db-padding-vert: 1.5rem;
+$db-padding-hor: 1.9rem;
+$beak1: 2.2rem; // на .1 меньше высоты картинки
+$beak2: 1.5rem; // на .1 меньше высоты картинки
+
+@mixin dashed-block {
+	display: block;
+	position: relative;
+	padding: $db-padding-vert 0 0.1rem $db-padding-hor;
+	margin: 0 0 #{$db-padding-vert - .1rem};
+	margin-right: $db-padding-hor;
+	background: url(../img/dashed_contur.png) 0 0 no-repeat;
+	background-size: 87rem auto;
+
+	&:before, .block-bottom, .block-bottom:before {
+		background: inherit;
+		background-size: inherit;
+	}
+	.block-bottom {
+		display: block;
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		height: $db-padding-vert;
+		margin: 0 0 #{-$db-padding-vert} #{-$db-padding-hor};
+		background-position: 0 100%;
+	}
+	&:before,
+	.block-bottom:before {
+		display: block;
+		position: absolute;
+		content: '';
+		width: $db-padding-hor;
+		top: 0;
+		bottom: 0;
+		right: -$db-padding-hor;
+	}
+	&:before {background-position: 100% 0;}
+	.block-bottom:before {background-position: 100% 100%;}
+
+	&:after {
+		display: block;
+		content: '';
+		position: absolute;
+		width: 2rem;
+		height: #{$beak1 + .2rem};
+		background: url(../img/dashed-beak1.png) 0 0 no-repeat;
+
+		form &, .form & {
+			background-image: url(../img/dashed-beak1_gray.png);
+		}
+	}
+	&:not(.right):not(.left):not(.top):not(.bottom):after {
+		display: none;
+	}
+
+	&.bottom:after, &.top:after {
+		left: 3rem;
+	}
+
+	&.bottom {
+		margin-top: $beak1 + $line-height-base;
+
+		&:after {
+			top: -$beak1;
+			transform: rotate(180deg);
+		}
+	}
+	&.top {
+		margin-bottom: $beak1 + $db-padding-vert + $line-height-base;
+
+		&:after {
+			bottom: #{-$beak1 - ($db-padding-vert - .1rem)}; // .1rem - поскольку нижний padding
+		}
+	}
+
+	&.right:after, &.left:after {
+		top: 2.8rem;
+	}
+
+	&.right {
+		&:after {
+			left: 0;
+			margin-left: -$beak1 + .2rem;
+			transform: rotate(90deg);
+		}
+	}
+	&.left {
+		&:after {
+			right: #{-$beak1 - ($db-padding-hor - .1rem)};
+			transform: rotate(-90deg);
+		}
+	}
+
+	& > *:first-child {margin-top: 0;}
+	& > *:nth-last-child(2) {margin-bottom: 0;}
+
+	// contents в правой колонке
+	.span3 & {
+		.h4 {
+				@include font-size-large;
+				margin-bottom: $line-height-base/2 + .2rem;
+		}
+		p {
+			margin: $vgrid*2 0;
+
+			&:last-of-type {
+				margin-bottom: 0;
+			}
+		}
+	}
+
+	@media (max-width: 767px) {
+		.span3 & .h4 {
+				font-size: $font-size;
+				font-style: normal;
+
+			&.collapsed:not(.in) {
+				margin-bottom: 0 !important;
+			}
+		}
+	}
+
+	@media (max-width: 480px) {
+		background: none;
+		border: {
+			top: 1px dashed $gray;
+			bottom: 1px dashed $gray;
+		}
+		padding: $db-padding-vert 0;
+		margin: 0;
+
+		&:before, &:after,
+		.bottom-block {
+			display: none;
+		}
+		&.top{
+			&:after {
+				bottom: -$beak1;
+			}
+		}
+		&.bottom:after {
+			top: -$beak1;
+		}
+
+		.span3 & {
+			.h4 {
+				margin-bottom: .7rem;
+			}
+			p {
+				@include font-size-small;
+			}
+		}
+	}
+}
+
+@mixin flex-block-center {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	align-items: center;
+
+	& > * {
+		display: block;
+	}
+}
+
+@mixin text-overflow($set...) {
+	overflow: hidden;
+	white-space: nowrap;
+	-o-text-overflow: $set;
+	text-overflow: $set;
+}
+@mixin draw-bcard($size, $height: $size*.6) {
+	box-sizing: border-box;
+	border-radius: $size*.03;
+	width: $size;
+	height: $height;
+}
+
+%hide-tooltip {
+	width: 0;
+	opacity: 0;
+	z-index: -1;
+}
+%show-tooltip {
+	width: auto;
+	opacity: 1;
+	z-index: 1;
+	padding: {
+		left: $vgrid;
+		right: $vgrid;
+	}
+}
+
+%btn-icon {
+	position: relative;
+	outline: none;
+
+	[class^="icon-"], [class*=" icon-"] {
+		display: block;
+		text-indent: 0;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin: -0.5em;
+	}
+
+	@extend %btn-tooltiped;
+}
+%btn-tooltiped {
+	display: block;
+	overflow: visible;
+
+	.tooltip {
+		display: block;
+		position: absolute;
+		@include font-size-base;
+		@include uppercase;
+		transition: width 0.15s ease, opacity 0.15s ease;
+		@include text-overflow(ellipsis);
+		box-sizing: border-box;
+		top: 50%;
+		left: $icon-size-base + .3rem;
+		white-space: nowrap;
+		margin-top: -($line-height-base + $vgrid*2)/2;
+		max-width: 25rem;
+		padding: $vgrid 0;
+		@extend %hide-tooltip;
+		@extend %hide-tooltip;
+	}
+	@at-root %btn-icon-hover {
+		& > .tooltip {
+			@extend %show-tooltip;
+
+			&:hover {
+				@extend %hide-tooltip;
+			}
+		}
+	}
+	.mobile &, .tablet & {
+		&.hover, &.pressed {
+			@extend %btn-icon-hover;
+		}
+	}
+	.desktop & {
+		&:hover, &:active {
+			@extend %btn-icon-hover;
+		}
+	}
+}
+@mixin tooltip-right {
+	left: auto;
+	right: $icon-size-base + .3rem;
+	text-align: right;
+}
+@mixin tooltip-inverse-blue {
+	color: $text-color-invert;
+	background: $blue; // transparentize($blue,0.1);
+}
+
+@mixin crush-tooltip {
+	display: inline;
+	vertical-align: baseline;
+	position: static;
+	width: auto;
+	height: auto;
+	padding: 0;
+	margin: 0;
+	background: none;
+	opacity: 1;
+	z-index: 0;
+	transition: none;
+	font-size: inherit;
+	line-height: inherit;
+	font-weight: inherit;
+	white-space: inherit;
+
+	//@at-root *:hover, *:active {
+	//	& > .tooltip {
+	//		padding: 0 !important;
+	//	}
+	//}
+}
+
+%btn-countur {
+	color: $blue-invert;
+	box-shadow: none;
+	border: 0.2rem solid $blue-invert;
+	padding: ($btn-height-base - $line-height-base - .4rem)/2 $padding-base;
+
+	&:hover {
+		color: $light-base;
+		border-color: $light-base;
+	}
+}
+
+// переделать ссылки и кнопки тулбара в список
+@mixin dropdown-item-a {
+	margin: 0.1rem 0;
+	vertical-align: middle;
+	padding: 1rem 1.5rem !important;
+
+	&.psevdo-lnk .tooltip {
+		text-decoration: none;
+	}
+}
+
+
+// ФОРМЫ
+
+$form-padding-h: $padding-base;// 4.5rem;
+$form-padding-lg: 7rem;
+$form-padding-sm: $padding-base;
+$form-padding-xs: 1.3rem;
+
+%form-padding-v {
+	@media (min-width: 768px) {
+		padding: {
+			top: $line-height-base;
+			bottom: $line-height-base;
+		}
+		&:last-child {
+			margin-bottom: -$line-height-base !important;
+		}
+	}
+	@media (max-width: 767px) {
+		padding: {
+			top: $vgrid*1.5;
+			bottom: $vgrid*1.5;
+		}
+		&:last-child {
+			margin-bottom: -$vgrid*1.5 !important;
+		}
+	}
+}
+%form-padding-base {
+	padding: $line-height-base $form-padding-h;
+
+	.row {
+		margin: 0;
+		position: relative;
+	}
+	.buttons {
+		width: auto !important;
+		float: none;
+		@extend %form-inner-left;
+		@extend %form-inner-right;
+		margin-bottom: 0;
+	}
+
+	@media (min-width: 1200px) {
+		@extend %form-padding-lg;
+	}
+	@media (max-width: 979px) {
+		@extend %form-padding-sm;
+	}
+	@media (max-width: 767px) {
+		padding: {
+			top: $form-padding-xs;
+			bottom: $form-padding-xs;
+		}
+		@extend %form-padding-xs;
+	}
+}
+%form-inner-left {
+	padding-left: $form-padding-h;
+	margin-left: -$form-padding-h;
+
+	@media (min-width: 1200px) {
+		@extend %form-inner-left-lg;
+	}
+	@media (max-width: 979px) {
+		@extend %form-padding-sm;
+		@extend %form-inner-margin-sm;
+	}
+	@media (max-width: 767px) {
+		@extend %form-padding-xs;
+		@extend %form-inner-margin-xs;
+	}
+}
+%form-inner-right {
+	padding-right: $form-padding-h;
+	margin-right: -$form-padding-h;
+
+	@media (min-width: 1200px) {
+		@extend %form-inner-right-lg;
+	}
+	@media (max-width: 979px) {
+		@extend %form-padding-sm;
+		@extend %form-inner-margin-sm;
+	}
+	@media (max-width: 767px) {
+		@extend %form-padding-xs;
+		@extend %form-inner-margin-xs;
+	}
+}
+
+@media (min-width: 1200px) {
+	%form-padding-lg {
+		padding-left: $form-padding-lg;
+		padding-right: $form-padding-lg;
+	}
+	%form-inner-left-lg {
+		padding-left: $form-padding-lg;
+		margin-left: -$form-padding-lg;
+	}
+	%form-inner-right-lg {
+		padding-right: $form-padding-lg;
+		margin-right: -$form-padding-lg;
+	}
+}
+@media (max-width: 979px) {
+	%form-padding-sm {
+		padding: {
+			left: $form-padding-sm;
+			right: $form-padding-sm;
+		}
+	}
+	%form-inner-margin-sm {
+		width: auto;
+		float: none;
+		margin: {
+			left: -$form-padding-sm;
+			right: -$form-padding-sm;
+		}
+	}
+}
+@media (max-width: 767px) {
+	%form-padding-xs {
+		padding: {
+			left: $form-padding-xs;
+			right: $form-padding-xs;
+		}
+	}
+	%form-inner-margin-xs {
+		width: auto;
+		float: none;
+		margin: {
+			left: -$form-padding-xs;
+			right: -$form-padding-xs;
+		}
+	}
+}
+
+// перестраиваем тултип рядом с btn-primary (зависит от ширины кнопки)
+// пишется в css для обертки тултипа, типа .smsWait
+@mixin tltp-break($btn-width: 150px) {
+	$tltp-brpoint: 480px + ($btn-width - 150px);
+	$margin-left: $btn-width + 5px;
+
+	position: absolute;
+	margin-left: $margin-left;
+	min-height: $btn-height-base;
+
+	@media (min-width: $tltp-brpoint + 1px ) and (max-width: 767px) {
+		right: 0;
+		left: 13px; // внутренний отступ формы
+		min-width: 0;
+	}
+
+	@media (max-width: $tltp-brpoint) {
+		position: relative;
+		min-width: 0;
+		margin-left: 0;
+		min-height: 0;
+		margin-bottom: 0;
+	}
+
+	@if ($btn-width > 150px) {
+			@media (min-width: 481px) and (max-width: $tltp-brpoint) {
+			display: block;
+			position: relative !important;
+			padding: 0;
+			margin: 0;
+			max-width: 100%;
+			min-width: 0;
+			min-height: 0;
+			right: auto;
+			left: auto;
+
+			.btnpr-tltp + .tooltip {
+				display: block;
+				position: static !important;
+				padding: 0;
+				max-width: 100%;
+				margin-bottom: $line-height-base;
+
+				&.right {
+					padding: 0 0 .8rem !important;
+					margin-bottom: 0;
+
+					.tooltip-arrow {
+						left: (23rem)/2;
+						top: 100% !important;
+
+						&:before, &:after {
+							border-right-color: transparent;
+						}
+						&:before{border-top-color:$form-bg; top: 0.1rem;}
+						&:after{border-top-color:#fff; top:-0.1rem;}
+					}
+				}
+
+				.tooltip-inner {
+					width: 100%;
+					max-width: 100%;
+				}
+			}
+			}
+	}
+}
+
+// список комиссий
+@mixin comisDls {
+
+	dl {
+		@extend %unstyled;
+		display: inline-block;
+		padding: 0;
+		margin: 0 1.5em $vgrid  0;
+		white-space: nowrap;
+
+		&:last-child { margin-right: 0;}
+
+		dt, dd {
+			@extend %unstyled;
+			display: inline-block;
+			vertical-align: middle;
+			font-weight: 400;
+		}
+	}
+	dd:before {
+		content: '– ';
+	}
+}
+
+
+$radio-size: 1.4rem;
+$radio-border: .2rem;
+$radio-inner: .6rem;
+
+// Новые инпуты
+$input-height: 3.8rem;
+@mixin newinputs {
+	$vgrid: .8rem;
+	$line-height-base: 2rem;
+	$line-height-small: 1.6rem;
+
+	$input-bg: #ffffff;
+	$input-shadow-inner: inset .1rem .1rem .3rem 0 transparentize($text-color, .3);
+	$input-shadow-inner-disabled: inset .1rem .1rem .3rem 0 transparentize($text-color, .7);
+	$input-shadow-focused: 0 0 .1rem .2rem $blue-invert, 0 0 .1rem .1rem $blue-invert;
+	$input-shadow-focused-invert: 0 0 .1rem .2rem #88c4e3, 0 0 .1rem .1rem #88c4e3;
+	$input-shadow-error: 0 0 .2rem .1rem $red;
+	$input-shadow-autofill: inset 0 0 0 5rem $input-bg;
+
+	%checkbox-radio-label {
+		position: relative;
+		padding-left: 3rem;
+		cursor: pointer;
+
+		// Cначала обозначаем стили для IE8 и более старых версий т.е. здесь мы немного облагораживаем стандартный чекбокс.
+		& > input {
+			vertical-align: top;
+			margin: 0 .3rem 0 -3rem;
+			width: $radio-size;
+			height: $radio-size;
+
+			// Прячем оригинальный чекбокс в современных браузерах
+			&:not(checked) {
+				position: absolute;
+				opacity: 0;
+				z-index: -1;
+			}
+		}
+
+		&:before {
+			display: block;
+			position: absolute;
+			content: '';
+			left: 0;
+			top: $line-height-base - $radio-size - .2rem;
+			width: $radio-size;
+			height: $radio-size;
+		}
+
+		&.control-label {
+			&:before {
+				top: $line-height-base - $radio-size - .2rem + $vgrid;
+			}
+		}
+
+		&:before {
+			border: $radio-border solid $gray;
+			background: $form-bg;
+			@extend %border-box;
+		}
+
+		&.checked {
+			&:before {
+				border-color: $text-color;
+			}
+		}
+
+		@media (max-width: 767px) {
+			padding: {
+				left: 3rem;
+				top: $vgrid;
+				bottom: $vgrid;
+			}
+
+			&:before {
+				top: $line-height-base - $radio-size - .2rem + $vgrid;
+			}
+		}
+	}
+
+	label.radio {
+		@extend %checkbox-radio-label;
+
+		&:before {
+			border-radius: 50%;
+		}
+
+		&.checked {
+			&:before {
+				border-color: $text-color;
+				background-color: $text-color;
+				box-shadow: inset 0 0 0 .2rem #ffffff;
+			}
+		}
+		&.circle {
+			$circle-size: 3.4rem;
+			display: block;
+			position: relative;
+			width: $circle-size;
+			height: $circle-size;
+			padding: 0;
+			border-radius: 51%;
+			margin: 0.5rem;
+			background: $form-hr;
+
+			&:before {
+				top: 50%;
+				left: 50%;
+			}
+			&:before {
+				margin: -$radio-size/2 0 0 (-$radio-size/2);
+			}
+			&.checked {
+				background: $blue-invert;
+			}
+		}
+	}
+	label.checkbox {
+		@extend %checkbox-radio-label;
+
+		&.checked {
+			&:before {
+				background: $text-color url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4CAMAAACfWMssAAAAY1BMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+aRQ2gAAAAIHRSTlMACBYP99vI0868tqySc2BYPBzw58OnoIN9bENnUkouI6YOcHMAAADeSURBVEjH7dRJCsMwDEBRZ57HZk6b6v6nLE0pERYCy8vgv3R4YBxbyuW6W37W2bkEIhsZpAAQ+XIXw7dEKr0BfqWBzGXwLw4kLoerXAAL5MLN3I3YvRRTS1YmQD05N0OlrZTYNZyrAGDnXc25lXyesVs5t5MNLdhVnKvJEVTYLZxryKGv2M1mv2s7d4AqDS9W2KqGOv4qX/ULdpPR46GNRs+VVhgNCFrumY0kvUxznIw0NxDH1F1SOCreD+TS0wmlfBwep7QZwEd/ulg+8tv+umdCGUKhrNoKT7lc9+gDvmg2xjE7dc4AAAAASUVORK5CYII=') 50% 50% no-repeat;
+				background-size: auto $radio-size;
+			}
+			@at-root .modal.alert-wait .checkbox.checked {
+				&:before {
+					border-color: $text-color-invert;
+					background-color: $text-color-invert;
+					background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4CAMAAACfWMssAAAAWlBMVEUAAAAARIQARIQARIQARIQARIQARIQARIQARIQARIQARIQARIQARIQARIQARIQARIQARIQARIQARIQARIQARIQARIQARIQARIQARIQARIQARIQARIQARIQARITETpYiAAAAHXRSTlMACMYWD/eA22rTzry2rJJzYFhDHPDnp6A8UkouI7uDMXMAAADbSURBVEjH7dTbDoMgDIBhZJ5PeJq6ub7/ay5jWWhsmlEuDf+l5jMEoSoWu1q3Zg5zFRQhMq0BoLjJnYZPlVQmGr7Vqcw18EunEteCqxXADrls8ncrdk/FRD+4AerBuRzM6UmP3cg5AwAl7wbOleR1jl3JOrwg6gznBrIFBruccyPZ9JJ1/O+a7ApQvefBynY1UscfZdeSY7d5XR7a6nVdaZ3XgKC1id9IOtdY918WJ6eJY5qdFI6K1x252jqhlI/Dw8qQAXws1mn5yN8Xd86EMoNOBTV1iYrFrtEbYkIxlE477aoAAAAASUVORK5CYII=');
+				}
+			}
+		}
+
+		&.sq {
+			&:before {
+				content: '' !important;
+				top: 50%;
+				left: 50%;
+				margin: -$radio-size/2 0 0 (-$radio-size/2);
+			}
+
+			.setall {
+				position: absolute;
+				font-size: $font-size-small;
+				line-height: 1;
+				font-weight: 400;
+				white-space: nowrap;
+				right: 85%;
+				top: 50%;
+				color: $text-color;
+				opacity: .4;
+				margin-top: -$font-size-small/2;
+				text-transform: uppercase;
+
+				@media (max-width: 767px) {
+					display: none;
+				}
+			}
+			&.checked {
+				.setall {
+					opacity: 1;
+				}
+			}
+		}
+	}
+
+	@media (max-width: 767px) {
+		.control-label {
+			label.radio,
+			label.checkbox {
+				margin-top: -$vgrid;
+			}
+		}
+	}
+
+	%text-inputs {
+		@extend %border-box;
+		border: none;
+		border-radius: .2rem;
+		padding: $input-padding-v $input-padding-h;
+		background: $input-bg;
+		@include font-size-base;
+		-webkit-appearance: none;
+		font-family: $font-base;
+
+		&, &:invalid {
+			box-shadow: $input-shadow-inner;
+		}
+
+		&:focus {
+			&, &:invalid{
+				box-shadow: $input-shadow-focused, $input-shadow-inner;
+			}
+		}
+
+		&[disabled], &[readonly] {
+			&, &:invalid {
+				box-shadow: $input-shadow-inner-disabled;
+				cursor: default;
+			}
+		}
+
+	}
+	%string-inputs {
+		@extend %text-inputs;
+		display: inline-block;
+		height: $input-height;
+
+		& + .btn {
+			height: $input-height;
+		}
+	}
+	.control-group.inline .controls ~ .btn {
+		height: $input-height;
+	}
+
+	input[type="text"],
+	input[type="password"],
+	// input[type="datetime"],
+	// input[type="datetime-local"],
+	input[type="date"],
+	// input[type="month"],
+	// input[type="time"],
+	// input[type="week"],
+	// input[type="number"],
+	input[type="email"],
+	// input[type="url"],
+	input[type="search"],
+	// input[type="color"],
+	input[type="tel"] {
+		@extend %string-inputs;
+	}
+
+	.suffix {
+		padding-top: 0.75rem;
+		font-family: $font-base !important;
+	}
+
+	.input {
+		&-sm {
+			width: $inp-sm;
+
+		}
+
+		&-mid {
+			width: $inp-mid;
+		}
+
+		&-lg {
+			width: $inp-lg;
+		}
+		@media (max-width: 480px) {
+			&-sm, &-mid, &-lg {
+				width: 100%;
+			}
+		}
+	}
+	.uneditable-input { // притворяется текстом
+		box-shadow: none !important;
+		background: transparent !important;
+		padding: .6rem 0 0 !important;
+		display: inline-block;
+		height: auto !important;
+		border: none;
+		font-size: $font-size;
+		line-height: $line-height-base;
+
+
+		&, &[disabled] {
+			color: $text-color;
+		}
+	}
+
+	input, textarea {
+		&, &[disabled], &[readonly] {
+			@extend %placeholder;
+		}
+	}
+
+	$add-on-height: $input-height - .6rem;
+
+	@at-root %add-on {
+		display: block;
+		position: absolute;
+		@extend %border-box;
+		margin: 0;
+		top: 0 !important;
+		height: $add-on-height !important;
+	}
+	@at-root %add-on-right {
+		left: auto;
+		right: 0;
+		background: #ffffff;
+		width: $add-on-height !important;
+		margin: .3rem !important;
+	}
+	%add-on-right-icon {
+		@extend %add-on-right;
+		padding: 0 !important;
+		text-align: center;
+	}
+	.input-prepend {
+		display: inline-block;
+		position: relative;
+
+		@media (max-width: 480px) {
+			display: block;
+			width: 100%;
+		}
+
+		.add-on {
+			$add-on-padding-v: ($add-on-height - 1.5rem)/2;
+
+			@extend %add-on;
+			left: 0;
+			line-height: 1;
+			padding: $add-on-padding-v 0 0 1.2rem;
+			z-index: 2;
+		}
+
+		input {
+			z-index: 1;
+			width: 100%;
+			padding-right: $add-on-height + 1rem;
+
+			& + .add-on {
+				@extend %add-on-right;
+				padding: {
+					left: 0;
+					right: 1.2rem;
+				}
+				text-align: right;
+			}
+		}
+		&.empty .add-on {
+			color: $form-placeholder;
+		}
+
+		&.uneditable {
+			.add-on {
+				padding: {
+					left: 0;
+					top: 1.05rem;
+				}
+			}
+			input + .add-on {
+				padding-right: 0;
+			}
+		}
+
+		&.mobnum{
+			@extend .input-sm;
+
+			$addon-width: 2.1rem + 1.2rem;
+			$addon-width-uneditable: 2.1rem;
+
+			.add-on {
+				width: $addon-width;
+
+				& + input {
+					padding-left: $addon-width;
+				}
+			}
+			&.uneditable {
+				.add-on {
+					width: $addon-width-uneditable;
+
+					& + input {
+						padding-left: $addon-width-uneditable !important;
+					}
+				}
+			}
+		}
+
+		&.inp_summ {
+			@extend .input-sm;
+
+			$addon-width: 1.4rem + 1.2rem;
+
+			.add-on {
+				width: $addon-width;
+				font-size: $font-size-large;
+				padding: {
+					top: .7rem;
+					right: 1rem;
+				}
+			}
+			input {
+				padding-right: $addon-width;
+				text-align: left !important;
+				font-size: $font-size-large;
+			}
+		}
+	}
+
+	textarea {
+		@extend %text-inputs;
+		display: block;
+		resize: none;
+		min-height: $line-height-base*2 + 1.2rem; // две строки + паддинги (2)
+
+		@at-root .text-adaptive {
+			$input-line-height: $line-height-base;
+			@extend %string-inputs;
+
+			min-height: $input-height;
+			transition: height $transition-speed $transition-type;
+
+			&-div {
+				display: block;
+				@extend %text-inputs;
+				position: absolute;
+				word-wrap: break-word;
+				visibility: hidden;
+				white-space: pre-wrap;
+				z-index: -1;
+			}
+		}
+		&.no-scroll {
+			overflow: hidden;
+		}
+	}
+
+	// подсветка автозаполнения в хроме
+	// input:-webkit-autofill,
+	// textarea:-webkit-autofill,
+	// select:-webkit-autofill {
+	// 	&,	.error & {
+	// 		-webkit-box-shadow: $input-shadow-inner, $input-shadow-autofill !important; // цвет фона формы
+
+	// 		&:focus {
+	// 			-webkit-box-shadow: $input-shadow-focused, $input-shadow-inner, $input-shadow-autofill !important; // цвет фона формы
+	// 		}
+	// 	}
+	// }
+
+	// инпуты 100% ширины*.justify {width: 100%;}
+	input[type="file"].justify{
+		height: auto;
+	}
+	input[type="file"].justify,
+	select.justify{
+		width: 100%;
+		@extend %border-box;
+	}
+
+	// Поле ФАЙЛ
+	input[type="file"] {
+		display: block;
+		line-height: 3rem;
+		height: auto;
+		padding: 0.3rem 0.6rem;
+		background: rgba(147, 151, 147, 0.25) !important;
+		border-radius: 0.2rem;
+		border: none !important;
+		width: 100%;
+		margin: 0.2rem 0;
+		color: #2b2b2b !important;
+		@extend %border-box;
+
+		.controls & ~ .close { /* кнопка удаления для поля файл */
+			position: absolute;
+			top: -0.2rem;
+			right: 0;
+		}
+	}
+
+	// комментарии
+	.help-inline,
+	.help-block{
+		@include font-size-small;
+		color: $gray;
+	}
+	.help-inline {
+		max-width: 20rem;
+		padding-top: 1rem;
+	}
+
+	%help-block {
+		margin-top: #{$vgrid - .2rem}; // посадка на сетку
+	}
+	.help-block {
+		margin-top: .4rem !important;
+
+		&:not(.hidden):not([style="display: none;"]) + & {
+			margin-top: $vgrid;
+		}
+
+		&.accent {
+			color: $red;
+		}
+	}
+
+	// Ошибка ввода
+	.errormark {
+		display: block;
+		position: absolute;
+		@include font-size-base;
+		color: $red;
+		opacity: 0;
+		//position: absolute;
+		transition: opacity 0.15s linear, height 0.15s linear;
+		height: 0;
+		overflow: hidden;
+		margin-top: 0 !important;
+
+		@media (max-width: 767px) {
+			@include font-size-small;
+		}
+	}
+
+	// ошибка
+	%error-inputs {
+		color: $red;
+		box-shadow: $input-shadow-error, $input-shadow-inner;
+	}
+
+	.control-group {
+		&.inline {
+			label {
+				padding-top: .9rem;
+			}
+		}
+
+		&.error {
+			input[type="text"],
+			input[type="password"],
+			// input[type="datetime"],
+			// input[type="datetime-local"],
+			input[type="date"],
+			// input[type="month"],
+			// input[type="time"],
+			// input[type="week"],
+			// input[type="number"],
+			input[type="email"],
+			// input[type="url"],
+			input[type="search"],
+			// input[type="color"],
+			input[type="tel"],
+			textarea,
+			.text-adaptive,
+			.text-adaptive-div,
+			.select2-container .select2-selection {
+				&, &:invalid {
+					@extend %error-inputs;
+				}
+			}
+			.errormark {
+				position: static;
+				@extend %help-block;
+				opacity: 1;
+				height: auto;
+				overflow: visible;
+				margin-top: $vgrid/2 !important;
+
+				& ~ .help-block {
+					margin-top: $vgrid;
+				}
+			}
+		}
+	}
+
+	.error-msg {
+		display: block;
+		color: $red;
+
+		&:not(.hidden):not([style="display: none;"]) + * {
+			margin-top: $vgrid*1.5;
+		}
+
+		@media (max-width: 767px) {
+			@include font-size-small;
+		}
+	}
+	.controls {
+		input[type="text"],
+		input[type="password"],
+		// input[type="datetime"],
+		// input[type="datetime-local"],
+		input[type="date"],
+		// input[type="month"],
+		// input[type="time"],
+		// input[type="week"],
+		// input[type="number"],
+		input[type="email"],
+		// input[type="url"],
+		input[type="search"],
+		// input[type="color"],
+		input[type="tel"],
+		textarea,
+		.text-adaptive,
+		.text-adaptive-div,
+		.select2-container .select2-selection {
+			margin: 0;
+
+			& ~ .help-block {
+				margin-top: .4rem;
+				@extend %help-block;
+			}
+		}
+	}
+	.modal.alert-wait {
+		input[type="text"],
+		input[type="password"],
+		// input[type="datetime"],
+		// input[type="datetime-local"],
+		input[type="date"],
+		// input[type="month"],
+		// input[type="time"],
+		// input[type="week"],
+		// input[type="number"],
+		input[type="email"],
+		// input[type="url"],
+		input[type="search"],
+		// input[type="color"],
+		input[type="tel"],
+		textarea,
+		.text-adaptive,
+		.text-adaptive-div,
+		.select2-container .select2-selection {
+			color: $text-color;
+
+			&:focus {
+				&, &:invalid {
+					box-shadow: $input-shadow-focused-invert, $input-shadow-inner;
+				}
+			}
+		}
+	}
+
+	// label в виде placeholder-а
+	.floating {
+		&-label {
+			$height: $input-height - .8rem;
+			display: block;
+			position: absolute;
+			height: $height;
+			top: .5rem;
+			left: $input-padding-h - .2rem;
+			right: $input-padding-h - .2rem;
+			background: #ffffff;
+			padding: ($height - $line-height-base)/2 .2rem;
+			@extend %border-box;
+			color: $form-placeholder;
+
+			.firefox & {
+				padding-top: ($height - $line-height-base)/2 - .1rem;
+			}
+
+			input:focus ~ &,
+			input:not(.empty) ~ & {
+				opacity: 0;
+				z-index: -1;
+			}
+		}
+	}
+
+	.inline-switchers {
+		.controls {
+			@media (min-width: 768px) {
+				padding-top: $vgrid;
+			}
+
+			.radio,
+			.checkbox {
+				@media (min-width: 480px) {
+					display: inline-block;
+					vertical-align: top;
+
+					& + * {
+						margin-left: 4rem;
+					}
+				}
+
+				@media (min-width: 1200px) {
+					& + * {
+						margin-left: 6rem;
+					}
+				}
+
+				@media (max-width: 479px) {
+					span.visible-phone {
+						display: inline !important;
+					}
+				}
+			}
+		}
+	}
+
+	.masked_date {
+		text-transform: uppercase !important;
+	}
+	.calendar-toggle {
+		@extend %add-on;
+		@extend %add-on-right-icon;
+
+		.icon-calendar {
+			margin-top: .2rem;
+		}
+	}
+
+	// кастомизация SELECT2
+	.select2 {
+		&-container {
+			.select2-selection {
+				@extend %string-inputs;
+				display: block;
+				border: none !important;
+
+				&__rendered {
+					padding-left: 0 !important;
+					line-height: $line-height-base !important;
+					padding-top: .2rem;
+				}
+
+				&__arrow {
+					height: $input-height !important;
+					width: $input-height !important;
+					top: 0 !important;
+					right: 0 !important;
+
+					&:before {
+						display: block;
+						width: 0;
+						height: 0;
+						content: '';
+						@include caret-inline(.6rem, top, $text-color);
+						margin: -.3rem 0 0 -.6rem;
+
+						@at-root .select2-container--open.select2-container .select2-selection__arrow {
+							&:before {
+								margin-top: -.9rem;
+							}
+						}
+					}
+
+				}
+			}
+			.select2-dropdown {
+				@include select-dropdown;
+
+				// перебить select2
+				border: none !important;
+				box-shadow: 0 0.4rem 0.4rem 0 rgba(180, 181, 180, 0.4) !important;
+
+				&.select2-dropdown--above {
+					box-shadow: 0 (-0.4rem) 0.4rem 0 rgba(180, 181, 180, 0.4) !important;
+				}
+			}
+			&--default .select2-search--dropdown .select2-search__field {
+				border: none !important;
+				padding-left: $icon-size-mid !important;
+			}
+		}
+		&-results__option {
+			@include select-dropdown-li;
+			// перебить select2
+			padding: 0.7rem 1.2rem !important;
+		}
+		&-search {
+			position: relative;
+			padding: $input-padding-v $input-padding-h;
+			border-bottom: $border-line;
+
+			&:before {
+				top: 50%;
+				margin-top: -$icon-size-small/2;
+				font-size: $icon-size-small;
+				color: $gray;
+			}
+		}
+	}
+
+	.btns-switcher {
+		height: $input-height;
+
+		& > label {
+			padding: {
+				top: ($input-height - $line-height-base)/2 !important;
+				bottom: ($input-height - $line-height-base)/2 !important;
+			}
+
+			& + label:before {
+				background-size: 3.2rem 100%;
+			}
+		}
+	}
+
+	// к полю пароль
+	.a_pf-btn-mask.a_pf-btn {
+		$input-line-height: ($input-height - .8rem);
+		background: #fff;
+		height: $input-line-height !important;
+		line-height: $input-line-height !important;
+		top: .4rem !important;
+	}
+}
+
+
+// one-click & search giszkh form-horizontal
+
+$paddingbase-h: 2rem;
+$paddingbase-h-lg: 3rem;
+$paddingbase-v: 1.6rem;
+$paddingbase-v-lg: 2.4rem;
+
+%border-box {
+	box-sizing: border-box;
+}
+
+%horizontal-dt {
+	max-width: 20rem;
+	width: auto;
+	text-align: left;
+	overflow: visible;
+}
+
+$horizontal-dd: 24rem - $paddingbase-h - .3rem; // четверть ширины
+$horizontal-dd-lg: 30rem - $form-padding-lg - .3rem; // четверть ширины
+$horizontal-dd-sm: 22rem - $paddingbase-h - .3rem; // треть ширины
+
+$help-margin: $paddingbase-h + .5rem;
+$help-margin-lg: $paddingbase-h-lg + .5rem;
+
+%horizontal-dd {
+	margin-left: $horizontal-dd;
+	padding-left: .3rem;
+
+	& .btn-help {
+		z-index: 2;
+
+		&.shown {
+			z-index: 1600;
+		}
+	}
+}
+
+@media (min-width: 1200px) {
+	%horizontal-dd-lg {
+		margin-left: $horizontal-dd-lg;
+	}
+}
+@media (max-width: 767px) {
+	%horizontal-dt-xs {
+		max-width: 100%;
+
+		& > .btn-help {
+			float: right;
+		}
+	}
+	%horizontal-dd-xs {
+		margin-left: 0;
+		padding-left: 0;
+	}
+}
+
+// Размеры баннера «Мобильное приложение» в зависимости от разрешения экрана
+
+$ma-banner-height: 13rem; // min-width: 980px
+$ma-banner-height-vert: 19rem; // min-width: 640px and max-width: 979px
+$ma-banner-height-min: 11rem; // max-width: 639px

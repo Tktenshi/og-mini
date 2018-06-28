@@ -1,0 +1,328 @@
+@import "../vars&mixins";
+/* БАННЕР с гусем */
+
+.gooseBanner {
+	padding: 3rem;
+	background: $blue-darker url(data:image/gif;base64,R0lGODlhBAAEAIAAAGemxlWVuyH5BAAAAAAALAAAAAAEAAQAQAIGTIBglhoFADs=) 50% 100% repeat;
+	background-size: 0.4rem 0.4rem;
+
+	.modal-body {
+		background: none;
+		padding: 0;
+	}
+
+	&:before, &:after {
+		display: block;
+		content: '';
+		position: absolute;
+	}
+	&:before {
+		width: 26.4rem;
+		height: 14.6rem;
+		background: url(../img/popup/goose2.png) 0 0 no-repeat;
+		background-size: 26.4rem 14.6rem;
+		top: -4.8rem;
+		right: -6.9rem;
+	}
+	&:after {
+		width: 51.7rem;
+		height: 29.2rem;
+		background: url(../img/popup/goose1.png) 0 0 no-repeat;
+		background-size: 51.7rem 29.2rem;
+		bottom: -2.8rem;
+		left: -0.2rem;
+	}
+	h2, h3, .lead, a {
+		color: $text-color-invert;
+		text-shadow: 0 0.1rem 0.1rem $blue-darker;
+	}
+	h2 {
+		font-size: 4.8rem;
+		font-weight: 300;
+		line-height: 1;
+		margin: 0.8rem 0 2.2rem;
+	}
+	h3 {
+		@include font-size-larger;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		margin: 0;
+
+		small {
+			display: block;
+			font-size: 1.5rem;
+			line-height: 1.5;
+			color: $blue-invert;
+			letter-spacing: 0;
+			text-transform: none;
+		}
+	}
+	.lead {
+		font-style: normal;
+		font-size: 1.5em;
+		line-height: 1.4222;
+	}
+	p
+	.red {
+		color: $red-invert;
+		text-shadow: 0 0.1rem 0.1rem #384b5d;
+	}
+	p, sup {color: $logo-blue; margin: 0;}
+
+	p {
+		font-size: 1.3rem;
+		font-style: italic;
+
+		&.lead {
+			font-weight: 300;
+			margin: 0 0 2.8rem;
+			max-width: 68rem;
+		}
+
+		&.pull-left {
+			width: 30rem;
+			sup {
+				width: 1em;
+				margin-left: -1em;
+				font-style: normal;
+			}
+		}
+	}
+
+	sup {
+		display: inline-block;
+		vertical-align: bottom;
+		margin-bottom: 0.6em;
+		text-shadow: none;
+	}
+
+	.linksBlock {
+		margin-right: 1rem;
+		width: 46.1rem;
+		height: 27.7rem;
+		float: right;
+		text-align: center;
+		padding: 0.6rem 3rem 1.2rem;
+		box-sizing: border-box;
+		background: $blue url(../img/popup/gooseframe.png) 0.3rem 0.3rem no-repeat;
+		background-size: 45.5rem 27.1rem;
+		border-radius: 1.8rem;
+
+		h3 {margin-top: 1em;}
+
+		li, menu {
+			display: block;
+			padding: 0;
+			margin: .75em 2em;
+			line-height: 1;
+		}
+		li {
+			a {
+				position: relative;
+				display: inline-block;
+				font-weight: 400;
+				line-height: 1.15;
+				margin: 0;
+				&:before {
+					display: none;
+					content: '\E005';
+					font-size: 3.2rem;
+					margin: 0 0 0 -3.6rem;
+					position: absolute;
+				}
+
+				&:hover, &:active {
+					color: $text-color-invert;
+					&:before {
+						display: inline-block;
+						color: $blue-invert;
+					}
+				}
+			}
+		}
+	}
+	.buttons {
+		display: block;
+		float: none;
+		clear: both;
+		height: auto;
+		padding: 2rem 0 0 0;
+		border: none;
+		text-align: right;
+		font-size: 1.3rem;
+		line-height: 1.5;
+		color: $blue-invert;
+
+		label.checkbox {display: inline-block;}
+	}
+
+	&.modal {
+		.close {
+			position: static;
+			opacity: 1;
+			margin: 0 -1.5rem 0 3rem;
+			padding: 0 3.2rem 0 0;
+			text-indent: 0;
+			width: auto;
+			color: $text-color-invert;
+			height:2.2rem;
+
+			&:before {
+				display: block;
+				float: right;
+				color: $blue-invert;
+				font-size: 3.2rem;
+				margin: -0.5rem -3.8rem -0.5rem 0;
+				opacity: 0.5;
+			}
+			&:hover:before {color: $text-color-invert;opacity: 1;}
+
+			& > span {
+				display: block;
+				background: $blue;
+				border-radius: 0.2rem;
+				margin: 0 0 0;
+				height: 2.2rem;
+				font-size: 1.3rem;
+				line-height: 2rem;
+				text-transform: uppercase;
+				padding: 0 0.9rem;
+				letter-spacing: 0.05em;
+				font-family: 'Open Sans', Verdana, 'Geneva CY', 'DejaVu Sans', sans-serif;
+			}
+		}
+	}
+
+	@media (max-width: 1199px) {
+		padding: 2rem;
+
+		&:before {
+			top: -2.4rem;
+			right: -2.5rem;
+		}
+
+		h2 {font-size: 4.2rem;}
+
+		&.modal .close {
+			margin-right: 0;
+			padding-right:2.8rem;
+
+			&:before {
+				margin-right:-3.4rem;
+			}
+		}
+	}
+
+	@media (min-width: 768px) and (max-width: 979px) {
+		&:before {
+			width: 11rem;
+			height: 6rem;
+			top: -3.5rem;
+			right: -2rem;
+		}
+		&:after {
+			width: 40rem;
+			height: 22.6rem;
+			background-size: 40rem auto;
+			left: -1.4rem;
+			bottom: -1.8rem;
+		}
+
+		p.pull-left {
+			width: 19.5rem;
+		}
+		.linksBlock {
+			margin-right: 0;
+		}
+		.buttons {
+			position: absolute;
+			bottom: 1.5rem;
+			right: 2.4rem;
+
+			&:after {display: block; clear: both; content: '';}
+		}
+		&.modal {
+			.close, .buttons label.checkbox {
+				display: block;
+				float: right;
+				clear: right;
+				margin: 1rem 0 0;
+			}
+		}
+		& + .popup-open_btn {top: 3.5em;font-size: 1.25em;}
+	}
+
+	@media (max-width: 767px) {
+
+		h3 {font-size: 1em;}
+		p.lead {
+			margin: 0 0 1em;
+
+			&:after {content: '.';}
+
+			sup {display: none;}
+		}
+
+		&:after, &:before, p.pull-left {display: none !important;}
+
+		.linksBlock {
+			width: auto;
+			height: auto;
+			background: none;
+			text-align: left;
+			padding: 0;
+			margin: 0;
+			float: none;
+
+			li, menu {margin: 1em 0;}
+			li {
+				margin-left: 3.8rem;
+				a {
+					&:before {
+						display: block;
+						float: left;
+						color: $blue-invert;
+						content: '\E051';
+						font-size: 4.2rem;
+						margin: -0.25em 0 -0.25em -3.6rem;
+						position: relative;
+					}
+					&:hover:before {color: $text-color-invert;}
+				}
+			}
+		}
+
+		h3 {
+			text-transform: none;
+			letter-spacing: 0;
+
+			small {color: inherit; font-size: inherit;}
+		}
+
+
+		.buttons {
+			text-align: left;
+			margin: 0;
+			position: static;
+
+			label.checkbox {
+				margin-top: -1.1rem;
+				margin-bottom: -1.1rem;
+			}
+		}
+		&.modal {
+			.close {
+				position: absolute;
+				top: 1rem;
+				right: 1rem;
+				margin: 0;
+
+				& > span {display: none;}
+			}
+		}
+	}
+}
+
+
+
+

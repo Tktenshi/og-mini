@@ -1,0 +1,1423 @@
+﻿@import "vars&mixins";
+
+//разметка базовых линий
+//body, .nav-tabs, .tab-content:not(.nums), .focused-block, #pay-pages, #payform-search .buttons {
+//	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAUAgMAAAAxYL8yAAAACVBMVEUAAAAAAAAAAACDY+nAAAAAA3RSTlMAMxrzf1iUAAAADklEQVQI12PABA1YxBwACugAwYCJ3j0AAAAASUVORK5CYII=') !important;
+//	background-repeat: repeat;
+//	background-position: 0 0 !important;
+//	background-size: auto !important;
+//}
+//.focused-block {
+//	background-position: 0 -.6rem;
+//}
+
+#pay-pages {
+	background: $blue url(data:image/gif;base64,R0lGODlhBAAEAIAAAGemxlWVuyH5BAAAAAAALAAAAAAEAAQAQAIGTIBglhoFADs=) 50% 100% repeat;
+	background-size: 0.4rem 0.4rem;
+	box-shadow: 0 0 0 0.1rem rgba(53,134,175,0.5) inset;
+	margin: 0 -0.1rem;
+	padding: 2.1rem 0.1rem 0;
+	position: relative;
+	z-index: 1;
+	@extend %border-box;
+	min-height: 0;
+	transition: min-height .3s ease-in;
+
+	& + #content-pages {
+		.content-pages {
+			padding:{
+				top: 4rem;
+				bottom: 4rem;
+			}
+			@media (max-width: 767px) {
+				padding:{
+					top: 2rem;
+					bottom: 2rem;
+				}
+			}
+		}
+
+		.h2 {
+			color: $logo-blue;
+		}
+
+		.collapse, .collapsing {
+			.h4:first-child {
+				margin-top: 2rem;
+			}
+		}
+
+		@media (max-width: 480px) {
+			display: none;
+		}
+	}
+}
+.pay-pages {position: relative;}
+
+
+// ЗАГОЛОВОК и МЕНЮ
+$right-icons-place: 15.2rem;
+
+.pay-pages {
+	#header-zone {
+		color: $text-color-invert;
+		padding-right: $right-icons-place - .2rem; // зона под иконки справа
+
+		& > a {
+			color: $blue-invert;
+
+			&:hover, &:active{
+				color: $text-color-invert;
+			}
+		}
+
+		[class^="ic"], [class*=" ic"] {
+			@extend %text-invert-shadow;
+		}
+	}
+
+	// тень под белым шрифтом на синем фоне
+	%text-invert-shadow {
+		text-shadow: 0 .1rem .1rem $text-invert-shadow;
+	}
+
+	h1 {
+		@extend %text-invert-shadow;
+		color: inherit;
+	}
+	.hz {
+		&_tabs {
+			@extend %text-invert-shadow;
+		}
+		&_dropdown {
+			// точка в иконке раскрывающей меню
+			.dot {
+				background: $text-color-invert;
+			}
+		}
+	}
+	@media (min-width: 768px) {
+		h1 {
+			max-width: 100%;
+
+			& + .hz_dropdown {
+				margin-right: -$right-icons-place; // вынос в зону иконок справа
+				margin-left: 0;
+			}
+		}
+		.hz {
+			&_tabs {
+				& > li {
+					color: $blue-invert;
+
+					& > a {
+						background: $blue;
+						color: inherit;
+
+						&:hover, &:active {
+							background: $blue;
+							color: $text-color-invert;
+						}
+					}
+				}
+			}
+			&_dropdown {
+				.active {
+					a {
+						background: $blue-darker;
+						&:hover, &:active {
+							color: inherit;
+						}
+					}
+				}
+				.toolbar {
+					& > li {
+						& > a, .btn-icon {
+							color: $link-color-invert;
+
+							&:hover {
+								color: $link-hover-color-invert;
+							}
+
+							& > .tooltip {
+								@include tooltip-inverse-blue;
+								@include tooltip-right;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	@media (max-width: 767px) {
+		#header-zone {
+			padding-right: 3.5rem;
+			margin-top: 2rem;
+
+			[class^="ic"], [class*=" ic"] {
+				text-shadow: none;
+			}
+		}
+
+		h1 {
+			max-width: 100%;
+		}
+
+		.hz {
+			&_tabs .icon-search {
+				display: none;
+			}
+		}
+	}
+	#content-zone > p {
+		color: $text-color-invert;
+		text-shadow: 0 .1rem .1rem $text-invert-shadow;
+
+		&.lead {
+			margin-bottom: 1.9rem;
+		}
+		a {
+			color: $link-color-invert;
+
+			&:hover, &:active {
+				color: $text-color-invert;
+			}
+		}
+
+		&.search-comment {
+			font-size: 1.3rem;
+			line-height: 1.75rem;
+
+			@at-root .pay-pages #content-zone > p + p.search-comment {
+				margin-top: -($line-height-base/2);
+				margin-bottom: $line-height-base*1.5;
+			}
+		}
+	}
+}
+
+// Подсказка на результатах оплаты пошлин
+.poshliny_help-note {
+	@media (min-width: 980px) {
+		display: block;
+		position: absolute;
+		width: 21.4rem;
+		height: 7.2rem;
+		background: url(../img/poshliny_help-note.png) 0 0 no-repeat;
+		position: absolute;
+		right: 5rem;
+		color: transparent;
+		top: 50%;
+
+		@extend %poshliny_help-note-bg;
+
+		&:before {
+			display: block;
+			position: absolute;
+			width: 13.8rem;
+			height: 4.7rem;
+			background: url(../img/poshliny_help-note_arr.png) 0 0 no-repeat;
+			content: '';
+			top: -4.7rem;
+			right: -1rem;
+
+			@extend %poshliny_help-note-bg;
+		}
+		%poshliny_help-note-bg {
+			background-size: 100% auto;
+		}
+
+		&.gibdd:before {
+			transform: rotate(7deg);
+			top: -3.5rem;
+		}
+		& > span {display: none;}
+	}
+	@media (min-width: 768px) and (max-width: 979px) {
+		display: block;
+		margin-top: $line-height-base;
+		margin-right: -$right-icons-place;
+		color: $text-color-invert;
+		text-shadow: 0 .1rem .1rem $text-invert-shadow;
+		font-size: $font-size-large;
+		font-style: italic;
+
+		.icon-help {font-size: $icon-size-mid;}
+	}
+	@media (max-width: 767px) {
+		display: none;
+	}
+}
+
+// поисковые формы, ширина вкладок
+@mixin tabs($left-tab) {
+	& > li {
+		&:nth-child(1) {
+			width: $left-tab;
+		}
+		&:nth-child(2) {
+			width: calc(100% - #{$left-tab});
+		}
+	}
+}
+
+.search-tabs {
+	& + .tab-content {
+		p {
+			margin: 1em 0 0;
+
+			em {
+				font-weight: 600;
+			}
+		}
+	}
+	&.fns-tabs + .tab-content {
+		.control-group.inline {
+			display: block;
+			margin-bottom: $line-height-base;
+		}
+	}
+	@media (min-width: 980px) {
+		$left-tab: 406px;
+		@include tabs($left-tab);
+
+		&.fns-tabs {
+			$left-tab: 315px;
+			@include tabs($left-tab);
+
+			& + .tab-content {
+				.control-group.inline {
+					margin-bottom: $line-height-base*2;
+				}
+			}
+		}
+
+	}
+	@media (max-width: 979px) {
+		& + .tab-content {
+			p.muted {
+				font-size: $font-size-small;
+				line-height: $line-height-small;
+			}
+		}
+	}
+	@media (max-width: 767px) {
+		& + .tab-content + .row > .buttons {padding: 0 1.3rem;}
+	}
+
+	&.comm-tabs {
+		li > a[href="#a3"] > span:not(.tab-icon):before {
+			display: none;
+		}
+		@media (min-width: 480px) {
+			li > a[href="#giszkh"] > span:not(.tab-icon):before {
+				display: inline;
+				content: 'Оплата ';
+			}
+		}
+		& + .tab-content #giszkh {
+			p.muted {
+				padding-right: $icon-size-mid;
+			}
+		}
+	}
+}
+
+// ЗОНА КОНТЕНТА - ОФОРМЛЕНИЕ СИНИХ СТРАНИЦ
+// аккордионы (мультиплатеж + базовое оформление)
+// заголовок раскрытого блока
+.accordion {
+	&-toggle {
+		background-color: $light-base;
+		color: $blue; // синим по белому
+
+		&:not(.collapsed) { // все состояния, в т.ч. hover и focus
+			background: $light-base !important;
+
+			*:not(.success):not(.error) & {
+				color:$blue;
+			}
+		}
+
+		// заголовок свернутого блока
+		&.collapsed {
+			background-color: $blue;
+			color: $light-base;
+			text-shadow: 0 .1rem .1rem $text-invert-shadow; // белым по синему с тенью
+
+			.muted {
+				color: $blue-invert;
+				font-weight: 400;
+			}
+			small {
+				color: $light-base !important;
+
+				&.red {color: $blue-invert !important;}
+			}
+
+			@at-root .collapsed dl.summ {
+				dt {color: $blue-invert;} // голубой циан (показывается на бобильной версии)
+ 				dd {color: $light-base;} // сумма белым
+ 			}
+		}
+
+		&:hover {
+			background-color: $blue-darker; // при наведении синий темнеет
+			color: $light-base;
+		}
+
+		.h4:before { // положение икноки "рядом с заголовком (для статусов)"
+			display: block;
+			position: absolute;
+			left: 2.25rem;
+			font-size: 3.15rem;
+			margin-left: -0.5em;
+			top: 0.3em;
+
+			@media (min-width: 1200px) {
+				&, .pay-pages .discount & {
+					left: 3.5rem;
+					font-size: 4.2rem;
+				}
+			}
+			@media (max-width: 767px) {
+				font-size: 2.4rem;
+				position: static;
+				float: left;
+				margin: -0.2rem 0.1em 0em -0.1em;
+			}
+		}
+
+		@media (min-width: 768px) {
+			&:before {
+				.success &,
+				.inprocess &,
+				.pay-pages .discount & {
+					display: none;
+				}
+			}
+		}
+	}
+
+	&-body {
+		@media (min-width: 980px) {
+			& > form,
+			& > .noform,
+			& > .note-info,
+			& > .buttons:last-child {
+				padding: {
+					left: $form-padding-h;
+					right: $form-padding-h;
+				}
+				margin: {
+					left: -$form-padding-h;
+					right: -$form-padding-h;
+				}
+
+				@media (min-width: 1200px) {
+					padding: {
+						left: 6rem;
+						right: 6rem;
+					}
+					margin:{
+						left: -6rem;
+						right: -6rem;
+					}
+				}
+				@media (max-width: 767px) {
+					margin:{
+						left: -1.5rem;
+						right: -1.5rem;
+					}
+					padding: 1.5rem 1.5rem .1rem !important;
+				}
+			}
+		}
+	}
+}
+
+// Скидка на оплату
+.discount {
+	.pay-pages & {
+		.collapsed {
+			dl.summ:not(.discount-summ) {
+				$striked-color: transparentize($blue-invert, .35);
+
+				dd {color: $striked-color;}
+				dd:before {background: $striked-color;}
+			}
+		}
+		.accordion-toggle:not(.collapsed) {
+			dl.summ:not(.discount-summ) {
+				dd { color: transparentize($text-color, .75);}
+			}
+		}
+		&.success .accordion-toggle ,
+		&.error .accordion-toggle:not(.collapsed),
+		&.inprocess .accordion-toggle {
+			.h4 {
+				&:after {
+					content: '' !important;
+				}
+			}
+		}
+	}
+
+	.pay-pages .collapsed &-info {
+		color: $blue-invert;
+		& > strong {color: $light-base;}
+	}
+}
+
+// helper комиссии
+.helper-block > ul > li > .lead.noted {position: relative; display: inline-block; margin-bottom: 0; font-size: 1.875rem}
+
+.com-fssp-note {
+	display: block;
+	position: absolute;
+	width: 6.1rem;
+	height: 3.9rem;
+	background: url(../img/com-fssp-note.png) 0 0 no-repeat;
+	background-size: 100% auto;
+	margin: -0.6rem -1rem;
+
+	@extend %clearfix;
+
+	&:after {
+		display: block;
+		position: absolute;
+
+		@media (min-width: 768px) {
+			width: 10.3rem;
+			height: 2.5rem;
+			background: url(../img/com-fssp-note_t2.png) 0 0 no-repeat;
+			background-size: 100% auto;
+			left: 5rem;
+			top: -1rem;
+		}
+		@media (min-width: 980px) and (max-width: 1199px) {
+			width: 7.7rem;
+			height: 3.7rem;
+			background: url(../img/com-fssp-note_t1.png) 0 0 no-repeat;
+			background-size: 100% auto;
+			left: 0.5rem;
+			top: -3rem;
+		}
+	}
+}
+
+// ПОИСК НАЧИСЛЕНИЙ
+#payform-search {
+	background: $form-bg;
+
+	.formfields p.lead {
+		margin-bottom: $line-height-base;
+	}
+
+	.search-tabs ~ .buttons {
+		// из %form-padding-base
+		padding: $line-height-base $form-padding-h;
+		margin: -.2rem 0 0;
+	}
+
+	@media (min-width: 1200px) {
+		.search-tabs ~ .buttons {
+			padding: ($line-height-base + .2rem) $form-padding-lg $line-height-base*2;
+		}
+		& > .tab-content:last-child {
+			padding-bottom: $line-height-base*2;
+		}
+	}
+	@media (max-width: 979px) {
+		& > .buttons {
+			padding: {
+				left: $form-padding-sm;
+				right: $form-padding-sm;
+			}
+		}
+	}
+
+	@media (max-width: 767px) {
+		& > .buttons {
+			padding: {
+				left: $form-padding-xs;
+				right: $form-padding-xs;
+			}
+		}
+		.buttons {
+			.btn.btn-link,
+			a.lead {
+				font-size: 1em;
+			}
+		}
+	}
+	.buttons {
+		@media (max-width: 629px) {
+			.btn + .btn.btn-link {
+				margin-bottom: -0.8rem;
+			}
+			a.lead {
+				float: none;
+				margin-top: 2.1rem;
+				margin-left: 0;
+			}
+			@media (min-width: 481px) {
+				.btn.btn-link {
+					float: none;
+					margin-top: .9rem;
+					margin-left: -1.4rem;
+				}
+			}
+		}
+		@media (max-width: 480px) {
+			.btn.btn-link .icon-edit {
+				display: none;
+			}
+			a.lead {
+				text-align: center;
+			}
+		}
+	}
+}
+
+// Поиск по документам - документы в ряд
+#allDocs {
+	%cg-cols {
+		display: block;
+		float: left;
+		padding-right: 3.5rem;
+		margin: 2.1rem 0 -.3rem;
+		@extend %clearfix;
+	}
+
+	.cols-2 {
+		.control-group {
+			@extend %cg-cols;
+			width: ($inp-lg - 3.5rem)/2;
+
+			@media (min-width: 426px) {
+				&:nth-of-type(1),
+				&:nth-of-type(2) {
+					margin-top: 0;
+				}
+			}
+		}
+	}
+	.cols-3 {
+		.control-group {
+			@extend %cg-cols;
+
+			$formfields-col-3: #{33%} - 3.5rem*2/3;
+			@include calc(width, $formfields-col-3);
+
+			&:last-child {
+				margin-right: -3.5rem;
+			}
+			@media (min-width: 426px) {
+				&:nth-of-type(1),
+				&:nth-of-type(2),
+				&:nth-of-type(3) {
+					margin-top: 0;
+				}
+			}
+
+			@media (min-width: 980px) and (max-width: 1199px) {
+				$formfields-col-3: #{100%/3} - 2rem*2/3;
+				@include calc(width, $formfields-col-3);
+				padding-right: 2rem;
+			}
+			@media (min-width: 640px) and (max-width: 979px) {
+				$formfields-col-3: #{100%/3} - 2.5rem*2/3;
+				@include calc(width, $formfields-col-3);
+				padding-right: 2.5rem;
+			}
+		}
+	}
+
+	[class^="cols-"], [class*=" cols-"] {
+		.controls,
+		.input-prepend,
+		input[type="text"] {
+			width: 100%;
+		}
+		label {
+			display: block;
+		}
+
+	}
+	label {
+		.visible-phone-min {
+			display: inline;
+		}
+	}
+
+	@media (max-width: 639px) {
+		.control-group {
+			padding: 0 !important;
+
+			&:nth-of-type(2n) {
+				margin-left: 3rem;
+			}
+			label {
+				font-weight: 600;
+			}
+		}
+		@media (min-width: 426px) {
+			.cols-2, .cols-3 {
+				.control-group {
+					$formfields-col-sm: #{50%} - 3rem/2;
+					@include calc(width, $formfields-col-sm);
+				}
+			}
+			.cols-3 .control-group:nth-of-type(3) {
+				margin-top: $line-height-base;
+			}
+		}
+	}
+	@media (max-width: 425px) {
+		.control-group {
+			width: 100% !important;
+
+
+			& + .control-group {
+				margin-left: 0;
+			}
+		}
+		.cols-2, .cols-3 {
+			.control-group:first-of-type {
+				margin-top: 0;
+			}
+		}
+	}
+}
+
+// По постановлению
+#docId {
+	.nums-gibdd {
+		#numOld {
+			@media (max-width: 639px) {
+				@media (min-width: 426px) {
+					.control-group.inline {
+						display: block;
+						float: left;
+						$cg-width: #{50%} - 2rem/2;
+						@include calc(width, $cg-width);
+						padding-left: 2.4rem;
+						box-sizing: border-box;
+
+						& + .control-group.inline {
+							margin-left: 2rem;
+						}
+
+						label {
+							float: left;
+							margin-left: -2.4rem;
+						}
+
+						.controls, .date {
+							display: block;
+						}
+					}
+					input.masked_date, .input-sm {
+						width: 100%;
+					}
+				}
+
+				@at-root .fns-tabs ~ .tab-content {
+					.control-group.inline {
+						label {
+							display: block;
+							font-size: $font-size;
+							font-weight: 600;
+							margin-bottom: 0.5rem;
+							padding-top: 0;
+						}
+					}
+				}
+			}
+		}
+		#numNew {
+			@media (max-width: 480px) {
+				.control-group.inline {
+					display: block;
+					padding-left: 2.4rem;
+					box-sizing: border-box;
+
+					label {
+						float: left;
+						margin-left: -2.4rem;
+					}
+
+					.controls, .date {
+						display: block;
+					}
+				}
+			}
+		}
+	}
+
+	.nums-fssp {
+		#numNew {
+			.add-on {
+				width: 4.4rem !important;
+			}
+			.input-prepend input {
+				padding-right: 4.4rem + .6rem;
+			}
+		}
+		.control-group.inline {
+			padding: 0;
+		}
+		@media (min-width: 480px) and (max-width: 525px) {
+			.ipnum .controls {
+				display: block;
+				padding-right: 12.4rem;
+
+				.input-mid {
+					width: 100%;
+				}
+				.btns-switcher {
+					position: absolute;
+					right: 0;
+					top: 0;
+				}
+			}
+		}
+		@media (max-width: 480px) {
+			.control-group.inline {
+				&, .controls {
+					display: block;
+				}
+			}
+			.ipnum .help-block {
+				margin-top: 1.2rem !important;
+			}
+		}
+		@media (max-width: 359px) {
+			.ipnum .help-block {
+				margin-top: $btn-height-small + $vgrid*2.5 !important;
+			}
+		}
+	}
+}
+
+#giszkh {
+	& > .gisOnlyHeader {
+		@extend %make-large-header;
+	}
+	@at-root .tab-content {
+		.form-horizontal {
+			.control-group {
+				margin: $vgrid*1.5 0;
+			}
+			.control-label {
+				@extend %horizontal-dt;
+				padding-top: $vgrid;
+				height: $line-height-base;
+				white-space: nowrap;
+			}
+			.controls {
+				@extend %horizontal-dd;
+			}
+			.help-block {
+				@extend %horizontal-dd;
+			}
+		}
+	}
+	.form-horizontal {
+		margin-top: $line-height-base - $vgrid + .2rem !important;
+
+		.span4.helpers {
+			margin-top: 2.1rem;
+		}
+	}
+	.control-group:not(.fio) {
+		.help-block {
+			strong {
+				letter-spacing: .1em;
+				font-weight: 600;
+			}
+		}
+	}
+	@media (min-width: 1200px) {
+		& > .gisOnlyHeader {
+			margin-top: -.3rem !important;
+			margin-bottom: $line-height-base*1.5 !important;
+		}
+		.control-group:not(.fio) {
+			.help-block {
+				display: block;
+				position: absolute;
+				top: 0;
+				width: 16.5rem;
+				left: $inp-sm + $horizontal-dd-lg + $help-margin;
+				margin: .2rem 0;
+			}
+		}
+	}
+	@media (min-width: 980px) {
+		@media (max-width: 1199px) {
+			& > .gisOnlyHeader {
+				margin-top: 0 !important;
+			}
+			.input-sm {
+				width: 100%;
+			}
+		}
+	}
+	@media (min-width: 768px) and (max-width: 979px) {
+		.control-group:not(.fio) {
+			.help-block {
+				display: block;
+				position: absolute;
+				top: 0;
+				width: 16.5rem;
+				left: $inp-sm + $horizontal-dd-lg + $help-margin;
+				margin: .2rem 0;
+			}
+		}
+		& > .row:first-child {
+			.helpers {
+				margin-top: -.2rem;
+			}
+		}
+		.form-horizontal {
+			.helpers:nth-child(2) {
+				margin-top: -.2rem;
+				margin-bottom: $line-height-base;
+				padding-top: $vgrid;
+			}
+		}
+	}
+
+	@media (max-width: 767px) {
+		.control-group.els {
+			margin-top: 0;
+		}
+	}
+
+	@media (max-width: 639px) {
+		.control-label {
+			float: none;
+			width: auto;
+			margin-bottom: $vgrid;
+		}
+		.controls, .fio .help-block {
+			margin-left: 0;
+			padding: 0;
+		}
+		.control-group:not(.fio) {
+			@media (min-width: 426px) {
+				.controls {
+					float: left;
+				}
+				.help-block {
+					max-width: 16.5rem;
+				}
+			}
+		}
+	}
+	@media (max-width: 425px) {
+		.control-group:not(.fio) .help-block {
+			margin-left: 0;
+			padding: 0;
+
+			strong {
+				letter-spacing: 0;
+				font-weight: 400;
+			}
+		}
+		.form-horizontal {
+			.span4.helpers {
+				margin-top: 1.6rem;
+			}
+		}
+	}
+}
+
+// Блок сохранить документы
+.savedocs {
+	margin-top: $line-height-base*2;
+
+	.panel & {
+		margin-top: 0;
+	}
+
+	@at-root %savedocs-label {
+		position: relative;
+		font-size: $font-size-large;
+		line-height: $line-height-base;
+		margin: -.1rem 0 0;
+		@media (max-width: 480px){
+			font-size: $font-size;
+			font-weight: 600;
+		}
+
+		.btn-icon {
+			margin: -.4rem 0 -.8rem !important;
+		}
+
+		.btn-help {
+			background: none;
+		}
+	}
+
+	label,
+	.label {
+		&:not(.control-label) {
+			@extend %savedocs-label;
+
+			& + .controls {
+				@extend %label-bmargin;
+			}
+		}
+		&.control-label {
+			@extend %border-box;
+			hyphens: auto;
+
+			@media (min-width: 768px) {
+				max-width: 21rem !important;
+			}
+		}
+	}
+
+	@at-root label.savedocs {
+		@extend %savedocs-label;
+	}
+
+
+	@at-root %label-bmargin {
+		margin-top: 1.8rem;
+
+		@media (max-width: 767px) {
+			margin-top: 1rem;
+		}
+	}
+
+	& .checkbox.lead {
+		font-weight: 300 !important;
+		margin: 0;
+
+		& + .control-group {
+			@extend %label-bmargin;
+		}
+	}
+	& .checkbox--outer.lead {
+		padding-left: 0;
+		.checkbox {
+			font-weight: 300 !important;
+			@media (min-width: 768px) {
+				display: inline-block;
+			}
+		}
+		.btn {
+			vertical-align: top;
+		}
+	}
+
+	&-tltp {
+		&.shown {
+			z-index: 1080;
+		}
+
+		& + .tooltip {
+			@media (min-width: 370px) {
+				.tooltip-inner {
+					min-width: 28rem;
+				}
+			}
+		}
+		.control-label.checkbox & {
+			background: transparent;
+		}
+	}
+	.modal.alert-wait & {
+		margin: 3.6rem 0 4.6rem;
+
+		@at-root & label, .modal.alert-wait label.savedocs {
+			display: block;
+			padding-right: $btn-height-small;
+			@media (max-width: 767px) {
+				padding-left: $btn-height-small;
+			}
+		}
+		.input-lg {
+			width: 100%;
+		}
+
+		& ~ .buttons {
+			.btn-close--visible {
+				display: inline-block !important;
+			}
+		}
+
+		&-tltp {
+			position: absolute;
+			right: 0;
+			top: 0;
+			color: $link-color-invert;
+
+			& + .tooltip {
+				@media (min-width: 768px) {
+					// top: 100% !important;
+					left: auto !important;
+					right: 0;
+					// margin-left: -14.8rem - $btn-height-small/2;
+					// margin-top: -0.8rem;
+					padding: $vgrid 0;
+
+					.tooltip-arrow {
+						top: 0 !important;
+						left: auto !important;
+						right: $btn-height-small/2 - $vgrid;
+						border: $vgrid solid transparent;
+						border-bottom-color: #ffffff;
+						border-top: 0;
+						margin: 0 0 0 -$vgrid;
+					}
+				}
+			}
+		}
+		@media (max-width: 767px) {
+			@at-root .modal.alert-wait label.savedocs {
+				padding-left: 0;
+				&:before {
+					display: inline-block;
+					float: none;
+					position: static;
+					margin-right: 1rem;
+				}
+			}
+			&-tltp {
+				// top: .7rem;
+				top: calc(50% - 1.2rem);
+
+				& + .tooltip {
+					left: auto !important;
+					right: $btn-height-small !important;
+
+					.tooltip-arrow {
+						border-left: $vgrid solid #ffffff;
+						border-right: none;
+						left: auto !important;
+						right: 0 !important;
+					}
+				}
+			}
+		}
+	}
+	@media (max-width: 767px) {
+		margin-top: $line-height-base;
+
+		.new-inputs & .input-lg {
+			width: 100%;
+		}
+		& .checkbox.lead,
+		& .checkbox--outer.lead {
+			margin: 0 0 -0.8rem;
+			font-size: $font-size;
+			padding-right: $btn-height-small;
+			font-weight: 400 !important;
+
+			&.checked {
+				font-weight: 600 !important;
+			}
+
+			.btn-icon {
+				display: block;
+				position: absolute;
+				right: 0;
+				top: 0;
+				margin: .3rem -.7rem 0 0 !important;
+			}
+		}
+		& .checkbox--outer.lead {
+			.checkbox {
+				font-size: $font-size;
+				font-weight: 400 !important;
+				&.checked {
+					font-weight: 600 !important;
+				}
+			}
+		}
+
+	}
+}
+
+// UFMS SEARCH //
+%make-large-header {
+	font-size: 28.0005px;
+	line-height: 2.8rem;
+	font-weight: 300;
+	margin: 0 0 2.1rem;
+
+	@media (min-width: 1200px) {
+		margin-top: 1.7rem;
+	}
+	@media (max-width: 767px) {
+		font-size: 18.75px;
+		line-height: 2.1rem;
+		font-weight: 600;
+	}
+}
+%simple-search-form {
+	@media(min-width: 1200px) {
+		padding-bottom: 4.2rem;
+
+		.helpers {
+			margin-top: $line-height-base + .4rem;
+		}
+	}
+}
+
+.ufms-search {
+	@extend %simple-search-form;
+	#content-zone & .search-form p.lead:first-of-type {
+		@extend %make-large-header;
+		max-width: 50rem;
+
+		& + .control-group {
+			margin-top: 1em;
+		}
+	}
+	@media (max-width: 425px) {
+		.control-group .controls ~ .btn:not(.btn-link):not(.btn-icon):not(.btn-help) {
+			margin: {
+				left: 0;
+				top: $line-height-base;
+			}
+			width: 100%;
+
+		}
+	}
+}
+
+.uin-search {
+	@extend %simple-search-form;
+
+	.helper-block{
+		&:before {
+			display: none;
+		}
+		& > h5, & > ul, & > p {
+			font-size: inherit;
+			font-style: normal;
+			line-height: inherit;
+			color: $text-color;
+			margin: $line-height-base 0;
+		}
+
+		h5 {
+			margin-top: 0;
+		}
+
+		@media (max-width: 767px) {
+			&:first-child h5 {
+				margin-top: 0;
+			}
+		}
+
+		ul.iconed {
+			& > li {
+				& + li {
+					margin-top: $vgrid*4;
+				}
+				a {
+					text-decoration: none;
+				}
+
+				@media (min-width: 768px) and (max-width: 979px) {
+					display: inline-block;
+					margin-top: 0;
+
+					& + li {
+						margin: {
+							top: 0;
+							left: 4.5rem + 3rem;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	label.lead {
+		@extend %make-large-header;
+	}
+
+}
+
+.rr-search {
+	@extend %simple-search-form;
+
+	label.lead {
+		@extend %make-large-header;
+	}
+}
+
+// баннер без комиссии //
+.commFree {
+	display: block;
+	position: absolute;
+	z-index: 100;
+	@extend %border-box;
+	width: 26.2rem;
+	height: 14rem;
+	background: url(../img/bannerfree-bg.png) 0 0 no-repeat;
+	background-size: 26.2rem 14rem;
+	font: 400 #{$font-size-large}/#{$line-height-base} 'Open Sans', Verdana, 'Geneva CY', 'DejaVu Sans', sans-serif;
+	color: $light-base;
+	text-align: center;
+
+	hyphens: none;
+
+	padding: 3rem 1rem 0 1rem;
+	right: 2.5rem;
+	top: -8.5rem;
+
+	text-shadow: 0.1rem 0.1rem 0 #6cb0aa;
+
+	& > div {
+		line-height: $line-height-base;
+
+		& + div {margin-top: 1.5rem;}
+	}
+	a {
+		color: $light-base;
+
+		&:hover, &:active {
+			text-decoration: none;
+		}
+	}
+	sup {
+		display: inline-block;
+		color: #5d8f7c;
+		font-size: 1.2rem;
+		margin-top: 0.8rem;
+		vertical-align: top;
+	}
+	small {
+		display: block;
+		color: #5d8f7c;
+		font-weight: 400;
+		font-size: 1.2rem;
+		line-height: 1.7rem;
+	}
+	#content-zone & {
+		@media (min-width: 1200px) {
+			right: 25rem;
+		}
+		@media (max-width: 979px) {
+			position: relative;
+			top: auto;
+			right: auto;
+			width: auto;
+			height: auto;
+			margin: 0 0 2rem 0;
+			background: #9cd9c2;
+			border-radius: 0.6rem;
+			text-align: left;
+			padding: 1.5rem 2rem;
+
+			& > div {
+				display: inline;
+				margin: 0;
+			}
+			small {
+				display: block;
+				max-width: none;
+				margin: 0;
+			}
+		}
+		@media (min-width: 768px) {
+			.bigText {
+				display: inline-block;
+				font-size: 3.2rem;
+				line-height: 2rem;
+				margin-top: -1rem;
+			}
+		}
+	}
+}
+
+// .summ-details - "Детализация суммы" is used on Paymethods page and A3 Payment-info template/ Also may be used on One-Click-Pay page
+.summ-details {
+	display: block;
+	margin: 0 0 1.5em;
+	height: auto;
+	max-width: 49.5rem;
+	@extend %clearfix;
+
+	.formfields & {
+		max-width: 100%;
+	}
+
+	dt {
+		display: block;
+		clear: both;
+		float: left;
+		overflow: visible;
+		white-space: normal;
+		width: 75%;
+		max-width: 75%;
+		text-align: left;
+		line-height: 1.5;
+		padding: 1rem 0 0.2rem;
+
+		& > .discount-info {
+			display: block;
+			font-weight: 300;
+			color: inherit;
+			font-size: inherit;
+		}
+
+		&:first-child {
+			& , & + dd {padding-top: 0;}
+		}
+	}
+
+	.psevdo-lnk {
+		color: inherit;
+		border-bottom-color: $text-color;
+
+		&:hover {opacity: 0.75;}
+	}
+
+	dd {
+		display: block;
+		float: none;
+		width: 25%;
+		margin: 0;
+		text-align: right;
+		font-weight: 600;
+		font-size: 1.25em;
+		line-height: 1.2;
+		padding: 1rem 0 0.2rem 75%;
+		border-bottom: $border-dotted;
+		@extend %clearfix;
+	}
+
+	@media (min-width: 1200px) {
+		max-width: 60rem;
+	}
+	@media (max-width: 979px) {
+		max-width: 100%;
+		dd {margin-right: 0;}
+	}
+	@media (max-width: 767px) {
+		font-size: 0.8em;
+		dt + dd {margin-bottom: 0.5rem;}
+		dt { width: 60%; }
+		dd { width: 40%; padding-left: 60%; }
+	}
+}
+
+// информация о комиссиях - for paymethods & one-click pages
+.pm-comission {
+	color: inherit;
+	font: inherit;
+	margin-top: .8rem;
+
+	strong {color: $blue;}
+}

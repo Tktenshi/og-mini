@@ -1,0 +1,723 @@
+﻿// @import "vars&mixins";
+
+// все текстовые поля ввода включая фальш-инпуты и текстарии
+%text-inputs_inderline {
+	border-style: solid;
+	-webkit-appearance: none;
+
+	background: transparent;
+	border-color: $inp-border-color;
+
+	text-align: left;
+	margin-bottom: 0;
+	font-family: $font-monospace;
+	box-sizing: border-box;
+	color: inherit;
+	max-width: 100%;
+
+	&[disabled], &[readonly] {
+		background: none;
+		cursor: default;
+	}
+
+	.modal &, .login-block & {
+		border-color: $inp-border-color_white-bg;
+	}
+
+	.focused-block & {
+		border-color: mix($focused-block-bg, $text-color, 80%);
+	}
+	&:focus {
+		border-color: $inp-border-color_focus !important;
+	}
+	.control-group.error & {
+		@extend %error-inputs;
+	}
+}
+// ошибка
+%error-inputs {
+	border-color: $inp-border-color_error !important;
+}
+:invalid {
+	box-shadow: none;
+}
+// строчные инпуты, включая фальш-инпуты (применяется совместно с %text-inputs_inderline)
+%string-inputs {
+	@extend %text-inputs_inderline;
+
+	display: inline-block;
+	border-width: 0 0 2px 0;
+
+	font-size: $font-size-large;
+	border-radius: 0;
+	padding: 0 .2rem;
+	height: $input-line-height + .2rem;
+	vertical-align: top;
+
+	&[disabled] {
+		border-bottom-color: transparentize($text-color, .95);
+	}
+}
+%inputsTextAfter {
+	display: inline-block;
+
+	padding: .5rem 0 0;
+	border: none;
+	font-size: $font-size;
+	height: $input-line-height;
+	box-sizing: border-box;
+	vertical-align: top;
+
+	.safari & {
+		padding-top: .3rem;
+	}
+}
+
+// суффиксы
+@at-root .suffix {
+	@extend %inputsTextAfter;
+	position: relative;
+
+	& > .units {
+		display: block;
+		margin: 0 0 0 .2em;
+		padding: 0;
+		vertical-align: top;
+	}
+
+}
+input, textarea {
+	&, &[disabled], &[readonly] {
+		@extend %placeholder;
+	}
+}
+
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="email"],
+input[type="tel"] {
+	@extend %string-inputs;
+}
+.input-prepend {
+	display: inline-block;
+	vertical-align: top;
+}
+
+textarea {
+	@extend %text-inputs_inderline;
+
+	display: block;
+	border-radius: .2rem;
+	padding: .6rem .7rem;
+	resize: none;
+	margin: -.2rem 0 0;
+	border-width: .2rem;
+
+	font-size: $font-size-large;
+	line-height: 2.1rem;
+	font-family: $font-base; // ???
+
+	min-height: 2.8rem*2 + 1rem + .4rem; // две строки + паддинги (2) + границы (2)
+
+	@include placeholder-font(inherit);
+
+	@at-root .text-adaptive {
+		$input-line-height: 2.1rem;
+		@extend %string-inputs;
+		@include font-size-large;
+		min-height: 3rem + .2rem;
+		padding-top: .89rem;
+		transition: height $transition-speed $transition-type;
+
+		&-div {
+			display: block;
+			position: absolute;
+			word-wrap: break-word;
+			@include font-size-large;
+			font-family: $font-monospace;
+			padding: #{$input-line-height*.13 + .2rem} .2rem 0;
+			visibility: hidden;
+			white-space: pre-wrap;
+			z-index: -1;
+		}
+	}
+
+	&.no-scroll {
+		overflow: hidden;
+	}
+
+	&[disabled] {
+		border-color: transparent;
+	}
+}
+
+// подсветка автозаполнения в хроме
+// input:-webkit-autofill,
+// textarea:-webkit-autofill,
+// select:-webkit-autofill {
+// 	&,	.error & {
+// 		-webkit-box-shadow: inset 0 0 0 5rem $form-bg !important; // цвет фона формы
+
+// 		.modal &, .login-block & {
+// 			-webkit-box-shadow: inset 0 0 0 5rem $light-base !important; // цвет фона форм в модальных окнах
+// 		}
+// 	}
+// }
+
+// фальш-инпут
+.uneditable-input {
+	@extend %string-inputs;
+	width: auto;
+	max-width: 100%;
+	font-size: $font-size-large;
+	font-family: $font-base;
+	padding-top: .3rem;
+
+	& + .help-inline {
+		padding-top: $vgrid;
+		vertical-align: top;
+	}
+
+	@extend %string-inputs[disabled];
+}
+
+// Поле ФАЙЛ
+input[type="file"] {
+	display: block;
+	line-height: 3rem;
+	height: auto;
+	padding: 0.3rem 0.6rem;
+	background: rgba(147, 151, 147, 0.25) !important;
+	border-radius: 0.2rem;
+	border: none !important;
+	width: 100%;
+	margin: 0.2rem 0;
+	color: #2b2b2b !important;
+	box-sizing: border-box;
+
+	.controls & ~ .close { /* кнопка удаления для поля файл */
+		position: absolute;
+		top: -0.2rem;
+		right: 0;
+	}
+}
+
+// инпуты ограниченные по ширине
+$font-size-inp: $font-size-larger;
+$simbol-em: .605;
+$simbol-width: $font-size-inp*$simbol-em; // ширина символа
+$inp-reserve: 1px;
+
+[class^="inp-"],[class*=" inp-"] {
+	@media (min-width: 426px) {
+		font-size: $font-size-inp !important;
+	}
+
+	// убрать кнопку очистки в ИЕ
+	&::-ms-clear {
+		display: none;
+		width: 0;
+		height: 0;
+	}
+
+	&.uneditable-input {
+		font-family: $font-monospace;
+	}
+
+	// Инпуты на определенное количество символов
+	%uppercase {
+		text-transform: uppercase;
+	}
+	@for $i from 1 through 9 {
+		@at-root .inp-#{$i} {
+			@extend %uppercase;
+		}
+	}
+	@for $i from 1 through 30 {
+		@at-root .inp-#{$i} {
+			width: $simbol-width * $i + .4*$rem + $inp-reserve; // количество символов + ширина прозрачной границы
+		}
+	}
+
+	@at-root .input-prepend {
+		position: relative;
+
+		.masked_ip2 {
+			width: $simbol-width*(16 + 3) + .4*$rem + $inp-reserve;
+			padding-right: $simbol-width*3 + 2px;
+
+			& + .suffix {
+				width: $simbol-width*3;
+				position: absolute;
+				right: .2rem;
+				top: .1rem;
+				font-family: $font-monospace;
+				text-shadow: none;
+				color: $text-color;
+			}
+		}
+	}
+
+	@media (max-width: 425px) {
+		$font-size-inp: $font-size-large;
+
+		font-size: $font-size-inp !important;
+		width: 100%;
+
+		@at-root .masked_ip2 {
+			.input-prepend & {
+				width: 100%;
+			}
+			& + .suffix {
+				position: absolute;
+				right: 0;
+				padding-top: .5rem;
+				top: .2rem;
+			}
+		}
+	}
+
+	// суффиксы
+	@at-root & + .suffix, .input-prepend.mobnum .add-on {
+		@media (min-width: 426px) {
+			font-size: $font-size-inp - .5px;
+		}
+	}
+
+	// поле "календарь" - ввод даты из календаря
+	@at-root .date {
+		position: relative;
+		display: inline-block;
+
+		input.masked_date {
+			@extend [class^="inp-"];
+			width: $simbol-width*10 + $rem*3.15 + .2*$rem + $inp-reserve;
+			padding-right: 3.15rem;
+			text-transform: none;
+
+			.new-inputs & {
+				font-size: $font-size !important;
+				width: $inp-sm;
+			}
+
+			&.justify {
+				width: 100%;
+			}
+
+			& + .add-on {
+				display: block;
+				position: absolute;
+				right: 0;
+				top: 0;
+				margin: (3.2rem - $icon-size-mid) 0 0 0;
+				color: $blue;
+
+				#vitrina & {
+					color: $light-base;
+				}
+
+				&:hover {
+					cursor: pointer;
+				}
+				.icon-calendar {
+					font-size: $icon-size-mid;
+				}
+			}
+
+			&[disabled] {
+					padding-right: 0;
+					width: $simbol-width*10 + .4*$rem + $inp-reserve;
+
+					& + .add-on {
+						display: none;
+					}
+			}
+		}
+	}
+	@at-root input.captcha-inp {
+		@extend [class^="inp-"];
+		padding: 3rem*.13 .7rem;  // $input-line-height*.13
+		height: 3rem*1.26 + .4rem; // paddings + $input-line-height + borders
+		min-width: $simbol-width*6 + 1.4*$rem + .4*$rem + $inp-reserve !important; // 6 символов + paddings + borders
+		border-width: .2rem;
+
+		&[disabled] {
+			border-color: transparent;
+		}
+	}
+}
+@media (max-width: 425px) {
+	$font-size-inp: $font-size-large;
+	$simbol-width: $font-size-inp*$simbol-em; // ширина символа
+
+	.date input.masked_date {
+		width: $simbol-width*10 + $rem*3.15 + .2*$rem + $inp-reserve;
+
+		&[disabled] {
+				width: $simbol-width*10 + .4*$rem + $inp-reserve;
+		}
+	}
+	input.captcha-inp {
+		min-width: $simbol-width*6 + 1.4*$rem + .4*$rem + $inp-reserve !important; // 6 символов + paddings + borders
+	}
+}
+
+// растягивать по ширине на малых разрешениях
+@media (max-width: 425px) {
+	%justify425 {
+		display: block !important;
+		width: 100%;
+	}
+	@for $i from 10 through 25 {
+		@at-root .inp-#{$i} {
+			@extend %justify425;
+		}
+	}
+}
+@media (max-width: 460px) { .inp-26 {display: block !important; width: 100%;} }
+@media (max-width: 475px) { .inp-27 {display: block !important; width: 100%;} }
+@media (max-width: 490px) { .inp-28 {display: block !important; width: 100%;} }
+@media (max-width: 505px) { .inp-29 {display: block !important; width: 100%;} }
+@media (max-width: 520px) { .inp-30 {display: block !important; width: 100%;} }
+
+// инпуты 100% ширины*.justify {width: 100%;}
+input[type="file"].justify{
+	height: auto;
+}
+input[type="file"].justify,
+select.justify{
+	width: 100%;
+	box-sizing: border-box;
+}
+
+// маскированные инпуты
+@mixin masked_border($border-image, $border-sizes, $border-type, $border-image_focused) {
+	border-image: $border-image $border-sizes $border-type;
+
+	&:focus, &:active {
+		$border-image: $border-image_focused;
+		border-image: $border-image $border-sizes $border-type;
+	}
+}
+
+input.masked {
+
+	body:not(.new-inputs) &_summ {
+		&_l1 + .suffix .units,
+		&_l2 ~ .suffix .units {
+			display: block;
+			margin-top: -.2rem;
+
+			@media (max-width: 629px) {
+				margin-top: -.1rem;
+			}
+			@media (max-width: 425px) {
+				margin-top: 0;
+			}
+		}
+		&_l2 {
+			width: $simbol-width*2 + .4*$rem + $inp-reserve;
+
+			@media (max-width: 425px) {
+				$font-size-inp: $font-size-large;
+				$simbol-width: $font-size-inp*0.65; // ширина символа
+				width: $simbol-width*2 + .2*$rem + $inp-reserve;
+			}
+		}
+		&_l1 {
+			@media (max-width: 425px) {
+				width: calc(#{100%} - #{4.8rem});
+			}
+		}
+	}
+	// Мобильный телефон
+	&_phone {
+		padding-left: $simbol-width*3 + 2px;
+
+		@at-root .input-prepend.mobnum{
+			position: relative;
+
+			.add-on {
+				display: block;
+				position: absolute;
+				@extend %inputsTextAfter;
+				margin: 0;
+				top: 0;
+				left: 0;
+				font-family: $font-monospace;
+				$thiswidth: $simbol-width*3 + 2px - 0.005px;
+				width: $thiswidth;
+				padding-left: .2rem;
+			}
+			&.empty .add-on {
+				color: $form-placeholder;
+			}
+
+			@media (max-width: 425px) {
+				width: 100%;
+			}
+		}
+		@media (max-width: 425px) {
+			$font-size-inp: $font-size-large;
+			$simbol-width: $font-size-inp*$simbol-em; // ширина символа
+			$bg-pos: $simbol-width*2.5 + .2*$rem;
+
+			background-position: $bg-pos 75%;
+			padding-left: $simbol-width*3 + .2*$rem;
+			background-size: auto 83.33333%;
+
+			@at-root .input-prepend.mobnum{
+				.add-on {
+					$thiswidth: $simbol-width*3 + 2px - 0.005px;
+					width: $thiswidth;
+				}
+			}
+		}
+	}
+
+	&_summ_l2{
+		@include placeholder-color($text-color);
+	}
+}
+
+// комментарии
+.help-inline,
+.help-block{
+	@include font-size-small;
+	color: $gray;
+}
+.help-inline {max-width: 20rem;}
+
+%help-block {
+	margin-top: .5rem; // посадка на сетку
+}
+.help-block {
+	& + & {
+		margin-top: $vgrid;
+	}
+
+	&.accent {
+		color: $red;
+	}
+}
+
+.controls {
+
+	input[type="text"]:not(.captcha-inp),
+	input[type="password"],
+	input[type="date"],
+	input[type="email"],
+	input[type="tel"],
+	textarea {
+		margin: 0;
+
+		& ~ .help-block {
+			@extend %help-block;
+		}
+	}
+
+	.help-inline {
+		font: inherit;
+		color: inherit;
+		max-width: 100%;
+		margin-left: 1em;
+		vertical-align: top;
+		padding-top: .7rem;
+
+		@media (max-width: 979px) {
+			display: block;
+			margin-left: 0;
+			padding-left: 0;
+		}
+	}
+	.tab-pane .date {
+		display: inline-block;
+	}
+}
+
+// Ошибка ввода
+.errormark {
+	display: block;
+	position: absolute;
+	@include font-size-base;
+	color: $red;
+	opacity: 0;
+	transition: opacity 0.15s linear, height 0.15s linear;
+	height: 0;
+	overflow: hidden;
+	//margin-top: 0 !important;
+
+	.control-group.error &,
+	.pass-verify.error & {
+		position: static;
+		margin-top: .3rem;
+		opacity: 1;
+		height: auto;
+		overflow: visible;
+
+		& ~ .help-block {
+			margin-top: $vgrid;
+		}
+	}
+
+	@media (max-width: 767px) {
+		@include font-size-small;
+	}
+}
+
+// Капча
+.captcha {
+	&.controls {
+		position: relative;
+		box-sizing: border-box;
+		padding: {
+			right: 3.5rem + .8rem + .5rem;
+		}
+
+		&:after {
+			display: block;
+			content: '';
+			clear: both;
+		}
+
+		input[type="text"], input[type="password"] {
+			margin-right: 0 !important;
+		}
+	}
+
+	&-inp, &-img{
+		position: relative;
+		width: 50% !important;
+		float: left;
+	}
+
+	&.controls *:nth-child(2) {
+		margin: {
+			left: .5rem !important;
+			right: -.5rem !important;
+		}
+	}
+
+	&-btn {
+		&.btn {
+			display: block;
+			position: absolute;
+			right: 0;
+			margin: -.2rem;
+			white-space: nowrap !important;
+			text-align: left;
+		}
+
+		.icon-refresh {
+			font-size: $icon-size-mid;
+			margin: {
+				left: 0 !important;
+				right: 0 !important;
+			}
+
+			& + span {
+				margin-left: .6rem;
+
+				@media (max-width: 479px) {
+					display: none;
+				}
+			}
+		}
+	}
+
+	.control-group.error & .errormark {
+		clear: left;
+		margin-top: 0;
+		padding-top: 0.3rem;
+	}
+
+
+	&-img {
+		display: block;
+		height: 4.2rem;
+
+		img {
+			height: inherit;
+			width: 100%;
+		}
+	}
+
+	a {
+		text-decoration: none;
+	}
+
+	@media (min-width: 390px) {
+		&.controls {
+			max-width: 30rem;
+		}
+
+		&-btn.btn {
+			left: 30rem - 3.8rem;
+			right: auto;
+		}
+	}
+
+	@at-root #content-zone .form-horizontal .captcha-btn.btn .icon-refresh + span {
+		@media (min-width: 768px) and (max-width: 979px) {
+			display: none;
+		}
+		@media (min-width: 630px) and (max-width: 665px) {
+			display: none;
+		}
+	}
+	@at-root #content-zone .span8 .form-horizontal .captcha {
+		@media (min-width: 979px) and (max-width: 1199px) {
+			&.controls {
+				max-width: 28rem;
+			}
+			&-btn.btn {
+				left: 24.2rem;
+				right: auto;
+			}
+		}
+	}
+}
+
+
+.ipnum {
+	&.inline .btns-switcher {
+		margin-left: 1.5rem;
+	}
+	.help-block {
+		margin-top: $vgrid/2;
+	}
+
+	@media (max-width: 479px) {
+		&.inline {
+			.input-prepend {
+				display: block;
+			}
+			.btns-switcher {
+				position: absolute;
+				top: 100%;
+				margin-left: 0;
+				margin-top: $vgrid;
+			}
+		}
+		.help-block {
+			margin-top: $vgrid;
+			padding-left: 10rem + 1.5rem;
+			max-height: $btn-height-small;
+		}
+	}
+	@media (max-width: 425px) {
+		.nums &.control-group.inline {
+			padding-left: 0;
+		}
+	}
+	@media (max-width: 359px) {
+		.help-block {
+			padding-left: 0;
+			margin-top: $btn-height-small + $vgrid*1.5;
+		}
+		.new-inputs & .help-block {
+			margin-top: $btn-height-small + $vgrid*2.5 !important;
+		}
+	}
+}

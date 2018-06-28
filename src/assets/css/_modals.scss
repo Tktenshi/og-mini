@@ -1,0 +1,1442 @@
+﻿// @import "vars&mixins";
+
+// Окна разной ширины
+%modal-min {
+	@media (min-width: 390px) {
+		width: $modal-min;
+		margin-left: -$modal-min/2;
+		left: 50%;
+
+		&.modal-min {
+			width: $modal-min !important;
+			margin-left: -$modal-min/2 !important;
+		}
+	}
+}
+
+%modal-wide {
+	@media (min-width: 980px) {
+		left: 50%;
+		width: $modal-wide !important;
+		margin-left: -$modal-wide/2 !important;
+	}
+}
+
+// Заголовки
+%title-style {
+	@include font-size-large;
+	font-weight: 600;
+	margin-bottom: $vgrid;
+
+	&:first-of-type {
+		margin-top: 0.3rem;
+	}
+}
+
+$mpadding-h: $padding-base;
+$mpadding-v: $padding-base;
+
+.modal {
+	border-radius: 0.2rem;
+	background: transparent;
+	min-width: $body-min - .4rem;
+
+	&.hide.in {
+		display: block;
+	}
+
+	&-backdrop {
+		&, &.fade.in {
+			background: #061e34;
+			opacity: 0.92;
+			filter:alpha(opacity=92);
+		}
+	}
+
+	&.modal-min {
+		@extend %modal-min;
+	}
+	&.modal-wide {
+		@extend %modal-wide;
+	}
+
+	.close {
+		@at-root &, .alert .close {
+			position: absolute;
+			right: 0.3rem;
+			top: 0.3rem;
+			margin: 0;
+			z-index: 100500;
+		}
+
+		& + .h3,
+		& + .h4,
+		& + .modal-body .h3,
+		& + .modal-body .h4,
+		& + .modal-h {
+			margin-right: 2.4rem;
+		}
+	}
+	&.alert-wait .close {
+		position: fixed;
+		color: #fff;
+		right: 1rem;
+		top: 1rem;
+		z-index: 100510;
+	}
+
+	&-h {
+		@extend %title-style;
+		display: block;
+		margin-bottom: $line-height-base;
+
+		.modal-header & {
+			margin-bottom: 0;
+			line-height: 2rem;
+		}
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+
+ 		[class^="icon-"], [class*=" icon-"] {
+ 			font-size: $icon-size-base;
+ 			color: $blue;
+ 			margin-top: -($icon-size-base - $line-height-base)/2;
+ 		}
+ 		.icon-warning {
+ 			color: $red;
+ 		}
+ 		&_subheader {
+ 			display: block;
+ 			font-size: $font-size;
+ 			font-weight: 400;
+ 			line-height: $line-height-base;
+ 			padding-top: .2rem;
+ 		}
+	}
+	.h4 {
+		@extend %title-style;
+
+		& + p {
+			margin-top: 0;
+		}
+		& + .buttons {
+			margin-top: $line-height-base;
+		}
+	}
+
+	&-ul {
+		&.iconed {
+			& > li {
+				margin: {
+					top: 1rem;
+					bottom: 1rem;
+				}
+			}
+			[class^="icon-"], [class*=" icon-"] {
+				font-size: $icon-size-mid;
+				color: $blue;
+				margin: ($line-height-base - $icon-size-mid)/2 0 ($line-height-base - $icon-size-mid)/2 (-4.5rem);
+			}
+		}
+	}
+
+	// Элементы форм
+	& > form {
+		margin: 0;
+	}
+	form {
+		&:only-child,
+		&:last-child {
+			margin: 0;
+		}
+	}
+
+	.buttons {
+		&:last-child {
+			margin-bottom: 0 !important
+		}
+
+	}
+	.btn + span {
+		display: inline-block;
+		vertical-align: middle;
+		color: $gray;
+		margin-left: 2rem;
+		// по необходимости указать max-width через calc() (100% минус ширина кнопки)
+
+		@media (max-width: 480px) {
+			@include font-size-small;
+		}
+	}
+
+	// убираем подчеркивания и стили оплаты %dt- и %dd-horizontal
+	@media (min-width: 768px) {
+		.form-horizontal {
+			%bg-transparent {
+				background: transparent;
+			}
+			.control-label {
+				width: $fh-label !important;
+				text-align: right;
+				@extend %bg-transparent;
+
+				&:before {
+					display: none;
+				}
+			}
+			.controls {
+				@extend %bg-transparent;
+				margin-left: $fh-controls !important;
+			}
+		}
+	}
+
+	// РАЗМЕТКА БЛОКОВ modal-header, modal-body, modal-footer
+	%mhbf-look { // внешний вид footer, body, header
+		background: $light-base;
+		padding: {
+			left: $mpadding-h;
+			right: $mpadding-h;
+		}
+		box-sizing: border-box;
+
+		@extend %clearfix;
+	}
+	%mhf-position { // позиционирование footer и header в нормальном окне (не fixed)
+		position: relative;
+		z-index: 1;
+		padding: {
+			top: 1.4rem;
+			bottom: 1.4rem;
+		}
+	}
+
+	@at-root &-header {
+		@extend %mhbf-look;
+		@extend %mhf-position;
+		top: 0;
+		border-radius: 0.2rem 0.2rem 0 0;
+		color: $text-color;
+		border-bottom: $border-line;
+	}
+
+	@at-root &-body {
+		@extend %mhbf-look;
+		height: auto;
+		min-height: 0;
+		max-height: none;
+		padding: {
+			top: $mpadding-v;
+			bottom: $mpadding-v;
+		}
+		border-radius: 0.2rem;
+		overflow: visible;
+
+		@at-root .modal-header + &,
+		.modal-header + form {
+			margin: -0.2rem 0 !important;
+		}
+	}
+
+	@at-root &-footer {
+		@extend %mhbf-look;
+		@extend %mhf-position;
+		min-height: 6.1rem;
+
+		&, &.buttons {
+			border-top: $border-line;
+			border-radius: 0 0 0.2rem 0.2rem;
+			margin: -0.2rem 0 0;
+			position: relative;
+		}
+
+		.buttons {
+			position: relative;
+		}
+
+		.btn + .btn {
+			margin-left: 2rem;
+		}
+
+		// ссылки или заметки под модальным окном (без фона, см. окно регистрации)
+		&.cellar-links {
+			@include font-size-small;
+
+			@at-root .modal:not(.fixed-modal) & {
+				display: block;
+				margin-top: 2.4rem;
+				padding: 0;
+				background: none;
+				border-top: 0;
+				color: $blue;
+
+				a {
+					&, &:hover, &:focus {
+						color: $light-base;
+					}
+				}
+			}
+		}
+	}
+
+	@at-root .fixed-modal {
+		&.fade.in {
+			top: 0.2rem;
+			bottom: 0.2rem;
+			overflow: hidden;
+			margin-bottom: 0;
+			display: flex !important;
+			flex-direction: column;
+		}
+
+		%mhf-position2 { // позиционирование footer и header в fixed-modal
+			position: absolute;
+			width: 100%;
+			overflow: hidden;
+		}
+		%mb-position {
+			position: absolute;
+			width: 100%;
+			top: 0;
+		}
+
+		$footer-height: 7rem;
+		$header-height: 5.6rem;
+
+		%only-body { // положение в случае если нет header и footer
+			top: 0;
+			bottom: 0;
+			border-radius: .2rem;
+		}
+		%no-footer { // положение в случае если нет header и footer
+			bottom: 0;
+			border-radius: 0 0 .2rem .2rem;
+		}
+
+		.modal-header {
+			// @extend %mhf-position2;
+			// height: $header-height;
+			height: auto;
+			top: 0;
+		}
+		.modal-footer {
+			// @extend %mhf-position2;
+			// height: $footer-height;
+			min-height: auto;
+			bottom: 0;
+		}
+		.modal-body {
+			// @extend %mb-position;
+			// bottom: $footer-height; // перекрыть скругление нижних углов .modal-body
+			overflow: auto;
+			border-radius: 0;
+
+			&:only-child {
+				@extend %only-body;
+			}
+			&:last-child {
+				@extend %no-footer;
+			}
+		}
+		// @at-root .fixed-modal .modal-header + .modal-body,
+		// .fixed-modal > .modal-header + form  {
+		// 	top: $header-height;
+		// }
+
+		& > form {
+			// @extend %mb-position;
+			overflow: hidden;
+			height: auto;
+			bottom: 0;
+
+			&:only-child {
+				@extend %only-body;
+			}
+			&:last-child {
+				@extend %no-footer;
+			}
+		}
+	}
+
+	@media (max-width: 767px) {
+		// top: 0.2rem;
+		// left: 50%;
+		// right: auto;
+		// width: 56rem;
+		// margin: 0 0 0.2rem -28rem;
+		width: auto;
+		margin: 0 0 0.2rem;
+		left: 1.3rem;
+		right: 1.3rem;
+		transition: none;
+	}
+	@media (max-width: 360px) {
+		// width: auto;
+		// margin: 0 0 0.2rem;
+		left: 0.2rem;
+		right: 0.2rem;
+
+		&.fade.in {
+			top: 0.2rem !important;
+		}
+	}
+	@media (max-width: 480px) {
+		&.fade.in {
+			right: 1.3rem;
+			left: 1.3rem;
+		}
+	}
+	@media (max-width: 360px) {
+		&.fade.in {
+			right: 0.2rem;
+			left: 0.2rem;
+		}
+	}
+
+	@media (max-width:479px) {
+		form .help-inline {
+			display: block;
+			margin: 0.5rem 0 0;
+			padding: 0;
+		}
+		input {
+			&[type='text']:not(.masked_phone),
+			&[type="password"],
+			&[type="email"] {
+				width: 100%;
+			}
+		}
+	}
+	&-error {
+		.modal-h {
+			color: $red;
+		}
+	}
+}
+
+// Выбор региона
+#select-location {
+	&.fixed-modal {
+		$header-height: 7rem;
+		.modal-header {
+			height: $header-height;
+		}
+		& > form  {
+			top: $header-height;
+			display: flex;
+			flex-direction: column;
+		}
+
+		@media (max-width: 767px) {
+			$header-height: 4.8rem;
+			.modal-header {
+				height: $header-height;
+			}
+			& > form  {
+				top: $header-height;
+			}
+		}
+	}
+
+	.modal-h {
+		@extend %title-style;
+		small {
+			display: inline;
+			color: inherit;
+		}
+
+		& > small { // Ваш регион
+			display: block;
+			font-size: $font-size-small;
+			line-height: $line-height-base;
+		}
+		span#new-region {
+			display: block;
+			white-space: nowrap;
+			width: 100%;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			line-height: 1.33;
+			margin-top: -.3rem;
+
+			small { // фикс для вывода small внутри #new-region
+				font-size: inherit;
+				font-weight: inherit;
+			}
+		}
+	}
+	// высота строки с алфавитным указателем
+	$alphabet-height: $line-height-base + 1.4rem;
+
+	.modal-body {
+		padding: ($alphabet-height + .2rem) 0 0; // включая компенсатор "заползания" .modal-body под .modal-header
+		overflow-y: hidden;
+		display: flex;
+		flex-direction: column;
+	}
+
+	// алфавитный указатель (ссылки вверху)
+	@at-root .alphabet {
+		position: absolute;
+		top: .2rem; // компенсатор "заползания" .modal-body под .modal-header
+		height: $alphabet-height;
+		width: 100%;
+		border-bottom: $border-line;
+		padding: 0 $mpadding-h; // как для modal-body
+		box-sizing: border-box;
+
+		ul {
+			display: flex;
+			margin: .4rem 0;
+			padding: 0;
+			list-style-type: none;
+			@include font-size-base;
+
+			@extend %clearfix;
+
+			li {
+				display: block;
+				margin: 0;
+				float: left;
+				margin: 0 0.075rem 0 0;
+
+				&:first-child {
+					margin-left: -0.5rem;
+				}
+
+				.divider {
+					display: inline;
+					color: $gray;
+				}
+
+				a {
+					display: block;
+					padding: .2rem .6rem;
+					line-height: $line-height-base;
+					color: $blue;
+					text-decoration: none;
+					border-radius: 0.4rem;
+
+					&:hover, &:focus, a:visited:hover {
+						background-color: $form-bg;
+						color: $text-color;
+					}
+					.icon-star-empty {
+						font-size: $icon-size-small;
+						margin: -0.3rem -0.4rem 0;
+					}
+				}
+			}
+		}
+	}
+
+	// список регионов
+	@at-root .regs-list {
+		#select-location & {
+			height: 100%;
+			box-sizing: border-box;
+			padding: 0 $mpadding-h; // как для modal-body
+			overflow-y: auto;
+			margin: 0;
+		}
+
+		dt {
+			display: block;
+			float: left;
+			width: 4.5rem;
+			height: $line-height-base;
+			font-size: $font-size-larger2;
+			line-height: $line-height-base;
+			font-weight: 300;
+			color: $blue;
+			margin: 0 0 #{-$line-height-base};
+			padding: {
+				top: $line-height-base;
+				right: 2rem;
+			}
+			text-align: center;
+			box-sizing: border-box;
+
+			.icon-star-empty {
+				font-size: $icon-size-mid;
+				margin: -0.2rem -0.25em 0 -0.25em;
+			}
+		}
+		dd {
+			display: block;
+			padding: $line-height-base 0 0 4.5rem;
+			list-style-type: none;
+			width: auto;
+			height: auto;
+			margin: 0;
+
+			@extend %clearfix;
+
+			&:last-child {
+				padding-bottom: $line-height-base;
+			}
+			ul {
+				@extend %unstyled;
+			}
+		}
+		li {
+			display: block;
+			float: right;
+			width: 45%;
+			padding: $vgrid/2 1rem;
+			margin: 0;
+
+			// столицы
+			@at-root .regs-list #first-cap + ul li {
+				font-weight: 600;
+			}
+
+			&:nth-child(2n+1) {
+				float: left;
+				clear: both;
+			}
+
+			&:hover, &:active {
+				cursor: pointer;
+				color: $red;
+			}
+			&.active {
+				&, &:active, &:hover {
+					background-color: $red;
+					color: $light-base;
+					cursor: default;
+					border-radius: 0.2rem;
+				}
+			}
+
+			small {
+				display: block;
+				font-weight: 400;
+				font-size: inherit;
+				color: inherit;
+			}
+		}
+
+		@media (max-width: 480px) {
+			dt {
+				@include font-size-large;
+				font-weight: 400;
+				width: auto;
+
+				.icon-star-empty {
+					font-size: $icon-size-small;
+				}
+			}
+			dd {
+				padding-left: 3rem;
+
+				li {
+					float: none;
+					width: auto;
+					padding: 0.3rem 0.7rem;
+
+					& + li {
+						margin-top: 0.4rem !important;
+					}
+					&.active {
+						&, &:active, &:hover {
+							margin: 0;
+						}
+					}
+					&:nth-child(2n+1) {float: none;}
+					small {
+						display: inline;
+						font-size: inherit;
+						font-weight: inherit;
+					}
+				}
+
+			}
+		}
+	}
+
+	@media (max-width: 767px) {
+		.modal-body {padding: 0;}
+		.alphabet,
+		.modal-h > small {display: none;}
+	}
+}
+
+// ВХОД в ЛИЧНЫЙ КАБИНЕТ
+$login-paddings-base: $padding-base*1.75;
+%login-paddings {
+	@media (min-width: 390px) {
+		padding: $padding-base*1.4 $login-paddings-base $login-paddings-base; // верхний - компенсация для line-height заголовка
+	}
+}
+
+#lk-modal {
+	@extend %modal-min;
+	@extend %modal-wide;// "Широкий формат"
+
+	&.fade {
+		transition: opacity 0.3s linear 0s, top 0.3s ease-in 0s, margin-top 0.3s ease-in 0s;
+
+		&.in {
+			transition: opacity 0.3s linear 0s, top 0.3s ease-out 0s, margin-top 0.3s ease-out 0;
+		}
+	}
+	@media (min-width: 390px) {
+		.modal-body {
+			padding: 0;
+
+			// для верстки
+			// background: $gray-lighter repeating-linear-gradient(to bottom, transparentize($red, 0.8) -2px, transparentize($red, 0.8) -2px, #fff -1px, #fff 5px) fixed !important;
+		}
+	}
+	&.fixed-modal {
+		.modal-body {
+			min-height: 0;
+		}
+	}
+
+	// авторизация
+	@at-root %login-cols {
+		display: block;
+		@media (min-width: 980px) {
+			.modal & {
+				display: table-cell;
+			}
+		}
+		box-sizing: border-box;
+		@extend %login-paddings;
+	}
+
+	@at-root .login-block {
+		@extend %login-cols;
+		position: relative;
+
+		.captcha-btn.btn {
+			.icon-refresh + span {
+				display: none !important;
+			}
+		}
+
+		@media (min-width: 390px) {
+			width: $modal-min;
+		}
+
+		@media (min-width: 980px) {
+			.modal:not(.modal-min) &:before {
+				display: block;
+				position: absolute;
+				content: '';
+				top: 0;
+				bottom: 0;
+				left: 100%;
+				border-left: $border-line;
+			}
+		}
+		@media (max-width: 979px) {
+			.modal:not(.modal-min) & {
+				min-height: 0;
+			}
+		}
+
+		@at-root %login-h {
+			@include uppercase;
+			text-align: center;
+		}
+
+		.modal-h, .h3 {
+			@extend %login-h;
+
+			.block {
+				text-transform: none;
+				letter-spacing: 0;
+				font-size: $font-size;
+				font-weight: 400;
+				margin-top: .2rem;
+			}
+		}
+		form {
+			margin-bottom: 0;
+
+			.buttons {
+
+				@media (max-width: 480px) {
+					.btn {margin: 0 !important;}
+				}
+				@at-root .loginSave {
+					@include font-size-small;
+					color: $muted-color !important;
+
+					.buttons + & {
+						margin: {
+							top: $line-height-base - .4rem;
+							//bottom: $vgrid*2;
+							bottom: $vgrid*2.5;
+						}
+					}
+				}
+			}
+
+			.btn-primary {
+				width: 100%;
+			}
+
+			& + p {
+				display: block;
+				position: absolute;
+				bottom: $line-height-base + $vgrid + .2rem;
+
+				@media (max-width:389px) {
+					bottom: $vgrid + .2rem;
+				}
+
+				@media (max-width: 979px) {
+					@at-root #lk-modal:not(.modal-min):not(.fixed-modal) &,
+					.fixed-modal & {
+						position: static;
+						margin-top: 3.5rem;
+						margin-bottom: 0.2rem;
+					}
+				}
+			}
+		}
+		.control-group {
+			margin-top: $vgrid*2;
+		}
+
+		.alert {
+			display: block;
+			font-size: 1.2rem;
+			line-height: 1.4rem;
+			margin-bottom: 1.4rem;
+			padding-top: 0.7rem;
+			padding-bottom: 0.7rem;
+			color: #bb171d;
+		}
+
+		.restore-link {
+			float: right;
+			line-height: 1.333;
+		}
+	}
+
+	// Информационный блок на форме авторизации
+	@at-root .signinfo-block {
+		@extend %login-cols;
+		@extend %clearfix;
+
+		@media (min-width: 980px) {
+			width: $modal-wide - $modal-min;
+			position: relative;
+			width: 60rem;
+			.visible-desktop {display: inline !important;}
+
+			#signinfo {
+				overflow: visible;
+				height: auto !important;
+			}
+		}
+		#signinfo-toggle {
+			display: inline;
+			text-decoration: none;
+
+			strong {
+				color: $text-color;
+			}
+
+			@media (min-width: 980px) {
+				color: inherit;
+				cursor: default;
+				border-bottom: none;
+			}
+			&:before {
+				display: none;
+			}
+		}
+
+		@media (max-width: 979px) {
+			position: relative;
+
+			$buttons-zone: $vgrid*2 + $btn-height-base + $login-paddings-base; // отступ от текста, кнопки, padding-bottom
+			height: $line-height-base + $line-height-base*3 + $buttons-zone; // padding-top, три строки + $buttons-zone
+
+			z-index: 1;
+			padding-bottom: $buttons-zone;
+
+			@media (max-width: 389px) {
+				margin-bottom: -2rem;
+			}
+
+			@at-root #lk-modal .minimized {
+				position: absolute;
+				border-top: $border-line;
+				left: 0;
+				right: 0;
+				bottom: $buttons-zone;
+				height: auto;
+				background-color: $drop-bg;
+				transition: box-shadow $transition-speed $transition-type;
+				padding: $line-height-base $login-paddings-base 0;
+
+				@media (max-width: 389px) {
+					padding: $line-height-base $mpadding-h 0;
+					margin: 0 #{-$mpadding-h};
+				}
+
+				#signinfo {
+					display: block;
+					height: 0;
+					overflow: hidden;
+					transition: height 0.3s ease-in;
+
+					& > p:first-child {
+						margin: $line-height-base 0;
+					}
+
+
+					&-toggle:before {
+						display: none;
+						position: absolute;
+						text-align: center;
+						top: 10px;
+						right: 10px;
+						color: $blue;
+					}
+				}
+
+				&.open {
+					box-shadow: 0 -0.4rem 0.6rem 0 transparentize($gray-base,.8);
+
+					#signinfo {
+						display: block;
+						height: auto;
+
+						&-toggle {
+							color: inherit;
+							border-bottom: none;
+							&:before {
+								display: block;
+							}
+							&:after {
+								content: ':';
+							}
+						}
+					}
+				}
+
+				& ~ .link-2reg {
+					right: 0;
+					left: 0;
+
+					@media (min-width: 390px) {
+						right: $login-paddings-base;
+						left: $login-paddings-base;
+					}
+
+					.btn {
+						width: 100%;
+					}
+				}
+
+				&:not(.open) p {
+					margin: 0;
+				}
+
+			}
+		}
+
+		p {
+			margin: {
+				top: 0;
+				bottom: $line-height-base;
+			}
+			.lead {
+				display: block;
+				margin-bottom: .2rem;
+			}
+		}
+
+		ul.iconed {
+			margin: 0;
+
+			li {
+				margin-top: 0;
+				margin-bottom: 0;
+
+				& + li {
+					margin-top: $line-height-base;
+				}
+			}
+			// иконки
+			[class*="icon-"] {
+				color: $blue;
+				margin-top: -.2em;
+			}
+		}
+
+		@media (min-width: 980px) {
+			.link-2reg {
+				display: block;
+				margin-top: 3rem;
+
+				.btn, .loginSave {
+					float: right;
+				}
+
+				.loginSave {
+					display: block;
+					clear: right;
+					margin: $vgrid*2 0 0 !important;
+					max-width: 220px;
+					text-align: right;
+
+					&:before {
+						content: 'Данные платежа будут сохранены сразу после Регистрации';
+					}
+				}
+			}
+		}
+
+		@media (max-width: 979px) {
+			p .lead {
+				margin-bottom: $vgrid;
+			}
+			.link-2reg {
+				display: block;
+				position: absolute;
+				bottom: $line-height-base;
+
+				.loginSave {
+					width: 100%;
+					text-align: center;
+					margin: 0.5rem 0 -1rem;
+
+					&:before {
+						content: 'и сохранить данные платежа';
+					}
+				}
+			}
+		}
+
+		// Только вход в ЛК
+		#lk-modal.modal-min & {
+			display: none ;
+		}
+	}
+	// вход в ЛК в контентной зоне
+
+	@at-root #content-zone .login-block {
+		.h3 {
+			@extend %title-style;
+			color: inherit;
+			max-width: 100%;
+
+			.block {
+				font: inherit;
+				display: inline;
+			}
+		}
+		form {
+			padding: 0;
+			background: transparent;
+			margin-bottom: 0;
+		}
+
+		@media (min-width: 390px) {
+			display: block;
+			margin: $line-height-base auto 0;
+			border-radius: 0.2rem;
+			border: 0.1rem dashed #c0c0c0;
+			//min-height: 39.5rem;
+		}
+		@media (max-width: 389px) {
+			padding: 0;
+
+			.h3 {
+				font-size: 2.6rem;
+				line-height: 2.8rem;
+				font-weight: 300;
+				text-align: left;
+				margin: 2.1rem 0 !important;
+				letter-spacing: 0;
+				text-transform: none;
+			}
+
+			form + p {
+				position: static;
+			}
+		}
+
+		& + .cellar-links {
+			display: block;
+			margin: 2.4rem auto 0;
+			max-width: 37rem;
+			text-align: center;
+			@include font-size-small;
+			color: $muted-color;
+		}
+	}
+}
+
+// Крутилки и ответы (на темном поле)
+.modal {
+	// иконка слева
+	%result-icon {
+		font-size: $pict-size !important;
+		margin-top: -0.2em;
+	}
+
+	&[class^="alert-block"], &[class*=" alert-block"] {
+		// иконка слева
+		&:before {
+			@extend %result-icon;
+		}
+	}
+
+	&.alert-wait {
+		background: transparent;
+		color: $text-color-invert;
+		height: auto;
+		padding-top: 0;
+		padding-bottom: 0;
+		text-shadow: $text-invert-shadow;
+
+		&.fade {
+			font-size: 1em;
+			opacity: 0;
+			top: 0;
+			bottom: 0;
+			margin-left: -40rem;
+			padding: 30vh 12rem 0;
+			overflow-x: auto;
+			// @media (min-width: 1200px){
+			// 	margin-left: -60rem;
+			// 	padding-left: 32rem;
+			// 	padding-right: 32rem;
+			// }
+
+			&.in {
+				opacity: 1;
+			}
+		}
+		.lead {
+			@include font-size-larger;
+			[class^="icon-"], [class*=" icon-"] {
+				@extend %result-icon;
+			}
+		}
+		p {
+			margin: $line-height-base 0;
+			&.muted {
+				color: $gray-invert;
+				a {
+					color: inherit;
+					border-bottom-color: $gray-invert;
+					&:hover {
+						color: $link-hover-color-invert;
+						border-bottom-color:$link-hover-color-invert;
+					}
+				}
+			}
+		}
+
+		button:not(.btn-link):not(.btn-icon) {
+			box-shadow: $text-invert-shadow;
+		}
+
+		.btn-link {
+			@extend %link-invert;
+			white-space: normal;
+			overflow: visible;
+		}
+
+		a {
+			@extend %psevdo-link-invert;
+		}
+
+		.buttons {
+			margin-top: $line-height-base*1.5;
+			text-align: left;
+
+			.btn + .btn-link {
+				float: none;
+				margin-left: 4.2rem
+			}
+		}
+
+		@media (min-width: 768px) {
+			.close {
+				display: none;
+			}
+		}
+		@media (max-width: 767px) {
+			.buttons {
+				text-align: center;
+
+				.btn-close {
+					display: none;
+				}
+				.btn + .btn-link {
+					margin-left: 2rem
+				}
+			}
+		}
+		@media (max-width: 480px) {
+			.close {
+				top: .2rem;
+				right: .2rem;
+
+				&:before {
+					font-size: $icon-size-mid;
+					margin: ($btn-height-base - $icon-size-mid)/2 0;
+				}
+			}
+			.buttons {
+				display: flex; // Исправления OG-11551
+				flex-direction: column;
+				align-items: center;
+				.btn {
+					height: auto;
+
+					&:not(.btn-close) {
+						// display: block; // Удалено в рамках OG-11551
+						margin: 1rem 0 0;
+
+						[class^="icon-"], [class*=" icon-"] {
+							display: none;
+						}
+					}
+					&:only-child {
+						margin: {
+							left: auto;
+							right: auto;
+						}
+					}
+				}
+			}
+		}
+
+		// замещающийся контент (поиск)
+		.change-content {
+			position: relative;
+
+			.invis {
+				top: 0;
+				z-index: -1;
+
+				& > *:first-child {
+					margin-top: 0
+				}
+
+				button {
+					display: none;
+				}
+			}
+		}
+
+		@media (max-width: 767px) {
+			padding: 0 2rem;
+			margin-left: 0;
+			text-align: center;
+			box-sizing: border-box;
+
+			&.fade {
+				width: auto;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				margin-left: 0;
+				padding: 10vh 2rem;
+
+				// &.in {
+				// 	 // под OG-9468
+				// }
+			}
+			.lead {
+				text-align: inherit;
+
+				[class^="icon-"], [class*=" icon-"] {
+					display: block;
+					float: none !important;
+					margin: 0 auto $line-height-base !important;
+				}
+			}
+		}
+	}
+}
+
+// ФОРМА РЕГИСТРАЦИИ в модальном окне
+#join-modal {
+	@extend %modal-min;
+
+	.modal-body {
+		@extend %login-paddings;
+
+		.modal-h {
+			@extend %login-h;
+		}
+	}
+	// элементы формы
+	form {
+		&, & > .buttons {
+			margin-bottom: 0;
+		}
+
+		.buttons {
+			@media (min-width: 630px) and (max-width: 767px) {
+				max-width: 30rem;
+
+				.btn-primary {
+					width: 100%;
+				}
+			}
+		}
+	}
+
+	.controls:not(.captcha) input,
+	.btn-primary {
+		@media (min-width: 630px) {
+			width: 30rem;
+		}
+		@media (max-width: 629px) {
+		    width: 100%;
+		}
+	}
+
+	// успешно
+	#reg-result {
+		.modal-h {
+			text-align: left;
+			max-width: 22rem;
+			margin: {
+				left: auto;
+				right: auto;
+			}
+		}
+	}
+
+	.captcha-btn.btn {
+		.icon-refresh + span {
+			display: none !important;
+		}
+	}
+
+	// ссылка на авторизацию под модальным окном
+	$footer-height: $line-height-small + $vgrid*4;
+	&.fixed-modal .modal-footer.cellar-links {
+		height: $footer-height;
+		min-height: 0;
+	}
+	// &.fixed-modal .modal-body {
+	// 	bottom: $footer-height;
+	// }
+	//&.fixed-modal form {
+	//	padding-bottom: $login-paddings-base;
+	//}
+
+
+	.modal-footer.cellar-links {
+		text-align: center;
+	}
+}
+
+// COMMON MODAL - Предупреждение
+.modal-footer .btn-link {
+	#common-modal &,
+	&:only-child {
+		margin-top: 0;
+		width: 100%;
+		height: auto;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		border-radius: 0 0 .2rem .2rem;
+	}
+}
+
+// оферта постпэй
+#postpayOfertaModal {
+	.modal-body {
+		& > *,
+		p,
+		& > ul > li {
+			&:first-child {
+				margin-top: 0;
+			}
+		}
+	}
+
+	.modal-footer {
+		text-align: center;
+
+		button {
+			width: 18.4rem;
+		}
+	}
+	&.no-footer {
+		.modal-header {
+			.close {
+				display: block;
+			}
+		}
+		.modal-body {
+			bottom: .2rem;
+			border-radius: 0 0 .2rem .2rem;
+		}
+		.modal-footer {
+			display: none;
+		}
+	}
+}
+
+#appGibddOfertaModal {
+	.modal-body {
+		& > *,
+		p,
+		& > ul > li {
+			&:first-child {
+				margin-top: 0;
+			}
+		}
+	}
+}
+
+.payInfo-modal {
+	@media (min-width: 768px) {
+		dd .summ {
+			font-size: 18.75px;
+			line-height: 2rem;
+			font-weight: 600;
+		}
+
+		@media (max-width: 979px) {
+			$width: 72.4rem;
+			width: $width;
+			margin-left: -$width/2;
+		}
+	}
+
+	@media (max-width: 767px) {
+		.paydetails > .dl-horizontal:first-child dt:first-child {
+			margin-top: 0;
+		}
+	}
+}
+
+
+.fixed-modal:not(#lk-modal) .modal-body:last-child { // OG-11708
+	padding-bottom: 0 !important;
+	&:after {
+		display: block;
+		content: "";
+		height: 2rem;
+	}
+}
+#join-modal.fixed-modal .modal-body {
+	@media (max-width: 979px) {
+		padding-bottom: 0;
+	}
+}

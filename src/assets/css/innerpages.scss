@@ -1,0 +1,2731 @@
+﻿@import "vars&mixins";
+
+// ВНУТРЕННИЕ СТРАНИЦЫ
+// ------------------------------------------------------------------------------
+
+header + section:not(#pay-pages) {
+	padding-top: $line-height-base*2;
+	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAUAgMAAADXSXR2AAAADFBMVEVVlbtnpsZFjbVOlruJaSmDAAAAE0lEQVQI12P4xRDAwAqEAXjp9QBi/ASno1c9fQAAAABJRU5ErkJggg==) 0 0 repeat-x;
+	background-size: .4rem 2rem;
+}
+
+// ЗАГОЛОВОК и МЕНЮ
+#header-zone {
+	display: block;
+	position: relative;
+	height: auto;
+	margin: 1.7rem 0 1.5rem;
+
+	@extend %clearfix;
+
+	p.lead {
+		color: inherit;
+		font-weight: 400;
+		clear: left;
+		margin: 0 30% 0 0;
+
+		@media (max-width: 979px){
+			font-weight: 600;
+			margin: 0 20% 0 0;
+		}
+	}
+}
+
+h1 {
+	margin: -.2rem 0 0;
+	font-size: $h1;
+	line-height: $line-height-h1;
+	font-weight: 300;
+	color: inherit;
+	letter-spacing: -.015em;
+
+	.content-pages & {
+		color: $red;
+	}
+
+	small.block {
+		color: inherit;
+		@include font-size-larger;
+		font-weight: 400;
+		margin: .2rem 0 0;
+	}
+
+	#header-zone & {
+		float: left;
+
+		& + * {
+			clear: left;
+		}
+	}
+
+	.breadcrumb + & {
+		font-weight: 600;
+		margin: 0;
+	}
+
+	@media (min-width: 980px) {
+		.breadcrumb + & {
+			font-size: $h1-l2;
+			line-height: $line-height-h1-l2;
+			margin-top: .8rem;
+
+			@at-root .content-pages h1 {
+				max-width: 90%;
+			}
+		}
+	}
+
+	@media (max-width: 979px) {
+		.breadcrumb + & {
+			font-size: $h1-l2-mid;
+			line-height: $line-height-h1-l2-mid;
+			margin-top: 0;
+		}
+		small.block {
+			font-size: $font-size-large;
+			line-height: $line-height-base;
+			//margin-top: .15rem;
+		}
+
+		font-size: $h1-mid;
+		line-height: $line-height-h1-mid;
+
+		@media (min-width: 768px) {
+			.breadcrumb + & {
+				margin-top: .8rem + ($line-height-h1-l2 - $line-height-h1-l2-mid) - .1rem;
+				margin-bottom: .1rem;
+			}
+		}
+	}
+	@media (max-width: 767px) {
+		@at-root #header-zone {
+			margin: 4rem 0 0;
+		}
+		#header-zone & {
+			float: none;
+		}
+	}
+	@media (max-width: 480px) {
+		font-size: $h1-sm;
+		line-height: $line-height-h1-sm;
+		letter-spacing: 0;
+
+		.breadcrumb + & {
+			font-size: $h1-l2-sm;
+			line-height: $line-height-h1-l2-sm;
+			margin-top: -.3rem;
+		}
+
+		small.block {
+			font-size: $font-size;
+			line-height: $line-height-base;
+		}
+		abbr {
+			letter-spacing: .025em
+		}
+
+		@at-root #header-zone {
+			margin-bottom: -.4rem;
+		}
+	}
+}
+
+
+
+p.lead {text-align: left;}
+p:not(.lead) + p.lead {margin-top: 2em;}
+p a.lead,
+p span.lead{ line-height: 1;}
+
+// Путь к странице
+.breadcrumb {
+	margin: -($line-height-small - .6rem) 0 (-.6rem);
+	height: $line-height-small;
+	font-size: $font-size-small;
+	line-height: $line-height-small;
+	font-weight: 400;
+	float: left;
+
+	& > li{
+		margin: 0;
+		padding: 0;
+
+		a:hover {
+			color: transparentize($text-color, .3);
+		}
+		&.active a {
+			font-weight: 700;
+			//color: #8c9094;
+		}
+	}
+	& > li,
+	& > li a,
+	& > .active,
+	.divider {
+		color: $gray;
+	}
+
+	.divider {
+		margin: 0 .2em;
+		text-align: center;
+	}
+
+	@media (max-width: 767px) {
+		position: absolute;
+		left: -.5rem;
+		top: 0;
+		margin-top: -.5rem;
+
+		& > li, & .divider {display: none;}
+		& > li:first-child {
+			display: block;
+			border-radius: 0.2rem;
+		}
+		& + h1 {
+			clear: none;
+			padding-left: 4.5rem;
+			box-sizing: border-box;
+		}
+	}
+	@media (max-width: 480px) {
+		& > li:first-child a:before {
+			display: block;
+			@include icon-arr-collapse;
+			width: 2.1rem;
+			margin-right: 2.1rem;
+			transform: rotate(180deg);
+		}
+		& + h1 {
+			padding-left: 3rem;
+		}
+	}
+}
+
+// Зона заголовка с табами ---- используется в выводе новостей,
+// перенести в контентные после применения новой верстки заголовка платежных
+h1 + ul {
+	display: block;
+	margin: 0;
+	padding: 0.25em 0 0;
+
+	@extend %clearfix;
+}
+h1 + ul li {
+	display: block;
+	float: left;
+	margin: 0.5em 0.4em 0 0;
+	padding: 0;
+	font-size: 1em;
+	font-weight: 400;
+	color: #afe3ff;
+}
+	h1 + ul li:last-child {margin-right: 0;}
+h1 + ul li a { display: block; position: relative; padding: 1rem 1.3rem; background: #f1f1f1; text-decoration: none;}
+h1 + ul li a:hover, h1 + ul li a:active { background: #dcdddc; }
+h1 + ul li.active {font-weight: 400;}	h1 + ul li.active a {color: #fff;background: $blue; cursor: default;text-decoration: none;}
+h1 + ul li a > i { font-size: 3.2rem; float: left; margin: -0.2em 0 -0.15625em -0.25em;}
+h1 + ul li a i.icnEdit {display: none;}
+
+
+// Знак "Внимание" на полях
+.exclam-mark {
+	display: block;
+	position: absolute;
+	background: $form-bg;
+	margin: -.1rem .7rem 0 0;
+
+	[class^="icon-"],[class*=" icon-"] {
+		font-size: $icon-size-small;
+		color: $red;
+	}
+
+	@media (min-width: 768px) {
+		.control-group & {
+			margin-top: .6rem;
+		}
+	}
+	@media (max-width: 767px) {
+		.control-group & {
+			margin-top: -.2rem;
+		}
+	}
+	@media (min-width: 1200px) {
+		margin-left: -2.8rem;
+	}
+	@media (max-width: 1199px) {
+		margin-left: -.2rem;
+
+		.form-horizontal &:not(.hidden) ~ .control-label {
+			padding-left: 2.1rem;
+		}
+
+		p > & {
+			position: relative;
+			display: inline-block;
+			margin: -.55em .3rem -.25em -.3rem;
+			vertical-align: middle;
+		}
+	}
+}
+
+
+// Тулбар с иконками
+.toolbar {
+	@extend %unstyled;
+	margin: 0.8rem 0 0 1.5rem;
+
+	& > li {
+		@extend %unstyled-li;
+
+		display: block;
+		position: relative;
+		float: left;
+
+		& > a {
+			@extend %btn-tooltiped;
+
+			&.psevdo-lnk { border: none;}
+		}
+	}
+
+	// вывод не доп. меню, но подсказки (Например, в списке банковских карт - пояснение под основной картой)
+	.dropdown {
+		&.tooltip {
+			.dropdown-menu {
+				text-align: left;
+				text-transform: none;
+				white-space: normal;
+			}
+		}
+		.dropdown-menu {
+			z-index: 5000;
+			color: $text-color;
+			box-shadow: 0 0.4rem 0.4rem 0 rgba(180, 181, 180, 0.45), 0 0.1rem 1.4rem 0 rgba(180, 181, 180, 0.2);
+
+			&:before {
+				display: block;
+				content: '';
+				position: absolute;
+				border: .9rem solid transparent;
+				border-bottom-color: #fff;
+				top: -1.8rem;
+
+				@at-root .toolbar .dropdown.dropup .dropdown-menu:before {
+					top: auto;
+					bottom: -1.8rem;
+					border-color: #fff transparent transparent;
+				}
+			}
+
+			.lead {
+				@include font-size-base;
+				font-weight: 600;
+			}
+
+			ul, p {
+				font-size: 1.3rem;
+				line-height: 1.875rem;
+				font-weight: 400;
+			}
+
+			@at-root %margin-v-small-1 {
+				margin-top: $vgrid;
+			}
+			p + p {
+				@extend %margin-v-small-1;
+			}
+
+			ul > li {
+				list-style-type: disc;
+
+				* + li {
+					@extend %margin-v-small-1;
+				}
+			}
+		}
+	}
+}
+
+// Меню табов и тулбар в зоне заголовка (выпадающее на мобильных)
+.hz {
+	&_dropdown {
+		#header-zone h1 + & {clear: none}
+
+		.dot {background: $blue;}
+	}
+	&_dropdown menu, &_tabs {margin: 0;}
+
+	&_tabs {
+		@extend %clearfix;
+
+		& > li {
+			margin: 0;
+			padding: 0;
+			list-style-type: none;
+			display: block;
+
+			& > a {display: block;}
+			&.active > a {cursor: default;text-decoration: none !important;}
+		}
+	}
+
+	@media (min-width: 768px) {
+		&_dropdown {
+			position: static;
+
+			& > .dropdown-toggle {display: none}
+			& > .dropdown-menu {
+				display: block;
+				position: static;
+				margin: 0;
+				width: auto;
+				float: none;
+				background: none;
+				border: none;
+				padding: 0;
+
+				&:before, &:after {display: none;}
+
+				menu {
+					position: absolute;
+					top: .3rem;
+					right: 0;
+				}
+
+				.toolbar .divider {display: none;}
+			}
+			// выпадающее меню из тулбара
+			.toolbar {
+				& > .dropdown > .dropdown-menu {
+					left: auto;
+					right: 0;
+					&:before {
+						display: none;
+					}
+
+					box-shadow: none;
+
+					&:before, &:after {
+						left: auto;
+						right: 1.6rem;
+						margin-right: -0.9rem;
+					}
+
+					a {
+						@include dropdown-item-a;
+					}
+				}
+
+				& > li {
+					& + li {
+						@media (min-width: 768px) {
+							margin-left: 0.2em;
+						}
+						@media (min-width: 980px) {
+							margin-left: 0.4em;
+						}
+						@media (min-width: 1200px) {
+							margin-left: 0.5em;
+						}
+					}
+				}
+			}
+		}
+
+		&_tabs {
+			display: block;
+			clear: left;
+			margin: 0 !important;
+			padding: 1.4rem 0 0 !important;
+
+			& > li {
+				float: left;
+				margin: 0 .5rem -.5rem 0 !important;
+				font-size: 1em;
+				font-weight: 400;
+				color: $blue-invert;
+
+				& > a {
+					position: relative;
+					padding: 1rem 1.3rem;
+					font-size: 1em;
+					text-decoration: none;
+					background: $form-bg;
+
+					& > i {
+						font-size: $icon-size-mid;
+						float: left;
+						margin: -0.15625em 0.2em -0.15625em -0.2em;
+					}
+				}
+				&:not(.active) {
+					a:hover, a:active {
+						background: #form-bg;
+					}
+				}
+				&.active > a {
+					color: #fff;
+					background: $blue;
+				}
+			}
+		}
+	}
+
+	@media (max-width: 767px) {
+		&_dropdown {
+			position: absolute;
+			top: 0;
+			right: 0;
+
+			& > .dropdown-toggle {
+				float: right;
+				width: 4.2rem;
+				height: 4.2rem;
+				margin: -0.4rem -0.8rem 0 0;
+				padding: 0 0 0 2.6rem !important;
+				background: transparent;
+				border: none;
+				color: $blue;
+				text-align: right;
+				white-space: nowrap;
+				vertical-align: middle;
+				z-index: 2;
+			}
+
+			& > .dropdown-menu {
+				left: auto;
+				right: 0;
+				border-radius: 0.2rem;
+				background: #fff;
+				width: 23rem;
+				margin: 0 -1rem 0 0;
+				padding: 0.6rem 0;
+				border: 0.3rem solid $blue;
+
+				//background: transparentize($light-base, .1);
+				//padding: 0.3rem;
+				//box-shadow: 0 0.5rem 1rem rgba(86,97,108,0.75);
+
+				&:before, &:after {display: none;}
+
+				.toolbar > li > a .tooltip {
+					@include crush-tooltip;
+					text-transform: none;
+					letter-spacing: 0;
+				}
+
+				& > ul.hz_tabs {
+					&:not(:first-child) {
+						border-top: 0.1rem solid #e5e5e5;
+						padding-top: 0.9rem;
+						margin-top: 0.9rem;
+					}
+					&:first-child {
+						margin-top: 0;
+					}
+				}
+			}
+
+			* {
+				text-shadow: none;
+			}
+
+			li > a {
+				display: block;
+				width: auto;
+				@include dropdown-item-a;
+				text-align: left;
+
+				[class^="icon-"], [class*=" icon-"] {
+					left: auto;
+					top: auto;
+				}
+			}
+
+			.toolbar {
+				float: none !important;
+				max-width: 100% !important;
+				text-align: left;
+
+				& > li {
+					display: block;
+					float: none;
+
+					& > a,
+					& > .psevdo-lnk {padding-left: 5.5rem !important;}
+				}
+
+				.tooltip {
+					text-decoration: underline;
+				}
+				.psevdo-lnk {
+					.tooltip {
+						text-decoration: none;
+						border-bottom: 0.1rem dotted $link-color;
+					}
+					&:hover .tooltip {border-bottom-color: $text-color;}
+				}
+
+				.tooltip,
+				a:hover .tooltip {
+					@include crush-tooltip;
+				}
+
+				& > .dropdown {
+					& > .dropdown-menu {
+						display: block;
+						position: static;
+						top: auto;
+						left: auto;
+						float: none;
+						margin: 0;
+						box-shadow: none;
+						width: auto;
+						min-width: 0;
+						padding-top: 0;
+						padding-bottom: 0;
+						font-size: inherit;
+						border: none;
+
+						&:before, &:after {
+							display: none;
+						}
+
+						& > li + li {
+							margin-top: 0;
+						}
+						a {
+							text-decoration: underline;
+							padding: 1.1rem 1.5rem;
+						}
+					}
+					& > .dropdown-toggle {
+						text-decoration: none;
+						color: $text-color !important;
+
+						.tooltip {
+							text-decoration: none;
+							font-weight: 600 !important;
+						}
+					}
+				}
+
+			}
+
+			menu {
+				[class^="ic"], [class*=" ic"] {
+					display: inline-block;
+					float: left;
+					margin-left: -4.2rem;
+					margin-top: -0.3rem;
+					font-size: 31.5px;
+					text-decoration: none;
+				}
+			}
+		}
+		&_dropdown .toolbar,
+		&_tabs {
+			margin: 0;
+		}
+
+		&_tabs{
+			& > li {
+				& > a {
+					text-decoration: underline;
+				}
+				.active {
+					display: block;
+
+					& > a {
+						color: $gray;
+					}
+				}
+			}
+		}
+	}
+}
+
+// КОНТЕНТНАЯ ЧАСТЬ
+
+#content-zone {
+	display: block;
+	position: relative;
+	padding: $line-height-base 0 $line-height-base*2 0;
+}
+
+// Отступы в формах
+.form {
+	@extend %clearfix;
+	background: $form-bg;
+	@extend %form-padding-base;
+
+	& > .fieldset {
+		width: 100%;
+		@extend %form-inner-left;
+		@extend %form-inner-right;
+	}
+	.form-container {
+		@extend %form-padding-v;
+		width: 100%;
+		@extend %form-inner-left;
+		@extend %form-inner-right;
+	}
+
+	#content-zone & form {
+		padding: 0;
+		margin: 0;
+		background: none;
+	}
+}
+
+// левая (основная) колонка
+.formfields {
+	@extend %form-inner-left;
+	@extend %clearfix;
+
+	&:not(.span9):not(.span12) {
+		@media (min-width: 980px) {
+			width: 54rem + 2rem;
+		}
+		@media (min-width: 1200px) {
+			width: 67rem + 3rem;
+		}
+	}
+	@media (max-width: 767px) {
+		width: auto;
+	}
+}
+// правая колонка (подсказки "на полях")
+.helpers {
+	@extend %form-inner-right;
+	padding-top: .2rem;
+
+	@at-root .helper-block {
+		.helpers  & {
+			display: block;
+			margin-left: 4rem;
+			margin-bottom: 0;
+
+			&:last-child { margin-bottom: 0; }
+		}
+
+		@at-root %helpertext-apearance {
+			font-size: 1.3rem;
+			font-style: italic;
+			line-height: $line-height-base;
+			color: $logo-blue;
+			margin: 1em 0;
+		}
+
+		& > h5, & > strong.block {
+			@extend %helpertext-apearance;
+			margin: 1em 0 0.5em;
+			font-weight: 600;
+
+			& + p {margin-top: 0 !important;}
+		}
+
+		& > ul {
+			@extend %helpertext-apearance;
+
+			&:not(.inline):not(.iconed) > li {
+				margin: 0 0 0.5em 1em;
+
+				&:last-child {
+					margin-bottom: 0;
+				}
+			}
+		}
+		& > p {
+			@extend %helpertext-apearance;
+
+			& > a {
+				font-size: 1.25em;
+				line-height: 1;
+
+				&.tooltip-toggle {
+					color: inherit;
+					border-bottom-color: $logo-blue;
+				}
+
+				&[href="#blank-example"] {
+					display: block;
+					@extend %clearfix;
+					font-style: italic;
+					padding-left: 3.5rem;
+					text-decoration: none;
+
+					@media (min-width: 1200px) {
+						font-size: $font-size-large;
+					}
+
+					[class^="icon-"], [class*=" icon-"] {
+						display: inline-block;
+						font-size: $icon-size-base;
+						margin: (-($icon-size-base - $line-height-base)/2) 0 (-($icon-size-base - $line-height-base)/2) (-1em);
+					}
+				}
+			}
+
+			&.muted {
+				&, & > a {
+					color:#84B4D0;
+				}
+				& > a:hover, & > a:active {
+					color: $text-color;
+				}
+			}
+
+			& > .icon-warning-sign {display: none;}
+		}
+		& > *:last-child:not(:only-child) {margin-bottom: 0;}
+		.quote {display: block;}
+	}
+
+	@media (min-width: 768px) {
+		.collapse {
+			display: block;
+			height: auto !important;
+			overflow: visible !important;
+			padding-left: 2rem;
+			margin-left: -2rem;
+		}
+		a.help-collapse { display: none; }
+	}
+
+	@media (min-width: 980px) {
+		float: right;
+		margin-left: 0;
+
+		.collapse ~ .collapse {margin-top: 2rem;}
+	}
+
+	@media (min-width: 1200px) {
+		#payform-steps & { padding-right: $form-padding-h; }
+	}
+
+	@media (max-width: 979px) {
+		.formfields + & {
+			margin-top: 2rem;
+		}
+
+		@at-root .helper-block {
+			.helpers & {
+				margin-left: 0;
+				margin-bottom: 1rem;
+
+				p, ul {
+					margin: 0 !important;
+				}
+			}
+
+			& > p {
+				&:first-child {
+					margin-top: 0;
+				}
+			}
+
+			@media (min-width: 768px) {
+
+				& > h5,
+				& > strong.block,
+				& > ul,
+				& > p {
+					font-size: $font-size-small;
+					line-height: $line-height-small;
+					font-style: normal;
+					color: $gray;
+				}
+				& > p > a.tooltip-toggle {
+					border-bottom-color: $gray;
+				}
+			}
+		}
+	}
+
+	@media (max-width: 767px) {
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 100%;
+		margin: 0;
+		padding: 0;
+
+		.formfields + & {
+			margin-top: 0.8rem;
+		}
+
+		a.help-collapse {
+			display: block;
+			position: absolute;
+			z-index: 52;
+			right: 0;
+			width: $icon-size-mid;
+			height: $icon-size-mid;
+			padding: 0;
+			text-decoration: none;
+			text-align: center;
+			opacity: 0.2;
+			cursor: pointer;
+			right: -.5rem;
+			margin-top: -1.3rem;
+
+			&:hover, &:active {
+				opacity: 0.4;
+			}
+
+			[class^="icon-"], [class*=" icon-"] {
+				display: block;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin: -.5em 0 0 (-.5em);
+				font-size: $icon-size-mid;
+			}
+			.android & .icon-percent {
+				margin-top: -.55em;
+
+				&:before {
+					line-height: 1.2;
+				}
+			}
+
+			&.collapsed {
+				z-index: 0;
+				color: $blue;
+				opacity: 1;
+
+				.icon-percent:before {background: $blue;}
+
+				&:hover, &:active {
+					color: $text-color;
+
+					.icon-percent:before {background: $text-color;}
+				}
+			}
+
+			& ~ a.help-collapse.collapsed {
+				right: 2.7rem;
+			}
+			& ~ a.help-collapse:not(.collapsed) {
+				.icon-percent:before {
+					top: 0;
+				}
+			}
+
+			&.filters-lnk {
+				opacity: 1;
+			}
+
+			&:not(.collapsed) {
+				&, &.filters-lnk {
+					z-index: 52;
+					color: #000;
+				}
+
+				[class^="icon-"], [class*=" icon-"] {
+					&:before {
+						@include icon-close-small;
+						background: none;
+						color: $text-color;
+					}
+				}
+
+				.icon-percent:before {
+					@include icons;
+					margin-top: 0;
+					font-size: 1em;
+				}
+			}
+		}
+
+		// перестановка подсказок
+		.collapse {
+			z-index: -1;
+			transition: opacity 0.15s ease;
+			opacity: 0;
+			@extend %position-helpers;
+
+			&.in {
+				@extend %show-helpers;
+			}
+		}
+		@at-root %position-helpers {
+			position: absolute !important;
+			right: 0;
+			padding: 0 1.5rem;
+			margin: -1.7rem -1rem 0;
+			border-radius: .2rem;
+			border: 0.2rem solid transparent;
+			hyphens: auto;
+			max-width: 50rem;
+			width: auto;
+			box-sizing: border-box;
+
+			p:first-child {margin-right: 2.5rem !important;}
+		}
+		@at-root %show-helpers {
+			border-color: $form-hr;
+			background: #fff;
+			box-shadow: 0 0 0.8rem rgba(0,0,0,0.15);
+			z-index: 2;
+			opacity: 1;
+		}
+
+		.collapsing {
+			@extend %position-helpers;
+			@extend %show-helpers;
+		}
+		.helper-block {
+			margin: 1.5rem 0 !important;
+			&:before {display: none; }
+		}
+
+		.tooltip {
+			&-toggle {
+				border: none;
+				cursor: default !important;
+
+				&:hover, &:focus {
+					color: inherit;
+				}
+			}
+			display: none !important;
+		}
+	}
+}
+
+// формы с табами
+.tab-content {
+	@extend %clearfix;
+
+	#content-zone form > & {
+		@extend %form-padding-base;
+	}
+
+	.search-tabs + & ~ .row {
+		padding-top: 0;
+	}
+
+	@media (min-width: 1200px) {
+		.search-tabs + & {
+			padding: {
+				top: 4.2rem !important;
+			}
+			& ~ .row {
+				padding-bottom: $line-height-base*2 !important;
+			}
+		}
+
+	}
+
+	& ~ .row {
+		margin-left: 0;
+
+		// для вкладок на #payform-search
+		@extend %form-padding-base;
+
+		.buttons {
+			width: auto !important;
+			float: none;
+			margin-bottom: 0;
+			@extend %form-inner-left;
+			@extend %form-inner-right;
+		}
+	}
+
+	.fns-tabs + & {
+		@media (max-width: 629px) {
+			.control-group.inline {
+				margin-right: 0;
+			}
+		}
+		@media (min-width: 426px) and (max-width: 629px) {
+			.control-group.inline {
+				label {
+					display: block;
+				}
+				.controls {
+					display: block;
+					float: left;
+				}
+
+				.help-inline.inn-lnk {
+					display: inline-block;
+					padding-top: 0.7rem;
+					margin-left: .5em;
+					font-size: 1em;
+				}
+			}
+		}
+		@media (max-width: 425px) {
+			.control-group.inline {
+				.controls {
+					display: block;
+					float: none;
+				}
+
+				.help-inline.inn-lnk {
+					display: block;
+					margin-left: 0;
+					margin-top: $vgrid*2;
+					padding: 0;
+				}
+			}
+		}
+	}
+}
+
+// поправка к старой "мусорной" верстке страницы сквитанцией
+#confirm-form {
+	@extend %form-padding-base;
+
+	.span10, .span11, .span12 {
+		&:not(.buttons) {
+			margin: 0;
+			width: auto;
+			float: none;
+		}
+	}
+}
+
+// кнопки
+.buttons {
+	@extend %clearfix;
+}
+
+// контент аккордиона
+.accordion-inner {
+	@extend %clearfix;
+	display: block;
+	background: #fff;
+	margin: 0 0 $line-height-base;
+	padding-top: 0;
+	border-radius: 0 0 0.2rem 0.2rem;
+	@extend %form-padding-base;
+
+	@media (min-width: 1200px) {
+		.span9 & {
+			padding: {
+				left: $form-padding-h;
+				right: $form-padding-h;
+			}
+		}
+	}
+
+	// формы и сообщения в аккордионе
+	form,
+	.form-container,
+	.noform,
+	& > .buttons {
+		@extend %form-inner-left;
+		@extend %form-inner-right;
+		@extend %form-padding-v;
+
+		@extend %clearfix;
+	}
+}
+
+#content-zone .passwords-form {
+	&, & ~ .form.message_sent-ok {
+		@extend %form-padding-base;
+	}
+}
+
+i[class^="hi-"], i[class*=" hi-"] {
+	font-size: $icon-size-mid;
+	margin: -0.59em 0.25em -0.39em 0.1em;
+
+	p &, p .lead & {
+		font-size: $icon-size-mid !important;
+		color: $blue;
+		vertical-align: middle;
+		margin: -.45em 0;
+	}
+}
+
+// Сервис временно недоступен
+#content-zone .unavlblock {
+	padding: 4em 4em 3.5em 4em;
+	[class^="icon-"], [class*=" icon-"] {color: #c0c0c0;}
+	p.lead {text-align: center;}
+}
+#content-zone > .unavlblock {
+	background: $form-bg;
+	border-radius: .2rem;
+}
+@media (min-width: 1200px) {#content-zone .unavlblock p {margin-left: 10%; margin-right: 10%;}}
+@media (min-width: 768px) and (max-width: 979px) {#content-zone .unavlblock { padding: 4rem 2rem;}}
+@media (min-width: 768px) {
+	#content-zone .unavlblock p.lead {text-align: center;}
+	#content-zone .unavlblock [class^="icon-"], #content-zone .unavlblock [class*=" icon-"] {
+		margin-top: -0.2em;
+		font-size: 6rem !important;
+	}
+}
+@media (max-width: 767px) {
+	#content-zone .unavlblock { padding: 2rem 2rem;}
+}
+
+hr.content-divider {display: none;}
+
+// АККОРДИОНЫ
+.accordion {margin-bottom: 0;} .accordion + form {margin-top: 2em;}
+	#content-zone form.accordion { padding: 0; background: none;}
+.accordion-group { border: none; margin-bottom: 0.2rem;}
+.accordion-heading,
+.confirm-block-header {
+	margin: 0;
+	padding: 0;
+	position: relative;
+	@extend %clearfix;
+}
+
+// заголовок аккордеона
+.accordion-toggle,
+.confirm-block-header {
+	display: block;
+	position: relative;
+	height: auto;
+}
+
+.accordion-toggle {
+	@extend %clearfix;
+	padding: 1.2rem 2rem;
+	margin: 1.2em 0 0;
+	border-radius: 0.2rem 0.2rem 0 0;
+	border-bottom: 0.1rem solid #E5E5E5;
+	text-decoration: none;
+	cursor: default;
+	outline: none !important;
+	cursor: default;
+	text-decoration: none !important;
+	transition: color 0.35s ease, background-color 0.35s ease, margin-top 0.35s ease;
+
+	.accordion-group:first-of-type &,
+	.accordion-group:first-child &,
+	&.collapsed {margin-top: 0 !important;}
+
+	&.collapsed {
+		cursor: pointer;
+		margin-top: 0;
+		border-bottom: none;
+		border-radius: 0.2rem;
+	}
+
+	&.disabled {
+		cursor: default;
+		transition: none;
+	}
+
+	.muted {display: block; clear: both; font-size: 1.3rem;}
+
+	// стрелка "развернуть / свернуть"
+	&:before {
+		display: block;
+		position: absolute;
+		top: 0.9rem;
+		left: 1.3rem;
+		margin: 0;
+		color: inherit;
+		width: 0.5em;
+
+		@media (max-width: 979px) {
+			font-size: 3.2rem;
+			left: 1.5rem;
+		}
+	}
+
+	@media (min-width: 768px) {
+		.accordion-heading & {
+			min-height: 4.9rem;
+			height: 4.9rem;
+			box-sizing: border-box;
+			padding-left: 4.5rem;
+		}
+	}
+
+	@media (min-width: 980px) {
+		.accordion-heading &:before {
+			top: 50%;
+			margin-top: -.5em;
+		}
+	}
+	@media (min-width: 1200px) {
+		.accordion-heading & {
+			padding-left: 7rem;
+
+			&:before {
+				top: 50%;
+				margin-top: -0.5em;
+				left: 3.5rem;
+				margin-left: -0.25em;
+			}
+		}
+
+		&:before {left: 3.5rem;}
+
+		.span9 & {
+			padding-left: 4.5rem;
+			&:before {left: 2.25rem;}
+		}
+	}
+}
+
+
+
+// внутри заголовка
+.confirm-block-header .h4,
+.accordion-toggle .h4 {
+	display: block;
+	float: left;
+	margin: 0;
+	font-weight: 600;
+	@extend %border-box;
+	width: 100%;
+	line-height: 1.3333;
+}
+.accordion-toggle .h4 {
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+@media (min-width: 1px) {
+	.accordion-toggle .h4 {
+		-o-text-overflow: ellipsis;
+		   text-overflow: ellipsis;
+	}
+}
+@media (max-width: 480px) {
+	.accordion-toggle .h4,
+	#payform-steps .accordion-toggle > span {
+		line-height: 1.3;
+		font-size: 1em;
+	}
+}
+
+// контент аккордеона
+
+.accordion-inner > .buttons:last-child {padding-bottom: 1.5em !important;}
+
+// скрытый текст в #content-pages на внутренних страницах
+.moretext-hide {
+	display: none;
+}
+.moretext-lnk,
+#pay-pages + #content-pages .collapse + p a,
+#pay-pages + #content-pages .collapsing + p a {
+	display: inline;
+	font-size: 1.25em;
+	line-height: 1.2;
+	margin: 0;
+	border-bottom: 0.1rem dotted #137dd5;
+	color: #137dd5;
+	text-decoration: none;
+}
+.hidetext-lnk {
+	display: block;
+	float: left;
+	font-size: 0.8em;
+	line-height: 1.2;
+	margin: -0.625em 0 0;
+	color: #b4b5b4;
+	border-bottom: 0.1rem dotted #b4b5b4;
+	text-decoration: none !important;
+}
+.moretext-lnk:hover, .moretext-lnk:active,
+.hidetext-lnk:hover, .hidetext-lnk:active,
+#pay-pages + #content-pages .collapse + p a:hover,
+#pay-pages + #content-pages .collapse + p a:active {
+	color: #bc161c;
+	border-bottom-color:#bc161c;
+	cursor: pointer;
+}
+#content-pages .collapse.in {
+	margin: -.1rem 0 0 !important;
+	padding-top: .1rem;
+}
+
+// Таблицы
+
+.table thead th {
+	vertical-align: middle;
+	padding: 0.4rem 0.8rem;
+	font-weight: 600;
+	line-height: 1.5;
+	color: #555555;
+	min-height: 3.4rem;
+}
+.table caption + thead tr:first-child th,
+.table caption + thead tr:first-child td,
+.table colgroup + thead tr:first-child th,
+.table colgroup + thead tr:first-child td,
+.table thead:first-child tr:first-child th,
+.table thead:first-child tr:first-child td,
+.table thead th, .table thead td {
+	border: none;
+	border-left: 0.1rem solid #fff;
+	background: #F1F1F1;
+}
+
+.table tbody th, .table tbody td {
+	border: none;
+	border-bottom: 0.1rem solid #cfd0cf;
+	border-left: 0.1rem solid #fff;
+}
+
+.table {border: none;}
+
+@media (max-width: 767px) {
+	.table--mobile-scroll {
+		display: block;
+		overflow-y: auto;
+	}
+}
+
+.table--fixed {
+	table-layout: fixed;
+}
+
+.table--text-center th,
+.table--text-center td {
+	text-align: center;
+}
+
+// Списки
+
+ul, ol { margin-left: 2rem; }
+li {
+	margin: $line-height-base/2 0 0 2.5rem;
+	padding-left: 0;
+}
+.dropdown-menu > ul:not(.hz_tabs) > li {margin-left: 1.5rem;}
+.unstyled li {margin-left: 0}
+
+ul.nums > li {
+	list-style-type: none;
+	clear: both;
+}
+
+ul.nums > li ul:not(.nums) > li {
+	list-style-type: disc;
+}
+li span.num {
+	display: block;
+	float: left;
+	margin-left: -4.5rem;
+	width: 2.5rem;
+	padding: .1rem 0 0 .2rem;
+}
+ul.nums li span.num {
+	color: #b4b5b4;
+	font-size: 1.2rem;
+	line-height: 2.1rem;
+}
+ul.nums ul.nums {margin-top: 0; margin-bottom: 3rem;}
+
+@media (min-width: 1200px) {
+	li{margin-left: 4rem}
+	ul.nums li span.num {margin-left: -6rem;}
+}
+@media (max-width: 480px) {
+	ul, ol { margin-left: .5rem; }
+	ul.nums li span.num {margin-left: -3rem;}
+
+	// вложенные списки (оферта)
+	ul.nums ul.nums {margin-left: 2rem;}
+	ul.nums ul.nums li {margin-left: 2.5rem;}
+	ul.nums ul.nums li span.num {margin-left: -4.5rem;}
+}
+
+dl.inline dt, dl.inline dd {display: inline; margin:0;}
+dl.inline dt {font-weight: 600;}
+dl.inline dd + dt {margin-left: 1rem;}
+dl.inline dd + dt:before {content: '|'; opacity: 0.5; margin-right: 1rem;}
+@media (max-width: 767px) {
+	dl.inline dd + dt:before {content: '\0085';margin: 0; display: block; height: 0;}
+	dl.inline dd + dt {margin-left: 0;}
+}
+
+// вывод суммы
+dl.summ {
+	display: block;
+	line-height: 1;
+	float: right;
+	font-size: $font-size-large;
+	margin: 0 0 0 1rem;
+
+	@at-root %summ-dtdd {
+		display: inline-block;
+		float: none;
+		margin: 0 0 0 1rem;
+		width: auto;
+		text-decoration: none;
+		line-height: 1.2;
+		vertical-align: bottom;
+		overflow: visible;
+	}
+	dt {
+		@extend %summ-dtdd;
+		display: none;
+	}
+	dd {
+		@extend %summ-dtdd;
+		font-weight: 600;
+		font-size: $font-size-larger;
+		line-height: inherit;
+		color: $red;
+	}
+
+	// результаты платежа
+	&:not(.discount-summ) {
+		dt:before {content: 'К оплате:';}
+		.success & dt:before { content: "Оплачено:"; }
+		.inprocess & dt:before { content: "Сумма платежа:"; }
+	}
+}
+
+// Списки определений, данные о платеже
+*:not(.payment-info) > .dl-horizontal, .form-horizontal .control-group, .payment-info {
+	position: relative;
+	z-index: 1;
+}
+
+// заменить на @extend %dl-horizontal
+.dl-horizontal {
+	margin: 0;
+	@extend %clearfix;
+
+	& + .h5 {
+		margin-top: 2.1rem !important;
+		margin-bottom: -.7rem !important;
+		z-index: 1;
+	}
+}
+.dl-horizontal dt {
+	clear: both;
+	text-align: left;
+	width: auto;
+
+	&.hidden + dd {
+		display: none;
+	}
+}
+
+.dl-horizontal dt,
+.dl-horizontal dd {
+	display: block;
+}
+@media (min-width: 768px) {
+	.dl-horizontal ~ .dl-horizontal {
+		margin-top: 2.1rem;
+	}
+	.dl-horizontal dt {
+		float: left;
+		background: #f1f1f1;
+		max-width: 17.4rem;
+		padding-right: .3rem;
+	}
+	.dl-horizontal dt:before {
+		position: absolute;
+		right: 0;
+		left: 0;
+		margin-top: 1.1em;
+		content: '';
+		border-top: 0.1rem dotted #b4b5b4;
+		z-index: -1;
+	}
+	.dl-horizontal dd {
+		min-height: $line-height-base;
+		margin-left: 18.7rem;
+		padding-left: .3rem;
+		background: #f1f1f1;
+	}
+
+	.modal .dl-horizontal dt,
+	.modal .dl-horizontal dd {
+		background-color: #fff;
+	}
+}
+@media (max-width: 767px) {
+	.dl-horizontal ~ .dl-horizontal {
+		margin-top: .2rem;
+	}
+	.dl-horizontal dt {
+		float: none;
+		//font-size: 12px;
+		line-height: 2.1rem;
+		//padding-top: .1rem;
+		//margin-bottom: -.1rem;
+		//color: #b4b5b4;
+		font-weight: 600;
+		margin-top: .7rem;
+	}
+}
+
+// ДАННЫЕ ПЛАТЕЖА
+.payment-info {
+	@extend %clearfix;
+	position: relative;
+	padding-top: 2.4rem; // плюс .3rem для посадки на сетку
+	margin-bottom: -.3rem;
+
+	@media (max-width: 767px) {
+		padding-top: $vgrid;
+	}
+
+	.dl-horizontal dd small {
+		display: inline-block;
+		margin-left: 2rem;
+		color: $gray;
+
+		&:before {content:'— ';}
+	}
+	.h5 {
+		position: relative;
+		clear: both;
+		float: left;
+		color: rgba(0,5,10,0.35);
+		font-size: $font-size-small;
+		line-height: 2rem;
+		height: 2rem;
+		margin: -0.75em 0 -0.75em -0.4rem;
+		background: #fff;
+		padding: 0 0.4rem;
+
+		&:first-child {margin-top: 1.2em;}
+
+		.confirm-block:not(.accordion-group) & {
+			background: $form-bg !important;
+		}
+		@at-root .accordion-body.payment-info .h5 {
+			background-color: #fff;
+		}
+
+		& + dl.dl-horizontal {
+			clear: left;
+			border-top: $border-line;
+			padding-top: 1.5em;
+		}
+	}
+
+	& ~ p.small {
+		line-height: 2.1rem;
+		padding-top: .5rem;
+		margin: 1.4rem 0;
+
+		&.muted:first-of-type {
+			margin: 4.2rem 0 1.6rem; padding-top: 0;
+			&:before {display: block; position: absolute; content: ''; margin-top: -.7rem; width: 17rem; border-top: 0.1rem solid #E5E5E5;}
+		}
+
+		.accordion-body &:last-child {
+			margin-bottom: .7rem;
+		}
+
+		@media (max-width: 767px) {
+			line-height: 1.75rem;
+
+			&:first-of-type {
+				margin-top: 2.5rem;
+			}
+
+			.accordion-body &:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+}
+
+.pay-pages .accordion-body.collapse .dl-horizontal dt,
+.pay-pages .accordion-body.collapse .dl-horizontal dd,
+.pay-pages .accordion-inner .dl-horizontal dt,
+.pay-pages .accordion-inner .dl-horizontal dd  {
+	background: #fff;
+}
+// ФОРМЫ
+form p.lead {font-weight:300;}
+
+@media (max-width: 767px) {
+	form .formfields p.lead:first-child:before {
+		display: block;
+		float: right;
+		width: 3.4rem !important;
+		height: 3.4rem;
+		content: '';
+		margin: -0.5rem -1rem 0.5rem 0.5rem;
+	}
+}
+
+// регион и адрес
+.control-group select + select,
+#subrf-block.controls + .controls {margin-top: 1rem;}
+
+#region-block + #dep-block,
+#subrf-block + #adres-block {
+	margin-top: -1rem;
+}
+
+// label.checkbox
+label.checkbox.lead {text-align: left; margin: 0.75em 0; font: normal #{$font-size-large}/#{$line-height-base} 'Open Sans', Verdana, 'Geneva CY', 'DejaVu Sans', sans-serif; }
+label.checkbox.lead.checked {font-weight: 600;}
+.control-group:first-child label.checkbox.lead {margin-top: 0;}
+label.checkbox + .help-block { margin-top: 0;}
+
+// Чекбоксы с квадратной областью (LABEL без текста)
+.checkbox.sq {	// square-shaped LABEl.checkbox
+	display: block;
+	position: relative;
+	width: 4rem;
+	height: 4rem;
+	padding: 0 !important;
+	margin: 0.5rem 0;
+}
+.checkbox.sq input[type="checkbox"] {
+	float: none;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -0.7rem 0 0 -0.7rem !important;
+}
+.accordion-heading > .checkbox.sq + .accordion-toggle {	margin-right: 4.5rem !important; padding-right: 0;}
+@media (max-width: 767px) {
+	.accordion-heading > .checkbox.sq + .accordion-toggle { padding-left: 1.5rem; padding-right: 0; }
+	.accordion-heading > .checkbox.sq + .accordion-toggle:before {display: none;}
+}
+.accordion-heading > .checkbox.sq {
+	position: absolute;
+	margin: 0;
+	top: 0.3rem;
+	right: 0;
+}
+
+// блок с .checkbox и доппараметрами (в том числе - квитанция)
+.checkboxBlock label.checkbox {
+	position: relative;
+	font-size: 1.25em;
+	line-height: 1.4;
+	margin: -0.9rem -1.5rem;
+	padding: 0.9rem 1.5rem 0.9rem 3.5rem;
+	width: auto;
+}
+
+// костыль для планшетов
+@media (min-width: 768px) {
+	.checkboxBlock:not(.kvitantsia) label.checkbox {
+		padding-left: 4.8rem;
+	}
+}
+.checkboxBlock label.checkbox:not(.checked) {margin-bottom: -0.9rem;}
+	.checkboxBlock label.checked {font-weight: 600;}
+
+.checkboxBlock label.checkbox.lead + label.checkbox.lead { margin-top: 2rem; }
+
+.checkboxBlock label:not(.checked) ~ .params-required {display: none;}
+.checkboxBlock label.checked ~ .params-required {
+	display: block;
+	padding: 1.5em 0;
+	border-top: $border-dotted;
+	margin-top: -0.5rem;
+}
+@media (max-width: 767px) {
+	.checkboxBlock label.checkbox {font-size: 1.2em; margin-bottom: 0;}
+	.checkboxBlock label.checked {font-weight: 600;}
+	.checkboxBlock label.checked ~ .params-required {padding-bottom: 0;border-top: none;}
+}
+@media (max-width: 480px) {
+	.checkboxBlock label.checked ~ .params-required { padding:0; }
+}
+
+// Радио-кнопки с круглой областью (LABEL без текста)
+label.radio.circle {
+	display: block;
+	position: relative;
+	width: 3.3rem;
+	height: 3.3rem;
+	padding: 0;
+	border-radius: 51%;
+	margin: 0.6rem;
+	background: #e4e4e4;
+}
+label.radio.circle > input[type="radio"] {
+	float: none;
+	margin: 1rem 0 0 1rem;
+	position: absolute;
+}
+
+// FOCUSED BLOCK на голубом фоне
+.focused-block {
+	position: relative;
+	background-color: #afe3ff;
+	padding: 1em 1.25em;
+	margin-bottom: 2rem;
+	border-radius: 0.2rem;
+}
+	.focused-block.control-group {padding: 1.2rem 1.5rem;}
+	.focused-block:last-child {margin-bottom: 0;}
+
+.focused-block > .h4:first-child,
+.focused-block p:first-child {margin-top: 0;}
+.focused-block .help-block {color: $gray;}
+
+.focused-block *:last-of-type, .focused-block *:last-child {margin-bottom: 0;}
+
+//.focused-block .btn {
+//	background-color: #fff;
+//	color: #2487c0;
+//	text-transform: uppercase;
+//	font-weight: 600;
+//}
+
+// выноска
+.focused-block:before {
+	display: block;
+	position: absolute;
+	content: '';
+	border: 1.5rem solid transparent;
+}
+.focused-block:before {
+	border-bottom-color: #afe3ff;
+	left: 3rem;
+	top: -3rem;
+}
+
+.focused-block.no-ugol:before {display: none;} // без выноски
+
+@media (min-width: 980px) {
+	//.focused-block.right {margin: 0.4em 0 1.25em -1.25em;}
+	.focused-block.right:before {
+		border-bottom-color: transparent;
+		border-right-color: #afe3ff;
+		top: 3rem;
+		left: -3rem;
+	}
+}
+.formfields .focused-block {display: inline-block;}
+.focused-block .muted {color:#5499bc;}
+.focused-block .unstyled li {margin-left: 0}
+.focused-block .control-label small {color: inherit;}
+
+@media (max-width: 767px) {
+	.focused-block { padding: 1.4rem 1.3rem;}
+	.focused-block.control-group {text-align: left;}
+	.focused-block:before, .focused-block.right:before {left: 1rem; top: -2.4rem;border-width: 1.2rem;}
+}
+
+// Логотип А3 (на платежных и контентных страницах)
+.a3com_logo-text {
+	display: block;
+	padding-left: 8.9rem;
+}
+.a3com_logo-text .a3-logo {
+	display: block;
+	float: left;
+	width: 6.9rem;
+	margin-left: -8.9rem;
+	margin-top: .5rem;
+}
+// Логотипы операторов (на платежных и контентных страницах)
+%icn30 {
+	display: inline-block;
+	font-size: 3rem;
+	width: 1em;
+	height: 1em;
+	background-image: url(../img/pm-logos.png);
+	background-repeat: no-repeat;
+	background-position: 1em 0;
+	background-size: auto 3em;
+	margin: 0;
+	padding: 0 !important;
+	text-indent: -100rem;
+	overflow: hidden;
+}
+%icn30-before {
+	@extend %icn30;
+	content: '';
+}
+
+%fullsize-logos-mob {
+	background-image: url(../img/pm-logos_fullsize.png);
+	background-size: auto 1em;
+}
+	.beeline-icn30 {
+		@extend %icn30;
+		background-position: 0 0;
+
+		&.fullsize {
+			@extend %fullsize-logos-mob;
+			background-position: 0 0;
+			width: 2.5em;
+		}
+	}
+	.megafon-icn30 {
+		@extend %icn30;
+		background-position: -1em 0;
+
+		&.fullsize {
+			@extend %fullsize-logos-mob;
+			background-position: -2.5em 0;
+			width: 3.25em;
+		}
+	}
+	.mts-icn30 {
+		@extend %icn30;
+		background-position: -2em 0;
+
+		&.fullsize {
+			@extend %fullsize-logos-mob;
+			background-position: -5.75em 0;
+			width: 1.875em;
+		}
+	}
+	.rtc-icn30 {
+		@extend %icn30;
+		background-position: -6.5em 0;
+		width: .75em;
+
+		&.fullsize {
+			@extend %fullsize-logos-mob;
+			background-position: -9.5em 0;
+			width: 3.292em;
+		}
+	}
+	.tele2-icn30 {
+		@extend %icn30;
+		background-position: -3em 0;
+		width: 2em;
+
+		&.fullsize {
+			@extend %fullsize-logos-mob;
+			background-position: -7.625em 0;
+			width: 1.875em;
+		}
+	}
+	.visa {
+		&-icn30, &:before {
+			background-position: 0 -1em;
+			width: 1.5em;
+		}
+		&-icn30 {
+			@extend %icn30;
+			&.el {
+				background-position: -5em 0;
+			}
+			&.muted {
+				background-position: 0 -2em;
+			}
+		}
+		&:before {
+			@extend %icn30-before;
+		}
+	}
+	.mcard {
+		&-icn30, &:before {
+			background-position: -1.6em -1em;
+			width: 1.1em;
+		}
+		&-icn30 {
+			@extend %icn30;
+			&.muted {
+				background-position: -1.6em -2em;
+			}
+		}
+		&:before {
+			@extend %icn30-before;
+		}
+	}
+	.maestro {
+		&-icn30, &:before {
+			background-position: -5.1em -1em;
+			width: 1.1em;
+		}
+		&-icn30 {
+			@extend %icn30;
+			&.muted {
+				background-position: -5.1em -2em;
+			}
+		}
+		&:before {
+			@extend %icn30-before;
+		}
+	}
+	//.jcb-icn30 {background-position: -5em 0;}
+	.mir {
+		&-icn30, &:before {
+			background-position: -3em -1em;
+			width: 1.7em;
+		}
+		&-icn30 {
+			@extend %icn30;
+			&.muted {
+				background-position: -3em -2em;
+			}
+		}
+		&:before {
+			@extend %icn30-before;
+		}
+
+	}
+
+
+
+// ПЕЙДЖИНГ  ---------------------------------
+// старая верстка навигации
+.pagination {
+	display: block;
+	clear: both;
+
+	ul {
+		margin: 1.5em 0 0;
+		padding: 0;
+		list-style-type: none;
+		box-shadow: none;
+		font-size: 1.5em;
+		font-weight: 300;
+
+		& > li {
+			display: inline-block;
+			margin: 0;
+
+			@at-root %page-indicator {
+				border: none;
+				box-shadow: none;
+				border-radius: .4rem;
+				margin: 0 0.2rem 0 0;
+				text-decoration: underline;
+				background-color: transparent !important;
+			}
+
+			& > a {
+				@extend %page-indicator;
+				&:hover, &:active {color: $text-color;}
+			}
+			& > span {
+				@extend %page-indicator;
+			}
+
+			[class^="icon-"]{
+				display: block !important;
+				margin-top: -0.7rem;
+				text-indent: 0;
+			}
+		}
+
+		& > .active {
+			& > span,
+			& >  > a,
+			& >  a:hover,
+			& >  a:active {
+				color: $text-color;
+				text-decoration: none;
+			}
+		}
+		& > .disabled {
+			& > span,
+			& >  > a,
+			& >  a:hover,
+			& >  a:active {
+				color: $gray!important;;
+			}
+		}
+	}
+
+	// Кнопки паджинации и крутилки новостей
+	@at-root %prev-next-btns {
+		.pagination & {
+			z-index: 2;
+			top: -6.6rem;
+			border: none;
+			margin: 0;
+			width: 4.2rem;
+			height: 2.8rem;
+			transition: left 0.15s ease, right 0.15s ease;
+			opacity: 1;
+			outline: none;
+			overflow: hidden;
+			text-indent: -100rem;
+			text-decoration: none ;
+			padding: 0;
+		}
+
+		color:$blue;
+
+		&:hover {
+			color:$text-color;
+		}
+	}
+	@at-root %prev-next-btn-disabled {
+		opacity: 0.25;
+	}
+	@at-root %prev-btns {
+		right: 7.4rem;
+	}
+	@at-root %next-btns {
+		right: -0.4rem;
+	}
+
+	@at-root .prev {
+		a {
+			@extend %prev-next-btns;
+			padding-left: 0;
+			right: 7rem;
+			left: auto;
+
+			&:hover, &:active {
+				@extend %prev-btns;
+			}
+		}
+		&.disabled a {
+			@extend %prev-next-btn-disabled;
+			@extend %next-btns;
+		}
+	}
+	@at-root .next {
+		a {
+			@extend %prev-next-btns;
+			padding-right: 0;
+			right: 0;
+
+			&:hover, &:active {
+				@extend %next-btns;
+			}
+		}
+		&.disabled a {
+			@extend %prev-next-btn-disabled;
+			@extend %next-btns;
+		}
+	}
+
+	@media (max-width: 767px) {
+		text-align: center;
+		ul {
+			font-size: 1.25em;
+			font-weight: 400;
+
+			& > li {
+				& > a,
+				& > span {
+					padding: 0.4rem 0.8rem;
+				}
+			}
+		}
+		li [class^="icon-"] {
+			font-size: 3.15rem;
+		}
+
+		.prev,
+		.next {
+			a {
+				background: none;
+				width: auto;
+				height: auto;
+				text-indent: 0;
+				text-decoration: none;
+				font-size: 0.8em;
+			}
+			&.disabled a {opacity: 1; color: #ccc !important;}
+		}
+	}
+}
+
+.pages {
+	$item-size: $vgrid*4;
+	$item-padding-v: ($item-size - $line-height-base)/2;
+
+	&-list {
+		@extend %clearfix;
+		@extend %unstyled;
+		display: block;
+		margin-bottom: $line-height-base;
+
+		li {
+			@extend %unstyled-li;
+			float: left;
+
+			& + li {
+				margin-left: $vgrid;
+			}
+
+			& > a {
+				display: block;
+				width: $item-size;
+				height: $item-size;
+				@extend %border-box;
+				color: $blue;
+				border: .2rem solid #fff;
+				background-color: #ffffff;
+				text-align: center;
+				border-radius: 100%;
+				text-decoration: none;
+				font-size: $font-size;
+				line-height: $line-height-base;
+				padding: ($item-padding-v - .2rem) 0;
+				transition: background-color 0.15s ease-in, border-color 0.15s ease-in;
+
+				&:hover, &:active {
+					background-color: $form-bg;
+					border-color: $form-bg;
+					color: $blue;
+				}
+			}
+			&.active > a {
+				&, &:hover, &:active {
+					background-color: #ffffff;
+					border-color: $blue;
+					cursor: default;
+				}
+			}
+			&.first, &.last {
+				& > a {
+					padding: 0;
+					position: relative;
+
+					@at-root %arr-transition {
+						transition: transform .3s ease-in;
+					}
+					@at-root %arr-transition-delayed {
+						transition: transform .3s ease-in .3s;
+					}
+					%arr-open {
+						transform: rotateY(0deg);
+					}
+
+					& > * {
+						display: block;
+						position: absolute;
+						top: 0;
+						left: 0;
+						width: inherit;
+						height: inherit;
+						overflow: hidden;
+						border-radius: 100%;
+					}
+					& > span {
+						transform: rotateY(90deg);
+						padding: ($item-padding-v - .2rem) 0;
+						background-color: $form-bg;
+						border-color: $form-bg;
+						color: $blue;
+						@extend %arr-transition;
+						@extend %border-box;
+					}
+					& > i {
+						@extend %arr-open;
+						@extend %arr-transition-delayed;
+						font-size: 3.2rem;
+					}
+
+					&:hover, &:active {
+						background-color: #fff;
+						border-color: #fff;
+
+						& > span {
+							@extend %arr-open;
+							@extend %arr-transition-delayed;
+						}
+						& > i {
+							transform: rotateY(-90deg);
+							@extend %arr-transition;
+						}
+					}
+				}
+			}
+		}
+	}
+	&-amount {
+
+		strong {
+			display: block;
+			float: left;
+			font-weight: 400;
+			padding: $item-padding-v 0;
+		}
+
+		ul {
+			display: block;
+			float: left;
+			margin-left: $vgrid;
+		}
+	}
+
+	@media (min-width: 641px) {
+		@at-root .pagination {
+			float: left;
+		}
+		@at-root .pages-amount {
+			float: right;
+		}
+	}
+	@media (max-width: 640px) {
+		@at-root .pages-list {
+			display: block;
+			text-align: center;
+
+			li {
+				display: inline-block;
+				float: none;
+				vertical-align: top;
+				& + li {
+					margin-left: $vgrid/2;
+				}
+			}
+		}
+		@at-root .pagination {
+			margin-bottom: $vgrid*2;
+		}
+		@at-root .pages-amount {
+			display: none;
+		}
+	}
+}
+
+// кнопка Анкеты
+.dotted-btn {
+	&, &:visited {
+		display: block;
+		position: relative;
+		@extend %border-box;
+		width: auto;
+		max-width: 58rem;
+		height: 5.2rem;
+		padding: 1.4rem 2rem 1.1rem 0.8rem;
+		margin: 0em 0 3em 1.2rem;
+		background: #fff url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABLIAAABoCAMAAADSKCmRAAAAUVBMVEUAAABnpsZnpsZnpsZnpsZnpsZnpsZnpsZnpsZnpsZnpsZnpsZnpsZnpsZnpsZnpsZnpsZnpsZnpsZnpsZnpsZnpsZnpsZnpsZnpsZnpsZnpsbOn7FzAAAAGnRSTlMACQIG9fBM86r3McwzxetmlB6CEeMpQrjXoJ7IPs4AAAO/SURBVHja7N1bjptAGETh6vrBA9hcG4zH+19oHI00VqxJHuNGOt/L8QpKLTCgF5a8Tf2tD/nS3u9nSil9Q+d9Gjvr3xyz5a2uqnOSu0f7oJTS/9/L1w7J1l/FpVnzI+OpS5KcUgpKKX1D83VplpDnS1g/i6lqh6sl2wKAd3JESDHV02z9KJZ1mhkrAOWIpW7XznrlsJTmYLEAlCS6Zs965bnZLDFYAArjyJLCfy7WuW1CAFCkNGbrKe/tbeOIBaBMMX7sWU/5k8UCUCxvazuFnoI7hQDK5euwfq+UxYV3AEWL0+zvn1kAUDRbX9wNfRIAlM0RvxOf7cL/GwAUznmZQvI2DFx7B1A6z0O9+ZGFQxaA8sXULiE5WCwA5fO17lkrAEeRTlkKXt4A4BgsaZx4VAfAYewfJyYLwBE4Jd0qTlkAjsDb+aah5nEdAEfguao1jtw1BHAIubqLj+ngFzt3bINAEANA0JYOkd0TENF/odSx0kwRloO1IWLvGYCK3dG+AyEfF4ZAx/vrWRbQsDvnGllAwt4zL1sW0LDnN8+jcgASVpcFdOiygBJdFtCiywJCdFlAhS4L6NBlASG6LCBElwWE6LKAEl0W0KLLAkJ0WUCFLgvo0GUBIbosIESXBYTosoA/u3ZAAgAAACDo/+t2BLrDEy8LePGygBEvC7jwsoAPLwsY8bKAES8LGPGygBMvC3jxsoARLwu48LKADy8LGPGygBEvCxjxsoATLwt48bKAES8LuPCygA8vCxjxsoARLwsY8bKAEy8LePGyYt9edhOGgSgMj884IQTk3IgT3v9FWwUhRWrU7ooj/d/mgNiwGnnGYwAnoRDscuHGEMApTKmyKk4GAOXTECtbq5k7QwAnoHtcra5pDAGcgfK6sJcF4CwUuC0EcC4eOGcBOIGtJ/TuVlOzABRPbXYz7+KT9hBA8bypOjcNqRo4ZgEonObLVqu8f2RKFoDCef/qCDUMNIYASqf5Oes9heeYBaBwcr0/OtMsACWT7774+KhpDgEUy+vR9yXrmhjBAyiV51TtF0hDc73xOhpAmdQ+rn2wnalhBR5AoTSvzfRzFC+nbAEojNxMczj4IS+ZJ9IASqKQOz/ew/IlxifbDgDKobaJ6S47NI0ptTK50yEC+CjJXdtJKo2THZPP2zvppe9amSmE4EaSJPnvqSl3fS1T3Q+u3+dcdRXj4lteGpIkyc9k/M6/bwVf1W0s4y+T5NdG6RFK84gLCLExEd2HHAQNw1F6lB6lRzI9OqY+CkbBKBj6AADJjZZ6nUkhlAAAAABJRU5ErkJggg==) 100% 0 no-repeat;
+		background-size: auto 100%;
+		font-size: $font-size + 2px;
+		color: $blue !important;
+		text-align: center;
+		text-decoration: none;
+	}
+	&:hover, &:active {
+		text-decoration: none;
+		color: $red !important;
+		background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABLIAAABoCAMAAADSKCmRAAAAY1BMVEUAAACuAADGHBzUKCu7Fx23IyOqGxy7Fx27Fh28Fx66Fx28Fh27GR65GR68Fx28Fhz/AAC7Fx26Fx66GRy7Fxy7Fxy7Fh28GB27Fx27Fxy7Fh27Fx27FRy9FR28Fx68Fx27Fx0KWcWVAAAAIHRSTlMAAwkF9wcJ9PFMqu8wM8zFASJjFuOU6oZ1uNadRTyoUx1ryNgAAAPjSURBVHja7NzNbuIwGIXh4z8IQ1I+4yQkgSLu/ypnqilqhUSXxZHeZ3PsRbZHzicnemCStefDckhyXbzd3kiSJH8/Lc/DsTX9zKXiZHkftx+Ptv/yQJIk+YJ8/99DMqenUnftixSOu24jyW28TyRJki9If5muU5DlLtmzxhq2cXw3yZkTALyShRSkMDRDflJIYepPmbICUI8w7WPfOT2yZNKmJBMA1CO0f2avRy5fs0kUFoDKWPCSgukby2/xGgQAVfJTse/bOS4tRywAdQrTdi764s80FoBqWe7jkPQlFRoLQLXcZeyz3Tdi8A6gauGS7b7ceQFA1czui25/oLMA1M5C+Ih0jifuNwConJXTOUmW9yOzdwC1szI2rcnyiUMWgPp9vhFaoLEA1M8uzSEJANbB74oUAoMsAKvgJE0Dn+oAWI252fFXPwBrYClpiZyyAKyB5WXR2BQBQP0sbxsdj9xxALAKPt7kmGThL/t2cAIgEANA8DhEBX+i9l+qXBkLM0WEEDbQMK9tAFTsc2jfgZDXhyHQcTyedoCGfY7tM7KAhHV+P21ZQMOKHO5b5QAk6LKAEF0WUKLLAlp0WUCILguo0GUBHbosIESXBYTosoAQXRZQossCWnRZQIguC6jQZQEduiwgRJcFhOiygBBdFvCzawckAAAAAIL+v25HoDs88bKAFy8LGPGygAsvC/jwsoARLwsY8bKAES8LOPGygBcvCxjxsoALLwv48LKAES8LGPGygBEvCzjxsoAXLwsY8bKACy8L+PCygBEvCxjxsoARLws48bKAFy8rdu5lt1EgiMLwaYoGbMioAHM1mPd/yxlZoySSlSyTRvq/zWHBghWqaqoAcBJeFKqqTABwAlldqc57AUD6vM9rrXXrAoDkhbdy1XHQGAI4A9/XhbksAGfhkWUdAOdikToLwAkEl2TdeuH8HUDywtsWJZvzO+0hgOTFRzWbvB0ZcwCQPG+rqnUp3m8bp1kAEmdT+ewIve15YwFInTf3xp8XLtEZAkicR9d/RqEFIGVu+mDz7cIvaAAkyy5z1Dub8nGnzgKQqLCP1RH0Lrvmf9iOBpCm0NzyIdMn/ZUReACJ8nZ9ZK9H8W40hwASE0zyNtML35a9oNYCkJBQ7F2UXK/ikpd3dncApMOba/nlx8F+GsfG5dHoEAH8Knez8Kykxqn/6p7Ydibvl6FrXApFlplIkiR/PL3fuuEICsfQmn87YBqOOi+XqHCp8vJqJEmSP5/Hv3yYFMz1Pe+3eZgSeGSS/LtReuTSvJKiEjKMRPchB0HDcJQepUfpkUwDx9RHJwNHwSgYBUMcAACXIMJDJ8NN4QAAAABJRU5ErkJggg==);
+	}
+
+	&:before {
+		display: block;
+		content: '';
+		position: absolute;
+		width: 1.2rem;
+		left: -1.2rem;
+		height: 5.2rem;
+		background: inherit;
+		background-position: 0 0;
+		top: 0;
+	}
+
+	@media (min-width: 1200px) {
+		padding: 1.4rem 2rem 1rem 0.8rem;
+		font-size: $font-size-large;
+	}
+	@media (min-width: 768px) and (max-width: 979px) {
+		padding: 0.4rem 2rem 0.6rem 0.8rem;
+		font-size: $font-size + 2px;
+	}
+	@media (max-width: 767px) {
+		margin: 0 auto;
+	}
+}
+
+// RESPONSIVE STYLES
+// ------------------------------------------------------------------------------
+
+@media (min-width: 481px) {
+	%user-docs-label {
+		text-align: left;
+		float: left;
+		font-weight: 400;
+	}
+	%user-docs-cg {
+		margin-bottom: 1rem;
+	}
+	// FSSP Details
+	.user-docs {
+		.form-horizontal & {
+			.control-group {
+				@extend %user-docs-cg;
+			}
+			.control-label {
+				@extend %user-docs-label;
+				width: 11rem;
+
+				& + .controls { margin-left: 13rem}
+			}
+		}
+	}
+	// GIBDD Details
+	.avto-docs {
+		.form-horizontal & {
+			.control-group {
+				@extend %user-docs-cg;
+			}
+			.control-label {
+				@extend %user-docs-label;
+				width: 14rem;
+				padding-top: 0;
+
+				& + .controls { margin-left: 16rem}
+			}
+		}
+	}
+}
+@media (min-width: 768px) {
+
+	dl.summ {
+		max-width: 17rem;
+		text-align: right;
+		position: absolute;
+		right: 2.4rem;
+		top: 1.2rem;
+
+		#confirm-form & {
+			right: 0;
+			font-weight: 600;
+			top: 0.4rem;
+		}
+
+		& + & {
+			margin-top: 2.3rem;
+		}
+	}
+
+	.focused-block .dl-horizontal > * {background-color: transparent;}
+}
+@media (min-width: 980px) {
+	.helper-block {
+		&:before {
+			display: block;
+			position: absolute;
+			content: '';
+			margin-left: -5rem;
+			width: 3.6rem;
+			height: 1.6rem;
+			background: url(../img/helper-line.png) 0 0 no-repeat;
+			background-size: 100% auto;
+		}
+		& + &:before {display: none;}
+	}
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+	.content-pages .span3.offset1 {font-size: 1.3rem;}
+}
+
+@media (max-width: 767px) {
+	header + section:not(#pay-pages),
+	header + main section:not(#pay-pages) {padding: 0 2rem;margin: 0 -2rem;}
+
+	section#pay-pages{padding: 0 2.1rem;margin: 0 -2.1rem;}
+
+	.h2 {margin-top: 0;}
+	.h3 {
+		&:not(:first-child) {margin-top: 2rem;}
+		.dashed-block + & {margin-top: 3.5rem;}
+	}
+
+	h1 + ul {
+		padding-top: 0.75em;
+
+		li {
+			font-size: 1em;
+			display: block;
+			margin-right: 0;
+			margin-top: 0.2rem;
+			float: none;
+
+			.content-pages & {
+				display: inline-block;
+				margin-bottom: 0.2rem;
+			}
+
+			a i.icnEdit {display: none;}
+		}
+	}
+	#content-zone { padding-bottom: 2rem; }
+
+	form hr {display: none;}
+
+	.accordion{
+		&-heading {
+			padding-bottom: 0;
+		}
+		&-toggle {
+			padding: 1.2rem 4rem 1.2rem 1.5rem;
+
+			&:before {right: 1rem; left: auto; }
+		}
+	}
+
+	dl.summ {
+		float: none;
+		margin: 0;
+		display: inline;
+		font-size: 1.5rem !important;
+		line-height: 1.5;
+
+		dt, dd {
+			display: inline;
+			margin-left: 0;
+			vertical-align: baseline;
+		}
+		dd {
+			line-height: inherit;
+			font-size: inherit;
+		}
+	}
+}
+@media (max-width: 629px) {
+	form p.lead, form .control-group label.lead {font-size: $font-size; font-weight: 400;}
+}
+@media (max-width: 599px) {
+	.formfields .focused-block {display: block; margin-right: 0}
+	.controls, .control-group.inline .controls {max-width: 100%;}
+}
+@media (max-width: 480px) {
+	.h4 {margin: 3rem 0 1rem;}
+
+	.a3com_logo-text {
+		padding: 0;
+		margin-top: 2.5em;
+
+		.a3-logo {
+			float: none;
+			margin: -.7rem 0 -.7rem;
+		}
+	}
+}
+
+@media (max-width: 479px) {
+	ul.nav.arrowed > li {
+		padding-left: 4rem;
+
+		& > a {
+			display: inline;
+			font-size: 1em;
+			margin: 0;
+			padding: 0;
+
+			&:before { font-size: 3.2rem}
+		}
+	}
+}
+
+
+// общие элементы
+
+// Скидка на оплату
+.discount {
+	&-info {
+		display: block;
+		clear: left;
+		font-size: $font-size-small;
+		line-height: $line-height-small;
+		color: $red;
+
+		&.muted {
+			color: $gray;
+
+			strong {
+				color: $red !important;
+
+				&.psevdo-lnk {
+					border-bottom-color: $red;
+				}
+			}
+			a, .psevdo-lnk {
+				color: $muted-color;
+			}
+			.psevdo-lnk {
+				border-bottom-color: $muted-color;
+			}
+		}
+
+		.accordion-toggle & > strong {display: inline; font-weight: inherit;}
+
+		@media (min-width: 768px) {
+			font-weight: 600;
+		}
+	}
+
+	dl.summ {
+		dd {position: relative;}
+
+		&:not(.discount-summ) {
+			dd {
+				color: transparentize($text-color, .75);
+
+				&:before {
+					display: block;
+					position: absolute;
+					content: '';
+					height: 0.2rem;
+					left: -0.25rem;
+					right: -0.25rem;
+					top: 50%;
+					margin-top: -0.1rem;
+					background: #BB171D;
+					z-index: 1;
+				}
+			}
+		}
+
+		&.discount-summ,
+		&:not(.discount-summ) dd:before {
+			opacity: 1;
+			transition: opacity 0.3s ease;
+		}
+	}
+
+	@media (max-width: 767px) {
+		&-info { margin: 0 -2.5rem 0 0; }
+
+		dl.discount-summ {
+			margin-left: 0.4em;
+
+			dd { white-space: normal; }
+		}
+		dl.summ:not(.discount-summ) dd:before {
+			height: 0.2rem;
+			margin-top: -0.1rem;
+		}
+	}
+}
+.dscnt30.tooltip {
+	strong {
+		color: $red;
+		font-weight: bold;
+	}
+	em {
+		font-style: italic;
+		font-weight: 600;
+	}
+	@media (max-width: 479px) {
+		left: 0 !important;
+		right: 0 !important;
+
+		.tooltip-inner {
+			max-width: 100%;
+		}
+	}
+}
+
+// Пунктирные блоки с комментариями
+
+.dashed-block {
+	@include dashed-block;
+}
+
+// тултип рядом с кнопкой отправки формы (выводится на странице формы обратной связи и при оплате с мобильного)
+.btnpr-tltp {
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	left: 0;
+	min-height: inherit;
+
+	& + .tooltip {
+		*:not([class^="icon-"]):not([class*=" icon-"]) {
+			@include font-size-small;
+		}
+		.tooltip-inner {
+			box-shadow: 0 0.4rem 0.4rem 0 transparentize($text-color, .8), 0 0.1rem 1.4rem 0 transparentize($text-color, .9);
+		}
+
+		.iconed {
+			[class^="icon-"],[class*=" icon-"] {
+				margin-top: -.7rem;
+			}
+		}
+
+		strong.block {
+			margin-bottom: $vgrid;
+		}
+		ul, p {
+			margin: $vgrid 0;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+		li {
+			margin: 0 0 0 1.5rem;
+			list-style-type: none;
+
+			&:before {
+				float: left;
+				margin-left: -1.5rem;
+				content: '\2022';
+				font-size: 1.5em;
+				color: $text-color;
+			}
+		}
+
+		@media (max-width: 480px) {
+			display: block;
+			position: static !important;
+			padding: 0;
+			max-width: 100%;
+
+			&.right {
+				padding: 0 0 .8rem !important;
+				margin-bottom: 0;
+
+				.tooltip-arrow {
+					left: 50%;
+					top: 100% !important;
+
+					&:before, &:after {
+						border-right-color: transparent;
+					}
+					&:before{border-top-color: $form-bg; top: 0.1rem; left: 0;}
+					&:after{border-top-color:#fff; top:-0.1rem; left: 0;}
+				}
+			}
+
+			.tooltip-inner {
+				width: 100%;
+				max-width: 100%;
+			}
+		}
+	}
+
+// Тултип рядом с кнопкой Оплатить при оплате с мобильного
+	@at-root .smsWait {
+		position: relative;
+		z-index: 1;
+		min-width: 30.5rem + .8rem*2;
+
+		@include tltp-break;
+	}
+
+	.smsWait & {
+		& + .tooltip {
+			strong.block {
+				@include uppercase;
+				color: $red;
+				font-weight: 600;
+
+				&.iconed {
+					margin-bottom: 1.5rem;
+				}
+			}
+
+			.icon-envelope {
+				margin-left: -5.1rem;
+			}
+
+			p .btn-link {
+				margin: 0 -.7rem -0.4rem -.7rem;
+				width: auto !important;
+			}
+
+			@media (min-width: 481px) {
+				@at-root #feedbackForm *:hover > .btnpr-tltp + .tooltip {
+					padding: 0 0.8rem !important;
+				}
+			}
+		}
+	}
+}
+

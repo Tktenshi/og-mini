@@ -1,0 +1,812 @@
+﻿// @import "vars&mixins";
+
+// Используется в боковом меню на контентных страницах
+$caret-size-v: .4rem;
+.caret {
+	border-top-color: $blue;
+	border-width: $caret-size-v;
+	position: absolute;
+	margin-left: -2rem;
+	top:1rem;
+	transition: none;
+
+	&:before {
+		display: block;
+		position: absolute;
+		content: '';
+		border: $caret-size-v solid transparent;
+		border-top-color: $light-base;
+		top: -($caret-size-v + .2rem);
+		left: -$caret-size-v;
+	}
+
+	.collapsed > & {
+		border-top-color: transparent;
+		border-left-color: $blue;
+		margin-left: -1.8rem;
+		top: $caret-size-v;
+
+		&:before {
+			border-top-color: transparent;
+			border-left-color: $light-base;
+			top: -$caret-size-v;
+			left: -($caret-size-v + .2rem);
+		}
+	}
+
+	a:not(.collapsed):hover > &,
+	button:not(.collapsed):hover > & {
+		border-top-color: $text-color;
+	}
+
+	a.collapsed:hover > &,
+	button.collapsed:hover > & {
+		border-left-color: $text-color;
+	}
+}
+
+.phone-collapsed {
+	// применено на lk-cards и help-main
+
+	min-height: 1.5em; // для размещения открывающей кнопки вместо него
+
+	%opacity-fade {
+		transition: opacity $transition-speed $transition-type;
+	}
+
+	& > button[data-toggle="collapse"] {
+		opacity: 0;
+		z-index: -1;
+		position: absolute;
+		@extend %opacity-fade;
+	}
+	.collapse {
+		opacity: 1;
+
+		.modal {
+			@extend %opacity-fade;
+		}
+
+		*:first-child {
+			margin-top: 0;
+		}
+		*:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	@media (min-width: 768px) {
+		.collapse {
+			height: auto !important;
+			overflow: visible;
+		}
+		.collapse-header {
+			[data-toggle="collapse"] {
+				color: inherit;
+				text-decoration: none;
+			}
+			.caret {
+				display: none;
+			}
+		}
+	}
+	@media (max-width: 767px) {
+		margin: 0 0 .4rem;
+
+		& > button[data-toggle="collapse"].collapsed {
+			display: inline;
+			opacity: 1;
+			z-index: 1;
+		}
+		.modal & .collapse:not(.in) {
+			opacity: 0;
+		}
+		.collapse-header {
+			$padding-v: $vgrid*1.5;
+			$padding-h: $padding-base*.75;
+
+			background: $form-bg;
+			border-radius: .2rem;
+			padding: $padding-v $padding-h;
+			margin: 0 !important;
+			position: relative;
+			@include font-size-base;
+			font-weight: 600;
+
+			[data-toggle="collapse"] {
+				display: block;
+				margin: -$padding-v (-$padding-h);
+				padding: inherit;
+				padding-right: $padding-base*2;
+				text-decoration: none;
+
+				&:hover {
+					color: $red;
+				}
+
+			}
+			.caret {
+				top: 50%;
+				right: .6rem;
+				margin-top: -($caret-size-v)/2;
+			}
+
+			&:not(.collapsed) .caret {
+				right: .9rem;
+
+				&:before {
+					border-top-color: $form-bg;
+				}
+			}
+
+			&.collapsed .caret{
+				margin-top: -$caret-size-v;
+
+				&:before {
+					border-left-color: $form-bg;
+				}
+			}
+
+			#content-pages & + .collapse {
+				& > *:first-child {
+					margin-top: $vgrid*2 !important;
+				}
+				& > *:last-child {
+					margin-bottom: $line-height-base*1.5 !important;
+				}
+			}
+		}
+	}
+}
+
+%h-mid {
+	font-size: $font-size-larger;
+	line-height: $line-height-larger;
+	margin-top: 4rem;
+	margin-bottom: 2rem;
+
+	&:first-child {
+		margin-top: 0;
+	}
+
+	@media (min-width: 481px) and (max-width: 979px) {
+		font-size: $font-size-larger;
+		line-height: $line-height-larger;
+	}
+
+	@media (max-width: 480px) {
+		font-size: $font-size-large;
+		line-height: $line-height-base;
+	}
+}
+
+.h2 {
+	@extend %h-mid;
+	font-weight: 600;
+}
+
+.h3 {
+	@extend %h-mid;
+	font-weight: 600;
+
+	small {
+		color: $gray;
+		font-size: 1.3rem;
+	}
+}
+.h4 {
+	display: block;
+	font-size: $font-size-large;
+	line-height: $line-height-base;
+	font-weight: 600;
+	color: inherit;
+	margin: 4rem 0 2rem;
+
+	#content-zone .row:first-child &:first-child {margin-top: 0;}
+
+	a {color: inherit;}
+	@media (max-width: 767px) {
+		&--mobile-small {
+			font-size: $font-size;
+		}
+	}
+}
+
+.h5 {
+	font-size: $font-size-small;
+	line-height: $line-height-small;
+	margin-top: $line-height-base;
+	margin-bottom: $line-height-base/2;
+
+	#content-pages #content-zone & {
+		font-size: inherit;
+		line-height: inherit;
+		font-weight: 600;
+		margin: {
+			top: 2.8rem;
+			bottom: 0.8rem;
+		}
+	}
+}
+
+%font-size-base {
+	@include font-size-base;
+}
+%font-size-large {
+	@include font-size-large;
+}
+%small {
+	@include font-size-small;
+}
+
+.lead {
+	@extend %font-size-large;
+
+	&.right-arrowed {
+		position: relative;
+		display: inline-block;
+
+		.icon-arr-right {
+			font-size: $icon-size-mid;
+		}
+	}
+	@media (max-width: 767px) {
+		&--mobile-small {
+			font-size: $font-size;
+		}
+	}
+}
+
+small {
+	display: block;
+	@extend %small;
+	color: $gray;
+}
+.small {
+	@extend %small;
+
+	* {
+		font-size: inherit;
+	}
+	@at-root & p, & dl, & ul p.small, dl.small {
+		margin: {
+			top: 0.75em;
+			bottom: 0.75em;
+		}
+		&:last-child{
+			margin-bottom: 0;
+		}
+	}
+
+	.dl-horizontal & {
+		line-height: 2.1rem;
+	}
+}
+strong {
+	font-weight: 600;
+}
+em {
+	font-style: italic;
+}
+cite { // источник цитаты
+	font-style:normal;
+}
+.muted {
+	color: $gray;
+
+	@at-root a.muted:hover, a.muted:active {
+		color: $text-color;
+	}
+}
+.lowercase {
+	text-transform: lowercase;
+}
+.block {display: block;}
+
+h1, h2, h3, h4 {font-weight: normal;}
+
+// СПИСКИ С ПЕРЕКЛЮЧЕНИЕМ ГРУПП ПАРАМЕТРОВ (в анкете (modal) и платежных страницах(paymethods) )
+%ul-varparams {
+	@extend %unstyled;
+	position: relative;
+
+	@extend %clearfix;
+
+	& > li {
+		display: block; // ?
+		@extend %unstyled-li;
+		@extend %clearfix;
+
+		&.active {
+			cursor: default;
+		}
+
+		& > label {
+			display: block;
+			margin: 0;
+			@extend %border-box;
+		}
+	}
+}
+
+ul.varParams1 {
+	@extend %ul-varparams;
+
+	& > li {
+		%hide-params {
+			display: none;
+		}
+		%show-params {
+			display: block;
+		}
+
+		& > * {
+			@extend %hide-params;
+		}
+
+		&:not(.active) > .control-group.inline {
+			@extend %hide-params;
+		}
+
+		&.active {
+			& > * {
+				@extend %show-params;
+			}
+		}
+	}
+
+	& > .controls-row  {
+		@extend %hide-params;
+	}
+
+	// АНКЕТА : радио-кнопки выстроены в ряд, параметры открываются под ними
+	&.inline {
+		$padding-v: .6rem;
+		$padding-h: 1rem;
+		$radio-place: 2.1rem;
+
+		& > li {
+			float: left;
+			margin: 0;
+
+			& + li {
+				padding-left: 0.4rem;
+			}
+
+			& > label {
+				padding: $padding-v $padding-h $padding-v ($padding-h + $radio-place);
+				border-radius: 0.1rem;
+				color: inherit;
+				background: transparentize($blue, .8);
+				
+				&.checkbox,
+				&.radio {
+					&:before {
+						left: 0.8rem;
+						top: 0.9rem;
+					}
+				}
+
+				// костыль для планшетов
+				@media (min-width: 768px) {
+					&.radio input[type="radio"] {
+						margin-left: -$radio-place;
+					}
+				}
+
+				& + div {
+					display: block;
+					position: absolute;
+					left: 0;
+					right: 0;
+
+					// общие свойства:
+					transition: opacity 0.15s linear;
+					margin: {
+						top: $line-height-base !important;
+					}
+				}
+			}
+
+			&:not(.active) {
+				& > label + div {
+					// скрыть
+					height: 0;
+					opacity: 0;
+					z-index: -1;
+				}
+			}
+
+			&.active {
+				& > label {
+					background: $blue;
+					color: $light-base;
+				}
+			}
+		}
+	}
+}
+
+ul.radio-list {
+	@extend %ul-varparams;
+
+	$li-min-height: $vgrid*6;
+	$padding-v: ($li-min-height - $line-height-base)/2;
+	$padding-h: 1.5rem;
+	$radio-place: 2.1rem;
+
+	& > li {
+		border-radius: 0.2rem;
+		background: transparentize($blue, .8); //#cfdfe7;
+		min-height: $li-min-height;
+		@extend %border-box;
+
+		& + li {
+			margin-top: $vgrid;
+		}
+
+		& > label {
+			@extend %font-size-large;
+			padding: ($padding-v + .4rem) $padding-h ($padding-v + .4rem) ($padding-h + $radio-place);
+			height: 5.8rem;
+
+			& > input[type="radio"] {
+				margin-top: .4rem;
+			}
+
+			& + div,
+			& + .control-group {
+				margin-top: $vgrid*2;
+			}
+
+			.help-inline {
+				display: none;
+				font-weight: 400;
+				margin: 0;
+				padding: 0;
+			}
+
+			@media (max-width: 767px) {
+				@include font-size-base;
+
+				& + div,
+				& + .control-group {
+					margin-top: $vgrid;
+				}
+			}
+		}
+
+		&.active {
+			background-color: $light-base;
+			padding: $padding-v $padding-h;
+
+			& > label {
+				font-weight: 600;
+				padding: .4rem 0 .4rem $radio-place;
+				height: 3rem;
+
+				.help-inline {
+					display: inline;
+				}
+			}
+
+			// вывод выбранного label.radio и параметров в одну строку
+			&.inline-group {
+				@media (min-width: 768px) {
+					& > label {
+						&,
+						& + .control-group {
+							float: left;
+						}
+
+						& + .control-group {
+							margin: 0;
+							line-height: $line-height-base;
+							min-height: $line-height-base;
+							margin-left: 1rem;
+
+							input {
+								$input-height-base: 3rem + .2rem;
+								margin: 0 0 -.2rem;
+							}
+
+							.errormark {
+								margin-bottom: -$vgrid;
+							}
+						}
+
+						&:after {
+							display: inline;
+							content: ':';
+						}
+					}
+				}
+			}
+		}
+
+		// костыль для планшетов
+		@media (min-width: 768px) {
+			$radio-place: 3.3rem;
+
+			& > label {
+				padding-left: $padding-h + $radio-place;
+			}
+			&.active > label {
+				padding-left: $radio-place;
+			}
+		}
+	}
+}
+
+.error-msg {
+	display: block;
+	color: $red;
+
+	&:not(:last-child) {
+		margin-bottom: $line-height-base;
+	}
+
+	&:not(.hidden):not([style="display: none;"]):not([style="display:none;"]) + * {
+		margin-top: $vgrid*1.5;
+	}
+
+	[class^="icon-"], [class*=" icon-"] {
+		display: block;
+		float: left;
+		margin: -($icon-size-small - $line-height-base)/2 .4rem (-($icon-size-small - $line-height-base)/2) 0;
+		font-size: $icon-size-small;
+	}
+
+	@media (max-width: 767px) {
+		@include font-size-small;
+	}
+}
+
+.iconed-menu {
+	$icon-size: $icon-size-base;
+
+	max-width: 26rem;
+
+	a {
+		display: flex !important;
+		flex-flow: row nowrap;
+		justify-content: flex-start;
+		align-items: center;
+		text-decoration: none!important;
+		height: $icon-size !important;
+		padding: $vgrid*1.5 0 !important;
+
+		& > .icon-group,
+		& > [class^="icon-"], & > [class*=" icon-"] {
+			font-size: $icon-size;
+			width: 1em;
+			position: relative !important;
+			top: auto !important;
+			margin-top: 0 !important;
+			flex-basis: $icon-size;
+			flex-grow: 0;
+			flex-shrink: 0;
+		}
+	}
+	.lnk-text {
+		display: block;
+		max-width: 75%;
+		padding: 0 $padding-base*.75;
+		white-space: normal;
+	}
+	&.pull-right {
+		a {
+			flex-flow: row-reverse nowrap;
+			text-align: right;
+		}
+	}
+}
+
+// тултипы
+.tooltip {
+	&-inner {
+		position: relative;
+	}
+
+	%block-margin {
+		&:not(:last-child) {
+			margin-bottom: 0.8em !important;
+		}
+	}
+	strong.block {
+		@extend %block-margin;
+		text-transform: uppercase;
+
+		.gisgmp-tltp + & {
+			color: $green;
+		}
+	}
+	p, dl {
+		margin: 0 !important;
+		@extend %block-margin;
+	}
+	dl {
+		dt {
+			display: block;
+			float: left;
+			font-weight: bold;
+			margin: 0 .4em 0 0;
+
+			&:after {
+				content: '—';
+				white-space: nowrap;
+				margin-left: .4em;
+			}
+		}
+		dd {
+			margin: 0;
+			padding: 0;
+		}
+	}
+
+	.btn.close {
+		position: relative !important;
+		text-align: center;float: right;
+		margin: -1.5rem -2rem 0 0 !important;
+		opacity: .4;
+
+		&:hover, &:active {
+			opacity: .8;
+		}
+
+		& > i {
+			font-size: $icon-size-base;
+			color: $text-color;
+			margin-left: -.5em;
+		}
+
+		.desktop & {
+			display: none !important;
+		}
+	}
+}
+
+// переключение видимости на 600px
+@media (min-width: 600px) {
+	.hidden-phone-min {
+		display: auto;
+	}
+	.visible-phone-min {
+		display: none !important;
+	}
+}
+
+@media (max-width: 599px) {
+	.hidden-phone-min {
+		display: none !important;
+	}
+	.visible-phone-min {
+		display: auto;
+	}
+}
+// переключение видимости на 360px
+@media (min-width: 360px) {
+	.hidden-xs {
+		display: block;
+	}
+	.visible-xs {
+		display: none !important;
+	}
+}
+
+@media (max-width: 359px) {
+	.hidden-xs {
+		display: none !important;
+	}
+	.visible-xs {
+		display: block;
+	}
+}
+.tltp-hide {
+	& + .tooltip {
+		display: none !important;
+	}
+}
+
+// Кнопки Google Play и AppStore
+.btn-googleplay, .btn-appstore {
+	display: block;
+	position: relative;
+	width: $btn-store-width;
+	height: 40px;
+	background: 0 0 no-repeat;
+
+	white-space: nowrap;
+	text-indent: -100rem;
+	overflow: hidden;
+
+
+	&:before {
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: inherit;
+		width: inherit;
+		content: '';
+		background: #ffffff;
+		opacity: 0;
+		transition: opacity .15s ease-in;
+		border-radius: 5px;
+	}
+
+	&:hover, &:active {
+		&:before {
+			opacity: .3;
+		}
+	}
+}
+.btn-googleplay {
+	background-image: url(../img/googleplay-badge.png);
+}
+.btn-appstore {
+	background-image: url(../img/appstore-badge.png);
+}
+
+.esia_link {
+	$logo-height: $vgrid*2;
+
+	display: block;
+	padding: $logo-height 0 $logo-height*3;
+	margin: $logo-height 0;
+	text-align: center;
+
+	&:after {
+		display: block;
+		content: '';
+		width: 100%;
+		height: $logo-height*1.375;
+		background: url(../img/logos/esia-logo.svg) 50% 0 no-repeat;
+		background-size: auto 100%;
+		margin: {
+			top: $logo-height;
+			bottom: -2.375*$logo-height;
+		}
+	}
+
+	@media (min-width: 980px) {
+		.login-block & {
+			margin-bottom: -$line-height-base/2;
+		}
+	}
+	@media (min-width: 390px) {
+		#join-modal:not(.fixed-modal) & {
+			margin-bottom: -$line-height-base/2;
+		}
+	}
+	@media (max-width: 979px) {
+		.modal .login-block & {
+			margin-top: -$line-height-base/2;
+
+			@media (min-width: 390px) {
+				margin-bottom: -$line-height-base/2;
+			}
+		}
+
+		.passwords-form ~ &:last-child {
+			margin-bottom: -1rem;
+		}
+		.modal .passwords-form ~ &:last-child {
+			margin-bottom: $line-height-base;
+		}
+	}
+	@media (max-width: 389px) {
+		.login-block & {
+			padding-bottom: $logo-height*3.5;
+		}
+		#lk-modal.modal-min .login-block & {
+			margin-bottom: -1rem;
+		}
+		#join-modal & {
+			margin-top: $line-height-base/2;
+		}
+		#join-modal:not(.fixed-modal) & {
+			margin-bottom: -.2rem;
+		}
+	}
+}

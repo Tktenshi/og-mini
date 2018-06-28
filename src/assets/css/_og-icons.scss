@@ -1,0 +1,993 @@
+﻿// @import "vars&mixins";
+
+%icons{
+  @include icons;
+  font-size: $icon-size-base;
+}
+%icon-base {
+  @extend %icons;
+
+  a & {
+    cursor: pointer;
+  }
+  small & {
+    @extend %icon-small;
+  }
+}
+%icon-small {
+  font-size: $icon-size-small;
+  vertical-align: baseline;
+}
+
+// основное имя иконок
+[class^="icon-"], [class*=" icon-"] {
+  @extend %icon-base;
+
+  &.small {
+    @extend %icon-small;
+  }
+  .alert-wait & {
+    color: inherit;
+  }
+}
+
+.close:not(.btn),
+.help-steps .help-ill:before, .like-icn:before,
+.carousel-control:before, .pagination .prev a:before, .pagination .next a:before,
+.content-pages .span3.offset1 .accented:before,
+.partners-tlnk > li > a:before,
+.addFile-btn:before, .addItem-btn:before, .psevdo-lnk.repeat:before,
+.qControl-pic, .support-pic, .mobPay-pic, .cardsPay-pic, .uCab-pic,
+i[class^="hi-"], i[class*=" hi-"], ul[class^="hi-"] li:before, ul[class*=" hi-"] li:before,
+li[class^="red-"]:before, li[class*=" red-"]:before,
+.popup-open_btn.blits:after,
+.linksBlock li a:before,
+[class^="alert-"].alert-block:before,[class*=" alert-"].alert-block:before,
+.accordion-toggle .h4:before,
+.b-share-icon, #jr_close > a:before,
+.select2-arrow b,
+.accordion-toggle:before, //.b-cards-list > li .dropdown-toggle,
+.btn-overflow, .bcard-title:before,
+#signinfo-toggle:before,
+.euroset-shema li + li:after,
+.euroset-list li:before {
+	@extend %icons;
+}
+
+.rating > label {
+  @extend %icons;
+}
+
+.jGrowl {
+  .success, .warn, .phoneSaved, .noPhone, .refresh{
+    &:before {
+      @extend %icons;
+    }
+  }
+}
+
+.icon-smile {
+  p & {font-size: $icon-size-small;}
+  .h3 & {font-size: $icon-size-mid; margin: -0.2em 0;}
+}
+
+@media (max-width: 767px) {
+	.breadcrumb > li:first-child a {
+		@include icons;
+		overflow: hidden;
+    color: $link-color;
+    font-size: $icon-size-base;
+
+    &:hover {color: $text-color;}
+    &:before {
+      content: '\E043';
+      text-indent: 0;
+    }
+	}
+}
+// user
+.icon-user {
+  &:before {@include icon-user;}
+  &.logout:before {@include icon-user-logout;}
+}
+// sandwich
+.icon-nav:before {@include icon-menu;}
+// Услуги
+.icon-dropdown:before {@include icon-dropdown-menu;}
+// Регион
+.icon-location:before {@include icon-location;}
+// Поиск
+.icon-magnifire:before {@include icon-magnifire;}
+  .icon-search:before { @extend .icon-magnifire; }
+
+  .select2-search{
+    &:before {@extend %icons;}
+    @extend .icon-magnifire;
+  }
+// Правка
+.icon-pencil:before {@include icon-pencil;}
+  .icon-edit{
+    @extend .icon-pencil;
+    &.small:before {
+      @include icon-pencil-solid;
+    }
+  }
+// Конверт, письмо
+.icon-envelope:before{@include icon-envelope;}
+  .icon-email{
+    @extend .icon-envelope;
+
+    &.circled:before {
+      @include icon-email-circled;
+    }
+  }
+// телефон (трубка)
+.icon-phone:before {@include icon-phone;}
+// Кнопка (закрепить)
+.icon-pin:before {@include icon-pin;}
+// Нравится
+.icon-thumb-up:before{@include icon-thumb-up;}
+	.like-icn {@extend .icon-thumb-up;}
+// Настройки
+.icon-settings:before {@include icon-settings;}
+// Принтер
+	.icon-printer:before {@include icon-printer;}
+  .icon-print {@extend .icon-printer;}
+// PDF
+	.icon-pdf:before {@include icon-pdf;}
+// Фильтры
+	.icon-filter:before {@include icon-filter;}
+// Инструция
+.icon-book-open:before {@include icon-book-open;}
+	.icn-book {@extend .icon-book-open;}
+// мобильный телефон (контур)
+	.icon-mobile:before {@include icon-mobile;}
+  .icon-mobile-phone {@extend .icon-mobile;}
+// карта банковская (контур)
+	.icon-card:before {@include icon-card;}
+    .icon-credit-card {@extend .icon-card;}
+    .bcard-list .bcard-title{@extend .icon-card;}
+// две карты
+.icon-cards:before {@include icon-cards;}
+// фотоаппарат
+	.icon-camera:before {@include icon-camera;}
+  .icon-camera.solid {
+    &:before {@include icon-camera-solid;}
+
+    :hover > &, :active > & {
+      &:before {@extend %icon-temp-hover;}
+    }
+  }
+// история (без списка)
+	.icon-history:before {@include icon-history;}
+// календарик, выбор даты
+	.icon-calendar:before {@include icon-calendar;}
+// Плюс (тонкий)
+	.icon-plus:before {@include icon-plus;}
+// Скрепка, аттач
+	.icon-attach:before {@include icon-attach;}
+	.addFile-btn {@extend .icon-attach;}
+// Глаз открыт
+.icon-eye-open:before { @include icon-eye-open; }
+// Глаз закрыт
+.icon-eye-closed:before { @include icon-eye-closed; }
+// "вспышка"-звездочка
+.icon-highlight:before {@include icon-highlight;}
+// галочка Ok
+.icon-ok:before {@include icon-ok;}
+	.icn-ok {@extend .icon-ok;}
+  .jGrowl .success {@extend .icon-ok;}
+// галочка в круге
+.icon-ok-solid:before {@include icon-ok-solid;}
+// чекбокс
+.icon-checkbox:before {@include icon-checkbox;}
+// крутилка
+.icon-spinner:before {@include icon-spinner;}
+  .psevdo-lnk.repeat.btn-waiting:before { @extend .icon-spinner;}
+// звездочка контур
+.icon-star-empty:before {@include icon-star-empty;}
+// звездочка с заливкой
+.icon-star-filled:before {@include icon-star-filled;}
+// лого ОГ
+.icon-oglogo:before {@include icon-oglogo;}
+.icon-ogcoin:before {@include icon-ogcoin;}
+// checkbox solid (декоративный)
+.icon-checkbox.solid:before {@include icon-checkbox-solid;}
+// оплата с мобильного
+.icon-mobpay:before {@include icon-mobpay;}
+.icon-mobpay.solid:before {@include icon-mobpay-solid;}
+// оба способа платежа
+.icon-mobpay.icon-cards {
+  width: 2em;
+  &:before {content: '\E028\E013';}
+}
+// карандаш / редактирование сплошной
+.icon-pencil.solid, .icnEdit.solid {
+  &:before {
+    @include icon-pencil;
+  }
+}
+// принтер
+.icon-printer.solid:before {@include icon-printer-solid;}
+// просмотр бланка
+.icon-viewBlank:before {@include icon-viewblank;}
+// профиль
+.icon-profile:before {@include icon-profile;}
+// настройки поиска
+.icon-searchsetts:before {@include icon-searchsetts;}
+// сохранитьдокумент в папку
+.icon-savedoc:before {@include icon-savedoc;}
+// Информация
+.icon-info,
+.alert-block.alert-info {
+  &:before {@include icon-info;}
+}
+// помощь
+.icon-help:before {@include icon-help;}
+.icon-help.solid{
+  &:before {@include icon-help-solid;}
+
+  :hover > &, :active > & {
+    &:before {@extend %icon-temp-hover;}
+  }
+}
+// ошибка / exclamation
+.icon-attention,
+.icn-wrong {
+  &:before {@include icon-attention;}
+}
+// Внимание
+.icon-warning {
+  @at-root .alert-block.alert-warn,
+  &, &-sign {
+    &:before {@include icon-warning;}
+  }
+  @at-root &.solid,
+  .jGrowl .warn,
+  .accordion-toggle &-sign {
+    &:before {@include icon-warning-solid;}
+  }
+}
+// смайл-улыбка
+.icon-smile {
+  &,
+  &-large {
+    &:before{@include icon-smile;}
+  }
+}
+// грустный смайл
+.icon-sad {
+  @at-root &,
+  .alert-block.alert-error,
+  .icon-error-large {
+    &:before {
+      @include icon-sad;
+    }
+  }
+}
+// Повторять
+.icon-repeat,
+.psevdo-lnk.repeat {
+  &:before{@include icon-repeat;}
+}
+// Обновить
+.icon-refresh:before {@include icon-refresh;}
+  .jGrowl .refresh:not(.success) {
+    @extend .icon-refresh;
+    &:before {
+      @extend .spin;
+    }
+  }
+// Возврат назад
+.icon-back:before {@include icon-back;}
+// Удалить
+.icon-del:before {@include icon-del;}
+
+// Длинные стрелки
+// Вправо
+.icon-arr-right,
+//.carousel-control.right,
+.icon-chevron-right,
+.content-pages .span3.offset1 .accented,
+.partners-tlnk > li > a {
+  &:before{@include icon-arr-right;}
+}
+// Влево
+.icon-arr-left,
+//.carousel-control.left,
+.icon-chevron-left {
+  &:before{@include icon-arr-left;}
+}
+// Вверх
+.icon-arr-top:before {@include icon-arr-top;}
+// Вниз
+.icon-arr-bottom:before {@include icon-arr-bottom;}
+
+// к первой странице, в начало
+.icon-start:before {
+  @include icon-start;
+}
+// к последней странице, к конец
+.icon-end:before {
+  @include icon-end;
+}
+
+.icon-arr-b-right {
+  &:before{@include icon-arr-b-right;}
+}
+
+
+// Закрыть
+.icon-close {
+  &:before{@include icon-close;}
+
+
+  @at-root %close-small {
+    &:before{@include icon-close-small;}
+  }
+  &-small {
+    @extend %close-small;
+    &.circled:after{
+      display: block;
+      border: 2px solid currentColor;
+      content: '';
+      font-size: .7619em;
+      width: 1em;
+      height: 1em;
+      position: absolute;
+      box-sizing: border-box;
+      top: 50%;
+      left: 50%;
+      margin: -.5em 0 0 -.5em;
+      border-radius: 100%;
+    }
+  }
+
+  @at-root .close:not(.btn) {
+    @extend .icon-close;
+
+    @at-root .modal:not(.alert-wait) &,
+    .alert &,
+    #content-zone .form-horizontal & {
+      @extend %close-small;
+    }
+  }
+  @at-root #jr_close > a {
+    @extend %close-small;
+  }
+}
+
+// стрелки "свернуть-развернуть"
+.icon-arr0,
+.accordion-toggle.collapsed {
+  &:before {@include icon-arr-collapse;}
+}
+.icon-arr1,
+.accordion-toggle,
+//.b-cards-list > li .dropdown-toggle,
+#signinfo-toggle {
+  &:before {@include icon-arr-collapse-open;}
+}
+// Плюс / Добавить
+.icon-plus {
+  &:before {@include icon-plus;}
+
+	@at-root &.bold, b &, b.icon-plus, &-bold,
+  .addItem-btn {
+    &:before {@include icon-plus-bold;}
+  }
+}
+// внутристрочная стрелка
+  .icon-inln-arr:before {content: '\E051';}
+
+// время, часы
+.icon-time {
+  .renew-date & {
+    &:before {
+      @include icon-time-small;
+    }
+  }
+}
+
+.icon-prev:before {
+  @include icon-prev;
+}
+.icon-next:before {
+  @include icon-next;
+}
+
+.btn-overflow {padding-left: 2.6rem !important}
+.btn-overflow .dot {
+    display: block;
+    width: 0.4rem;
+    height: 0.4rem;
+}
+.btn-overflow .dot + .dot {margin-top: 0.4rem;}
+
+.icon-figure {font-family: 'Open Sans',Verdana,'Geneva CY','DejaVu Sans',sans-serif; font-weight: 400; text-align: center;}
+
+// Крупные бейджи, типа "Скидка"
+.icon-adv-bg:before {
+  @include icon-adv-bg;
+}
+.icon-adv-bg.imp {
+  &:before,
+  &:after {
+    position: absolute;
+  }
+  &:after {
+    content: '!';
+    color: #fff;
+    text-align: center;
+    width: inherit;
+    height: inherit;
+    font-family: $font-base;
+    font-weight: bold;
+    font-size: .5em;
+    left: 0;
+    top: 0;
+    padding: .4em 0 0 .1rem;
+    box-sizing: border-box;
+  }
+}
+.icon-adv-bg.discount, .icon-discount {
+  position: relative;
+
+  &:before,
+  &:after {
+    position: absolute;
+  }
+  &:after {
+    @include icon-discount;
+    color: #fff;
+  }
+}
+// Скидка отдельной иконкой
+.icon-discount {
+  &:before {
+    @extend .icon-adv-bg:before;
+  }
+}
+
+.icon-fssp, .icon-ufssp, i.hi-fssp {
+  &:before{@include icon-fssp;}
+}
+.icon-fns, .icon-ufns, i.hi-fns  {
+  &:before{@include icon-fns;}
+}
+.icon-gibdd, i.hi-gibdd {
+  &:before{@include icon-gibdd;}
+}
+.icon-rosregister, i.hi-rr {
+  &:before{@include icon-rosregister;}
+}
+.icon-msk, i.hi-msk {
+  &:before{@include icon-msk;}
+}
+.icon-ufms, i.hi-ufms {
+  &:before{@include icon-ufms;}
+}
+.icon-parking, i.hi-parking {
+  &:before{@include icon-parking;}
+}
+.icon-comm, i.hi-comm {
+  &:before{@include icon-comm;}
+}
+.icon-plane, .icon-freepay, i.hi-freepay {
+  &:before{@include icon-plane;}
+}
+.icon-zags, i.hi-zags {
+  &:before{@include icon-zags;}
+}
+.icon-uin, i.hi-uin {
+  &:before{@include icon-uin;}
+}
+
+.icon-lock {
+  &:before{@include icon-lock;}
+
+  & + .icon-badge.ok {
+    margin: 0 -.2rem -.3rem 0 !important;
+  }
+}
+
+.icon-shield {
+  &:before {
+    @include icon-shield;
+  }
+
+  small &,
+  &.small,
+  .controls input + span &,
+  &.exclam {
+    &:before {
+      @include icon-shield-bold;
+    }
+  }
+
+  &.exclam {
+    @extend .icon-shield.small;
+    &:after {
+      display: block;
+      position: absolute;
+      font-family: $font-base;
+      content: '!';
+      font-size: 2.8rem;
+      font-weight: 700;
+      top: 0;
+      left: 0;
+      right: 0;
+      text-align: center;
+      text-shadow: 0.2rem 0 #fff, -0.2rem 0 #fff;
+    }
+  }
+}
+
+.icon-history2:before {@include icon-history2;}
+.icon-news:before {@include icon-news;}
+.icon-new2pay:before {@include icon-new2pay;}
+.icon-secure:before {@include icon-secure;}
+
+.icon-docs:before {@include icon-docs;}
+.icon-doc-id:before {@include icon-doc-id;}
+.icon-letters:before {@include icon-letters;}
+.icon-anketa:before {@include icon-anketa;}
+
+.icon-mobsms {
+  &:before {
+    @include icon-mobsms;
+  }
+}
+
+.icon-tel-small,
+.jGrowl .phoneSaved {
+  &:before {
+    @include icon-tel-small;
+  }
+}
+.icon-tel-no,
+.jGrowl .noPhone {
+  &:before {
+    @include icon-tel-no;
+  }
+}
+
+.icon-enter {
+  &:before {
+    @include icon-enter;
+  }
+}
+
+// Картинки
+[class^="pict-"],[class*=" pict-"] {
+  @extend %icons;
+  small & {
+    @extend %icon-small;
+  }
+}
+// Банковские карты
+.pict-cards:before, .cardsPay-pic:before {@include pict-cards;}
+// Мобильная коммерция
+.pict-mobpay:before, .mobPay-pic:before {@include pict-mobpay;}
+// Личный кабнет (папка)
+.pict-lk:before, .uCab-pic:before {@include pict-lk;}
+// Служба поддержки
+.pict-support:before, .support-pic:before {@include pict-support;}
+// Контроль качества
+.pict-medal:before, .qControl-pic:before {@include pict-medal;}
+// Секундомер
+.pict-timer:before {@include pict-timer;}
+// 3dS
+.pict-3ds:before {@include pict-3ds;}
+// Мегафон (пэкмен с рупором)
+.pict-megaphone, .popup-open_btn.blits:after {width: 2.5em;}
+.pict-megaphone:before, .popup-open_btn.blits:after {@include pict-megaphone;}
+// Cash
+.pict-cash:before {@include pict-cash;}
+
+// Анимация
+.flip, .spin:not(.icon-badge), .icon-badge.refresh:after, .icon-spinner,
+.inprocess .accordion-toggle .h4:before,
+.psevdo-lnk.repeat.btn-waiting:before {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-iteration-count: infinite;
+}
+// Поворотная (монетка)
+@keyframes flip {
+  0% {
+    transform: perspective(60rem) rotate3d(0, 1, 0, -360deg);
+    animation-timing-function: ease-out;
+  }
+
+  40% {
+    transform: perspective(60rem) translate3d(0, 0, -12rem) rotate3d(0, 1, 0, -190deg);
+    animation-timing-function: ease-out;
+  }
+
+  50% {
+    transform: perspective(60rem) translate3d(0, 0, -12rem) rotate3d(0, 1, 0, -170deg);
+    animation-timing-function: ease-in;
+  }
+
+  80% {
+    transform: perspective(60rem) scale3d(.95, .95, .95);
+    animation-timing-function: ease-in;
+  }
+
+  100% {
+    transform: perspective(60rem);
+    animation-timing-function: ease-in;
+  }
+}
+
+.flip {
+  // backface-visibility: visible;
+  animation-name: flip;
+  font-size: 5.4rem !important;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
+}
+
+.spin:not(.icon-badge), .icon-badge.refresh:after, .icon-spinner, .inprocess .accordion-toggle .h4:before,
+.psevdo-lnk.repeat.btn-waiting:before {
+	animation: spin 2s infinite linear;
+}
+[class^="icon-"].spin-hover:hover,
+.spin-hover [class^="icon-"]:hover,
+a.spin-hover:hover [class^="icon-"],
+.btn-refresh.spin-hover:hover [class^="icon-"] {
+	animation: spin 2s 0.5 linear;
+}
+
+// Наклейки
+// Группа Иконка + наклейка
+.icon-group {
+  display: inline-block;
+  position: relative;
+
+  & > i,
+  & > .icon-badge {
+    display: block;
+    position: absolute;
+    top: 0;
+    margin: 0 !important;
+  }
+  & > .icon-badge {
+    right: 0;
+  }
+}
+
+.icon-badge {
+  display: inline-block;
+  position: absolute;
+  z-index: 1;
+  overflow: visible;
+  width: 2.1rem;
+  height: 4.2rem;
+
+  .icon-user ~ & {margin-left: -2rem;}
+  .icon-envelope ~ & {margin-left: -1.9rem;}
+  .icon-letters ~ & {margin-left: -1.8rem; margin-top: 0.4rem;}
+  .icon-docs ~ & {margin-top: 0.4rem;}
+  .icon-anketa ~ & {margin-top: 0.4rem;margin-left: -1.9rem;}
+
+  @at-root %badge {
+    display: block;
+    position: absolute;
+    font-family: 'OGiconFont';
+    width: 0.5em;
+    height: 1em;
+    line-height: 1;
+    padding: 0;
+    font-weight:normal;
+    font-style:normal;
+    text-decoration:none;
+    -webkit-font-smoothing:antialiased;
+    vertical-align:baseline;
+    margin: 0;
+    color: inherit;
+    font-size: 4.2rem;
+    text-indent: 0;
+  }
+
+  &:before {
+    @extend %badge;
+    z-index: -2;
+    color: #fff;
+  }
+  &:after {
+    @extend %badge;
+    z-index: -1;
+  }
+
+  // с цифрами
+  &.nums {
+    box-sizing: border-box;
+    width: 2.1rem;
+    height: 4.2rem;
+    padding: 2.1rem 0 0 0.2rem;
+    font-weight: 300;
+    font-size: 1.3rem;
+    font-family: 'OpenSansCondensed','Open Sans Condensed',sans-serif;
+    line-height: 2rem;
+    color: #fff;
+    text-align: center;
+
+    &:before, &:after { top: 0; margin: 0 0 0 -0.2rem; }
+    &:before {@include bage-num-brd;}
+    &:after {@include bage-num; color: $red; }
+
+    &.strict {color: transparent; text-indent: -1000rem;
+      &:after {@include bage-num-strict; }
+    }
+  }
+
+  // настройки
+  &.setts {
+    &:before {@include badge-set-bg;}
+    &:after {@include badge-set;}
+  }
+
+  // круглые
+  @at-root %round-badge-bg {
+    @include badge-circle-bg;
+  }
+  &.important {
+    &:before {@extend %round-badge-bg;}
+    &:after {@include badge-important; color: $red;}
+  }
+  &.help {
+    &:before { @extend %round-badge-bg; }
+    &:after {@include badge-help; color: $red;}
+  }
+  &.phone{
+    &:before { @extend %round-badge-bg; }
+    &:after {@include badge-phone; color: $red;}
+  }
+  &.ok{
+    &:before { @extend %round-badge-bg; }
+    &:after {@include badge-ok; color: #5bb497;}
+  }
+  &.plus{
+    &:before { @extend %round-badge-bg; }
+    &:after {@include badge-plus; color: $red;}
+
+    .icon-card + & { margin-right: -.3rem;}
+  }
+
+  // замочек
+  &.block {
+    &:before {@include badge-lock-bg; color: #fff;}
+    &:after {@include badge-lock; color: $red;}
+  }
+
+  &.refresh {
+    &:before { @extend %round-badge-bg; }
+    &:after {
+      @include badge-refresh;
+
+      @at-root .user-menu a:hover & {
+        background-position: 100% 0;
+      }
+    }
+  }
+}
+
+// ЗНАК РУБЛЯ
+
+.units {
+	display: inline;
+	text-align: left;
+  overflow: hidden;
+	font-size: 1em;
+	font-family: "OpenSansRubl", "Open Sans Condensed",sans-serif !important;
+	width: 0.6em;
+	height: 1em;
+	vertical-align: baseline;
+	line-height: 1;
+	margin-bottom: -0.1em;
+  color: inherit !important;
+
+  form input + & {font-size: 1.5em; margin-left: 0.1em;}
+}
+
+//.rur {
+  //font-weight: 400;
+//  font-family: $font-monospace;
+
+//  &:before {
+//    content: '\20BD';
+//  }
+//}
+
+//.units {
+//  display: inline-block;
+//  vertical-align: top;
+//  overflow: hidden;
+//  position: relative;
+//  width: .75em;
+//  height: 1em;
+//  font-size: 1em;
+//  overflow: hidden;
+//  text-indent: -100rem;
+//  text-align: left;
+//  margin-left: .2em;
+
+//  &:before {
+//    display: block;
+//    padding-top: .01em;
+//    font-family: 'rouble';
+//    content: 'i';
+//    text-indent: 0;
+//    font-weight: inherit;
+//    vertical-align: baseline;
+//    text-transform: none;
+// }
+//}
+
+// Комиссии
+.icon-percent:before {
+  display: block;
+  background-color: #000;
+  border-radius: 1em;
+  content: '%';
+  font-family: $font-base;
+  font-weight: 600;
+  font-size: 0.4em;
+  line-height: 1;
+  width: 1.8em;
+  height: 1.8em;
+  color: #fff;
+  padding-top: 0.4em;
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -.9em 0 0 (-.9em);
+}
+
+// ------------- SHARE ICONS -------------
+// Кастомизация Янднкс ПОДЕЛИТЬСЯ
+
+.b-share{
+  &__handle { margin: -0.5rem 0 -0.5rem 0 !important; }
+
+  &-icon {
+    font-size: 3.6rem !important;
+    width: 0.9em !important;
+    height: 0.9em !important;
+    border-radius: 2em !important;
+    text-align: center !important;
+    background: #000 !important;
+    color: #fff !important;
+    vertical-align: top !important;
+
+    .b-share-btn__vkontakte & {
+      background-color: #54779d !important;
+      @extend .icon-vk;
+    }
+    .b-share-btn__facebook & {
+      background-color: #38569a !important;
+      &:before {@include icon-fb;}
+    }
+    .b-share-btn__twitter & {
+      background-color: #35d5ff !important;
+      @extend .icon-twitter;
+    }
+    .b-share-btn__odnoklassniki & {
+      background-color: #f4960f !important;
+      &:before  {@include icon-odn;}
+    }
+    .b-share-btn__lj & {
+      background-color: #6899c4 !important;
+      &:before  {@include icon-lj;}
+    }
+    .b-share-btn__gplus & {
+      background-color: #be3308 !important;
+      &:before  {@include icon-gplus;}
+    }
+    .b-share-btn__moimir & {
+      background-color: #134785 !important;
+      &:before  {@include icon-mailru;}
+    }
+
+    &:before { display: block; margin: -0.05em; }
+  }
+
+  .share-lnk & {
+    margin: -0.6rem 0 0 !important;
+  }
+
+  @at-root #content-zone .span8 .yashare-auto-init {
+    display: inline-block;
+
+    .b-share {
+      margin: -0.8rem 0 0 !important;
+    }
+  }
+}
+
+.icon-vk {
+  &:before {@include icon-vk;}
+}
+.icon-twitter {
+  &:before {@include icon-twitter;}
+}
+
+// старые имена
+[class^="icn-"], [class*=" icn-"],
+[class^="icn"], [class*=" icn"] {
+  @extend [class^="icon-"];
+}
+  .icnSearch {@extend .icon-magnifire;}
+  .icnEdit{@extend .icon-pencil;}
+  .icon-email{@extend .icon-envelope;}
+  .icn-cog {@extend .icon-settings;}
+
+
+
+// иконки в меню (слева)
+.icn-vk-lnk a {
+  @extend .icon-vk;
+  &:before {
+    @extend %icons;
+  }
+}
+.twitter-lnk a {
+  @extend .icon-twitter;
+  &:before {
+    @extend %icons;
+  }
+}
+
+// Иконки в хелпе
+  .hi-menu { @extend .icon-dropdown; }
+  i.hi-region { @extend .icon-location; }
+  i.hi-search{ @extend .icon-magnifire; }
+  i.hi-edit{@extend .icon-pencil;}
+  i.hi-print {@extend .icon-print;}
+  i.hi-instr {@extend .icon-book-open;}
+  i.hi-check {@extend .icon-checkbox;}
+  .red-search:before{ @extend .icon-magnifire; }
+  .red-settings {@extend .icon-settings;}
+  .red-history {@extend .icon-history;}
+  .red-news {@extend .icon-highlight;}
+
+
+
+// иконки статусов на формах
+.icn-ok,
+.icn-wrong,
+.icon-ok,
+.icon-sad,
+.status > [class^="icon-"],
+.status > [class*=" icon-"] {
+  font-size: $icon-size-mid;
+  color: inherit;
+}
+.icn-ok,
+.icon-ok,
+.status.ok,
+.accordion-toggle:not(.collapsed) .status.ok {
+  color: $green;
+}
+.collapsed .status.ok,
+.status.ok {
+  color: $green-invert;
+}
+.icon-warning-sign,
+.accordion-toggle:not(.collapsed) .status.warn,
+.red .icon-warning-signб
+.icn-wrong, .icon-sad {
+  color: $red;
+}
+.icon-envelope-important {
+  &:before{@include icon-envelope-important;}
+}

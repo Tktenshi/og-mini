@@ -1,0 +1,462 @@
+﻿// @import "vars&mixins";
+
+button {
+	background: none;
+	border: none;
+	box-shadow: none;
+	text-shadow: none;
+	border-radius: 0;
+	padding: 0;
+	margin: 0;
+	line-height: inherit;
+	height: auto;
+	min-height: 0;
+	vertical-align: baseline;
+
+	[class^="icon-"],[class*=" icon-"] {
+		vertical-align: middle;
+	}
+
+	&:hover > .psevdo-lnk {
+		color: $link-hover-color;
+		// border-bottom-color: $link-hover-color;
+	}
+}
+
+%button {
+	display: inline-block;
+	position: relative;
+	height: $btn-height-base;
+	@include font-size-base;
+	margin: .2rem 0;
+	@include uppercase;
+	box-sizing: border-box;
+
+	@media (min-width: 481px) {
+		.buttons & {
+			margin: -(.3rem)/2 0;
+		}
+	}
+	.modal-footer & {
+		margin: -(.3rem)/2 0;
+	}
+
+	@media (max-width: 480px) {
+		#content-zone .buttons & {
+			width: 100%;
+		}
+	}
+}
+
+.btn {
+	@extend %button;
+
+	&:not(.btn-icon) {
+		padding: $btn-padding-base;
+
+		[class^="icon-"],[class*=" icon-"] {
+			font-size: $icon-size-mid;
+			margin: -.7rem .6rem -.4rem -.6rem;
+			vertical-align: middle;
+
+			@at-root &.pull-right,
+			.right-arrowed .icon-arr-right {
+				margin: {
+					top: -.35rem;
+					right: -.6rem;
+					left: 1.4rem;
+				}
+
+			}
+		}
+		.icon-arr-right {
+			margin-left: 0rem;
+		}
+	}
+
+	&:not(.btn-link):not(.btn-icon) {
+		padding: {
+			right: $padding-base;
+			left: $padding-base;
+		}
+		min-width: 10rem;
+		@include btn-simple-colors;
+		border-radius: .4rem;
+		@include btn-shadow-base;
+
+		.v-item-inner  & {
+			box-shadow: $btn-shadow-base, 0 0 0 .3rem $blue;
+
+			&:focus {
+				box-shadow: $btn-shadow-focus-base, 0 0 0 .3rem $blue;
+			}
+			&:active, &.focus, &.active:focus {
+				box-shadow: $btn-shadow-active-base, 0 0 0 .3rem $blue;
+			}
+		}
+
+		&[disabled], &.disabled {
+			@include btn-box-disabled-styles;
+		}
+
+		&.btn-primary {
+			@include btn-primary-colors;
+		}
+
+		[class^="icon-"],[class*=" icon-"] {
+			color: inherit;
+		}
+
+		& > .icon-ok {
+			display: none;
+		}
+	}
+	&:not(.btn-primary):not(.btn-link):not(.btn-icon){
+		.pay-pages .return-to-shop & {
+			@extend %btn-countur;
+		}
+		.modal.alert-wait & {
+			@extend %btn-countur;
+			background: none;
+		}
+	}
+
+	.input-prepend ~ &,
+	input ~ &,
+	.control-group.inline .controls ~ & {
+		vertical-align: top;
+
+		&:not(.btn-link):not(.btn-icon){
+			margin-left: 1.4rem;
+		}
+	}
+
+	@media (min-width: 481px) {
+		.buttons & + *:not(.tooltip) {
+			margin-left: 1.5rem;
+		}
+	}
+	@media (max-width: 480px) {
+		#content-zone .buttons & + * {
+			display: block;
+			margin-top: .9rem;
+
+			&:not(.btn) {
+				margin-top: $vgrid*2;
+			}
+		}
+	}
+}
+
+a.btn:not(.btn-link):not(.btn-icon) {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.btn-link {
+	height: auto;
+	@extend %button;
+	@extend %link;
+	text-decoration: none;
+
+	&.btn-primary:not(:hover):not(:active):not([disabled]):not(.disabled) {
+		color: $red;
+	}
+
+	@media (min-width: 481px) {
+		.buttons .btn ~ & {
+			float: right;
+		}
+	}
+	@media (min-width: 980px) {
+		.buttons .btn ~ & {
+			margin-right: -$vgrid;
+		}
+	}
+	@media (max-width: 979px) {
+		.modal-footer &.pull-right {
+			margin-right: 0;
+		}
+	}
+	@media (min-width: 481px) and (max-width: 979px) {
+		#content-zone .buttons .btn ~ & {
+			margin-right: $vgrid;
+		}
+	}
+
+	& .psevdo-lnk {
+		display: inline;
+		line-height: inherit;
+		text-transform: none;
+		letter-spacing: 0;
+		color: inherit;
+		padding: 0;
+		@include underline-dots(currentColor);
+	}
+	// &:hover, &:active {
+	// 	.psevdo-lnk {
+	// 		color: inherit;
+	// 		@include underline-dots($link-hover-color);
+	// 	}
+	// }
+	// &[disabled], &.disabled {
+	// 	.psevdo-lnk {
+	// 		@include underline-dots($link-disabled-color);
+	// 	}
+	// }
+}
+
+.btn-icon {
+	@extend %button;
+	@extend %link;
+	width: $btn-height-base;
+	padding: 0;
+	@extend %btn-icon;
+
+	@at-root .close {
+		color: $gray-base;
+		opacity: .4;
+
+		&:hover, &:active {
+			opacity: .8;
+		}
+		&:not(.btn-icon) {
+			text-indent: -100rem;
+			overflow: hidden;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.controls input + & {
+			display: block;
+			font-size: $icon-size-mid;
+			position: absolute;
+			right: 0;
+			top: 0; // поднять над границей
+			background: transparent;
+
+			#vitrina & {
+				background: transparent;
+			}
+		}
+	}
+}
+
+.btn-help {
+	@extend .btn-icon;
+	width: 1em;
+	height: 1em;
+	vertical-align: middle !important;
+	margin: 0;
+
+	.icon-help {
+		font-size: $icon-size-small;
+
+		&:before {
+			@include icon-help-solid;
+		}
+	}
+
+	&:hover, &:active {
+		.icon-help{
+			&:before {
+				@extend %icon-temp-hover;
+			}
+		}
+	}
+
+	.new-inputs .controls & {
+		display: block;
+		position: absolute;
+		right: 0;
+		top: 0;
+		height: 2.85rem !important;
+		width: 2.45rem;
+		margin: 0.475rem 0.2rem 0 0;
+		background: #ffffff !important;
+
+		.icon-help {
+			&:before {
+				background-position: -1em 0;
+			}
+		}
+	}
+}
+
+// радиокнопка в тулбаре, с всплавающей подсказкой
+.radio.circle {
+	@extend %btn-tooltiped;
+}
+
+.btn-small {
+	height: $btn-height-small;
+	@include font-size-small;
+	margin: 0;
+
+	&:not(.btn-link):not(.btn-icon) {
+		border-radius: .2rem;
+		@include btn-shadow-small;
+		font-weight: 600;
+	}
+
+	&.btn-link {
+		//min-height:$btn-height-small;
+		height: auto;
+	}
+
+	&:not(.btn-icon) {
+		padding: {
+			top: ($btn-height-small - $line-height-small)/2;
+			bottom: ($btn-height-small - $line-height-small)/2;
+		}
+
+		[class^="icon-"],[class*=" icon-"] {
+			margin: -.85rem .4rem -.5rem -.4rem;
+			font-size: $icon-size-small;
+
+			&.pull-right {
+				margin: -.5rem -.4rem -.5rem .8rem;
+			}
+		}
+		.icon-arr-right.pull-right {
+			margin: -.35rem -.6rem -.35rem 1.4rem;
+		}
+	}
+
+	&.btn-icon {
+		width: $btn-height-small;
+		[class^="icon-"],[class*=" icon-"] {
+			font-size: $icon-size-mid;
+		}
+	}
+}
+
+.btns-switcher {
+	display: inline-block;
+	height: $btn-height-small;
+	background: $form-hr;
+	@extend %clearfix;
+	box-shadow: inset 0 -.1rem .1rem 0 transparentize(#000,.85);
+	border-radius: .2rem;
+
+	& > label {
+		display: block !important;
+		width: auto !important;
+		position: relative;
+		float: left;
+		height: inherit;
+		font-size: $font-size;
+		line-height: $line-height-base !important;
+		box-sizing: border-box;
+		padding: ($btn-height-small - $line-height-base)/2 $padding-base/3 !important;
+		margin: 0 !important;
+		color: $gray;
+
+		input[type="radio"] {
+			position: absolute;
+			opacity: 0;
+			z-index: -1;
+			margin: 0;
+		}
+
+		&:first-child {
+			border-radius: .2rem 0 0 .2rem;
+			padding-left: $padding-base/2 !important;
+		}
+
+		&:last-child {
+			border-radius: 0 .2rem .2rem 0;
+			padding-right: $padding-base/2 !important;
+		}
+
+		&.checked {
+			background: $blue-darker;
+			color: $text-color-invert !important;
+			box-shadow: inset 0 -.1rem .1rem 0 #2c5d7f;
+		}
+
+		& + label {
+			margin-left: $vgrid*1.5 !important;
+		}
+
+		@at-root %switcher-dividers {
+			display: block;
+			content: '';
+			position: absolute;
+			top: 0;
+			left: -$vgrid*1.75;
+			height: inherit;
+			width: $vgrid*2;
+			background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAArlBMVEUAAAAzbZUyaZExaI82cp00bpc2cZs1cJs5d6M0b5g2cpw0bJU4daAzbJU1b5k1bpgxZ40zbJQza5Qza5MzapIyapIyapIxZ44yapI5eKU2cpw5eKQ5eKQ4d6M1b5k4d6M1b5g4dqI1bpc4daE0bZY4daE4daAwZYs3dJ83dJ8za5M3c50zapI2cp0yapE2cpwyapEyaY87fKo6eqcsXX86e6g5eKU4daE4d6M3dJ/DhvcpAAAAMnRSTlMASgkF/lb48uzsxK2jo4yBXT0zKB8XEA0C+Pfz8eLi2tnPz7q6r6ubmpaWd3dsbGFhUijLTF0AAADaSURBVDjLbdLHesJQEENhiiEJSegtvffKjOde+/1fjK2PjLb6P63UsUbytMO8hzWBDzfs+8cGkE5loOsAkXcCzgzAj3rse1cE1bkMDBwg6q6AFwPwkz779QVB9SkDfw4Q9UzAkwH47Zb9KhFUYxn4cYCo5wJGBpDupV8mgjwR8BUAUSwEPBhAepR+kQjyt4BJAHixFHBnAGkk/dwJ8q+AcQB4sWK/vTGA9CwDMyfI/wI+AsCH69bdAQ7cnSAP9O4B0L77tQEcuDtB6+6vRqB331wClOWbDEzLZvYQaGLTrwNJBQAAAABJRU5ErkJggg==) no-repeat;
+
+		}
+
+		&.checked + label {
+			&:before {
+				@extend %switcher-dividers;
+				background-position: 0 0;
+			}
+		}
+
+		& + label.checked {
+			&:before {
+				@extend %switcher-dividers;
+				background-position: 100% 0;
+			}
+		}
+	}
+
+	.pay-pages &.disabled > label {
+		@at-root %switcher-dividers-disabled {
+			background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAn1BMVEUAAAC/v7/d3d36+vrIyMidnZ2hoaGgoKCampqhoaGtra26urqdnZ2bm5vMzMzQ0NDV1dXZ2dnh4eHi4uLu7u7x8fH09PT39/f8/Pz8/Pz+/v6cnJylpaWnp6erq6unp6ezs7Ovr6+4uLi0tLTGxsbDw8PKysrHx8efn5+dnZ3m5ubl5eXq6urp6emioqKgoKCenp6Kioqbm5udnZ2NjY1OUZ8AAAAALnRSTlMArV8OBfj68vDs2rqlm4yBd2xXUjMoHxcKCAL88evi4s/PxMShoJaWTExISD497ji29wAAANNJREFUOMtd0kUWwwAQAtBa6u7uLsNk0vufrcsG2PIfKwr2D6JU4HRgBJIy95WGEfCiDNxBADES0BZQW3A/rxkBv8jAEAQQLwFFBt6ocF+uGoObDJRAAPER0GLguyX3s6ox6MrAAAQQYwFHBt6UfgrLA2Q9AX0BMRGwZ+AH6SdueYCsL6AHBjEV0DQCfpJ+7ASQDQR0wWA14365NQLekoG3E0Cmd7+CQaJ33xgB17s/QQAxFHAWUJ9zv1gbAW/LwAgM4qF3F1DXuyeWB2na0bt/01x+J2ta/q/TcQgAAAAASUVORK5CYII=);
+		}
+		&.checked {
+			background-color: #a2a2a2;
+			box-shadow: inset 0 -.1rem .1rem 0 #8a8a8a;
+
+			& + label {
+				&:before {
+					@extend %switcher-dividers-disabled;
+				}
+			}
+		}
+
+		& + label.checked {
+			&:before {
+				@extend %switcher-dividers-disabled;
+			}
+		}
+	}
+
+	#vitrina & {
+		background: $blue;
+		box-shadow: none;
+
+		& > label {
+			color: $blue-invert;
+		}
+		&.disabled > label {
+
+			&.checked {
+				background: #4a8ab5;
+				box-shadow: inset 0 -.1rem .1rem 0 transparentize(#3a6c8d, .5);
+
+				@at-root %switcher-dividers-disabled-vitr {
+					background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAqFBMVEUAAABAeJ5AeJ1EgalEgKc/d5xCfaRIh69DgKdIhq9CfqVCe6JBe6JFg6tDfqVDfqRBe6FBe6FBeqBBep9BeZ9AeZ9AeZ8/d5tIh7BHhq9DfqVHhq9DfqRHha5DfaRHha1CfaRHhK1CfKNHhK1HhKxHhKxGhKw+dJhBeqBFg6tBeqBEgalAeZ5EgahAeJxEgKdAeJxKirVJibI6bI1Ih69IiLFHhK1Fg6u8kc7jAAAAMXRSTlMACQX++F5W8vLs7K2jloF3Sj0zKB8XEA344uLa2c/PxMS6uq+rpZ6bloyMbGxhUkxI19FaEwAAANFJREFUOMtt0keWwkAQBFFAgvF4M97hPVXqbt3/ZmwViWob/9UqG1a51G7wXsyqwPMZe+uBIDzJg7MTpJOApQH4fZO9eUcQnuVBxwnKi4C5AcTHFvv0lSBs5MHRCcqBgD8DiO/SJ4Eg7ATsHcDLoYAfA4if0seRIHUF9BzAs5GALwOI39JHkSD1BHQdwLOxgA8DCL/Sh5EgHQRsDcCziYA3gvAvfRAB6uYO4PlU5w5wO/e+E6SOgJUB1MwdoG7uBGVfwMIIdO6zHKAo1vKgXVTvCuidYJBpu+XaAAAAAElFTkSuQmCC);
+				}
+				& + label {
+					&:before {
+						@extend %switcher-dividers-disabled-vitr;
+					}
+				}
+			}
+
+			& + label.checked {
+				&:before {
+					@extend %switcher-dividers-disabled-vitr;
+				}
+			}
+		}
+	}
+}

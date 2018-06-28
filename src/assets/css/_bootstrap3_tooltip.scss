@@ -1,0 +1,155 @@
+/*!
+ * Bootstrap v3.3.7 (http://getbootstrap.com)
+ * Copyright 2011-2017 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+
+/*!
+ * Generated using the Bootstrap Customizer (http://getbootstrap.com/customize/?id=d1a1aa61623d25f26931c026c7f3ff9e)
+ * Config saved to config.json and https://gist.github.com/d1a1aa61623d25f26931c026c7f3ff9e
+ */
+/*!
+ * Bootstrap v3.3.7 (http://getbootstrap.com)
+ * Copyright 2011-2016 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+ /* customized */
+
+// @import "vars&mixins";
+
+$font-size-lead: $font-size*1.25;
+$font-size-lead-xs: $font-size*1.15;
+
+.tooltip {
+  position: absolute;
+  display: block;
+  //font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  //font-style: normal;
+  //font-weight: normal;
+  //letter-spacing: normal;
+  @include font-size-small;
+  line-break: auto;
+  //line-height: 1.42857143;
+  text-align: left;
+  text-align: start;
+  text-decoration: none;
+  text-shadow: none;
+  text-transform: none;
+  white-space: normal;
+  word-break: normal;
+  word-spacing: normal;
+  word-wrap: normal;
+  //font-size: 12px;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  z-index: -1;
+
+  &.in {
+    opacity: 1;
+    z-index: 1070;
+    filter: alpha(opacity=90);
+  }
+  &.top {
+    margin-top: -.3rem;
+    padding: $tooltip-arrow-size 0;
+  }
+  &.right {
+    margin-left: .3rem;
+    padding: 0 $tooltip-arrow-size;
+  }
+  &.bottom {
+    margin-top: .3rem;
+    padding: $tooltip-arrow-size 0;
+  }
+  &.left {
+    margin-left: -.3rem;
+    padding: 0 $tooltip-arrow-size;
+  }
+
+  &-inner {
+    max-width: 30rem;
+    padding: 1.5rem 2rem;
+    color: $text-color;
+    //text-align: center;
+    background-color: $tooltip-bg;
+    border-radius: .2rem;
+
+    //text-transform: none;
+    box-sizing: border-box;
+    white-space: normal;
+    box-shadow: 0 0.4rem 0.4rem 0 transparentize($text-color, .8), 0 0.1rem 1.4rem 0 transparentize($text-color, .9);
+    //border: 0.1rem solid $form-bg;
+    @include font-size-small;
+    //font-weight: 400;
+  }
+  &-arrow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    z-index: 1;
+  }
+
+  &.top &-arrow {
+    bottom: 0;
+    left: 50%;
+    margin-left: -$tooltip-arrow-size;
+    border-width: $tooltip-arrow-size $tooltip-arrow-size 0;
+    border-top-color: $tooltip-bg;
+  }
+  &.top-left &-arrow {
+    bottom: 0;
+    right: $tooltip-arrow-size;
+    margin-bottom: -$tooltip-arrow-size;
+    border-width: $tooltip-arrow-size $tooltip-arrow-size 0;
+    border-top-color: $tooltip-bg;
+  }
+  &.top-right &-arrow {
+    bottom: 0;
+    left: $tooltip-arrow-size;
+    margin-bottom: -$tooltip-arrow-size;
+    border-width: $tooltip-arrow-size $tooltip-arrow-size 0;
+    border-top-color: $tooltip-bg;
+  }
+  &.right &-arrow {
+    top: 50%;
+    left: 0;
+    margin-top: -$tooltip-arrow-size;
+    border-width: $tooltip-arrow-size $tooltip-arrow-size $tooltip-arrow-size 0;
+    border-right-color: $tooltip-bg;
+  }
+  &.left &-arrow {
+    top: 50%;
+    right: 0;
+    margin-top: -$tooltip-arrow-size;
+    border-width: $tooltip-arrow-size 0 $tooltip-arrow-size $tooltip-arrow-size;
+    border-left-color: $tooltip-bg;
+  }
+  &.bottom &-arrow {
+    top: 0;
+    left: 50%;
+    margin-left: -$tooltip-arrow-size;
+    border-width: 0 $tooltip-arrow-size $tooltip-arrow-size;
+    border-bottom-color: $tooltip-bg;
+  }
+  &.bottom-left &-arrow {
+    top: 0;
+    right: $tooltip-arrow-size;
+    margin-top: -$tooltip-arrow-size;
+    border-width: 0 $tooltip-arrow-size $tooltip-arrow-size;
+    border-bottom-color: $tooltip-bg;
+  }
+  &.bottom-right &-arrow {
+    top: 0;
+    left: $tooltip-arrow-size;
+    margin-top: -$tooltip-arrow-size;
+    border-width: 0 $tooltip-arrow-size $tooltip-arrow-size;
+    border-bottom-color: $tooltip-bg;
+  }
+
+  &-toggle {
+    position: relative;
+    &:hover, &:active {z-index:1080;cursor: help !important;}
+  }
+}

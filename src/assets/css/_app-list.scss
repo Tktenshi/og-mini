@@ -1,0 +1,110 @@
+.app-list {
+	list-style: none;
+	margin: -2.8rem -1rem 0 -1rem !important;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	&--row {
+		margin-top: -1.8rem !important;
+	}
+	@media (min-width: 768px) {
+		&--row {
+			margin-top: -2.2rem !important;
+		}
+		&--row &__item {
+			flex: 0 0 33.33%;
+			max-width: 33.33%;
+		}
+		&--row &__media {
+			width: 7rem;
+			min-width: 7rem;
+			margin: 0 2rem 0 0;
+		}
+	}
+	@media (min-width: 980px) {
+		&--row &__item {
+			flex: 0 0 50%;
+			max-width: 50%;
+		}
+	}
+	@media (min-width: 1200px) {
+		&--row &__item {
+			flex: 0 0 33.33%;
+			max-width: 33.33%;
+		}
+	}
+	&__item {
+		flex: 0 0 50%;
+		max-width: 50%;
+		box-sizing: border-box;
+		margin: 2.8rem 0 0 0;
+		padding: 0 1rem;
+		@media (min-width: 768px) {
+			flex: 0 0 100%;
+			max-width: 100%;
+			display: flex;
+			align-items: center;
+		}
+	}
+	&__media {
+		position: relative;
+		width: 8rem;
+		min-width: 8rem;
+		margin: 0 0 1rem 0;
+		@media (min-width: 768px) {
+			width: 5rem;
+			min-width: 5rem;
+			margin: 0 1rem 0 0;
+		}
+		@media (min-width: 980px) {
+			width: 7rem;
+			min-width: 7rem;
+			margin: 0 3rem 0 0;
+		}
+		&--soon:after {
+			content: "скоро";
+			position: absolute;
+			right: -1.2rem;
+			bottom: -1.1rem;
+			display: block;
+			width: 5.3rem;
+			height: 5.3rem;
+			background: url(../img/app-icon-soon.svg) center center / contain no-repeat;
+			text-align: left;
+			text-indent: -999rem;
+			@media (min-width: 768px) {
+				right: -0.9rem;
+				bottom: -0.8rem;
+				width: 4rem;
+				height: 4rem;
+			}
+			@media (min-width: 980px) {
+				right: -1rem;
+				bottom: -0.9rem;
+				width: 4.6rem;
+				height: 4.6rem;
+			}
+		}
+	}
+	&__platforms {
+		margin-top: 0.2rem;
+		font-size: 0;
+	}
+	&__platform {
+		display: inline-block;
+		margin-right: 0.5rem;
+		font-size: $font-size-small;
+		color: $gray;
+		&:last-child {
+			margin-right: 0;
+		}
+		&:after {
+			content: "|";
+			display: inline-block;
+			margin-left: 0.5rem;
+		}
+		&:last-child:after {
+			display: none;
+		}
+	}
+}

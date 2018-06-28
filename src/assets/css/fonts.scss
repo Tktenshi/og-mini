@@ -1,0 +1,33 @@
+@mixin fontface($font-family, $font-fileName, $font-weight:400, $font-style:normal) {
+  @font-face {
+    font-family: $font-family;
+    font-weight: $font-weight;
+    font-style: $font-style;
+
+    src: url('../fonts/' + $font-fileName + '.woff2') format('woff2'),
+         url('../fonts/' + $font-fileName + '.woff') format('woff');
+  }
+}
+
+// OpenSans min kit — ТЕКСТЫ
+@include fontface('Open Sans', opensans-light, 300);
+@include fontface('Open Sans', opensans-regular);
+@include fontface('Open Sans', opensans-italic, 400, italic);
+@include fontface('Open Sans', opensans-semibold, 600);
+@include fontface('Open Sans', opensans-semibolditalic, 600, italic);
+@include fontface('Open Sans', opensans-bold, 700);
+
+// Шрифт иконок
+@include fontface('OGiconFont', ogiconfont);
+
+// Шрифт цифр в бейджах
+@include fontface('OpenSansCondensed', opensans-condlight, 300);
+
+// Знак рубля
+//@include fontface('rouble', rouble, 400);
+@include fontface('OpenSansRubl', osrubl-light, 300);
+@include fontface('OpenSansRubl', osrubl-regular, 400);
+@include fontface('OpenSansRubl', osrubl-semibold, 600);
+
+// Шрифт в инпутах (с линиями, убрать шрифт после замены)
+@include fontface('PT Mono', ptm55f);
